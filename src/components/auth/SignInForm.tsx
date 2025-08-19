@@ -4,9 +4,10 @@ import Label from "../form/Label";
 import Input from "../form/input/InputField";
 import Checkbox from "../form/input/Checkbox";
 import Button from "../ui/button/Button";
-import { api } from "../../pages/utils/axiosInstance";
-import axios from "axios";
 import { saveToken } from "../../pages/utils/tokenManager";
+import endPointApi from "../../pages/utils/endPointApi";
+import api from "../../pages/utils/axiosInstance";
+import axios from "axios";
 
 type FormData = {
   mobile: string;
@@ -32,17 +33,19 @@ export default function SignInForm() {
       [name]: value,
     }));
   };
+
   const signIn = async () => {
+
     try {
       // Use auth service to login
       const formdata = new FormData();
 
       formdata.append("number", formData.mobile || "");
       formdata.append("otp", formData.otp);
-      // const res = await api.post(`https://pa.2-min.in/supplier-login`, formdata)
-      const res = await axios.post("https://pa.2-min.in/supplier-login", formdata);
+      const res = await api.post(`${endPointApi.loginUser}`, formdata);
+      
       if(res.data.status == 200){
-        saveToken(res.data.token)
+        saveToken(res.data.data.token)
         navigate("/");
       }
     } catch (err: any) {

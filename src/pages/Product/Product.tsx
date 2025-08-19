@@ -14,7 +14,6 @@
 //     console.log("Selected value:", value);
 //   };
 
-
 //   const options = [
 //     { value: "marketing", label: "Marketing" },
 //     { value: "template", label: "Template" },
@@ -44,7 +43,7 @@
 //     "Authorization": `Bearer ${`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3NTUzMjc5NDksImV4cCI6NTM1NTMyNzk0OSwiZGF0YSI6eyJpZCI6IjEiLCJlbWFpbCI6InNob3Bub0BnbWFpbC5jb20iLCJmdWxsX25hbWUiOiJSYXZpIEMuIiwibnVtYmVyIjoiOTkwOTkyOTI5MyIsInVzZXJuYW1lIjoiQWRtaW4iLCJpYXQiOjE3NTUzMjc5NDksImV4cCI6MTc1NTQxNDM0OX19.SRObh60wuv4IB70dYpz8xJtazSBVKVYM2vrS1D59qVo`}`
 //   }
 //   });
-//     console.log("ress",res); 
+//     console.log("ress",res);
 //   }
 
 //   useEffect(()=>{
@@ -178,32 +177,38 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import ComponentCard from "../../components/common/ComponentCard";
 import BasicTableOne from "../../components/tables/BasicTables/BasicTableOne";
 import PageMeta from "../../components/common/PageMeta";
 import PageBreadcrumb from "../../components/common/PageBreadCrumb";
+import { useEffect, useState } from "react";
+import api from "../utils/axiosInstance";
+import endPointApi from "../utils/endPointApi";
+
+export interface Product {
+  id: number;
+  name: string;
+  price: number;
+  category: string;
+}
 
 export default function Product() {
+  const [productsData, setProductsData] = useState<Product[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await api.post(`${endPointApi.getProductList}`, {});
+        if (res.data && res.data.data) {
+          setProductsData(res.data.data as Product[]); // type cast
+        }
+      } catch (error) {
+        console.log("API Error", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <PageMeta
@@ -215,9 +220,9 @@ export default function Product() {
         <ComponentCard
           title="Basic Product Table"
           addProduct="Add product"
-          onAddProductClick='/add-product'
+          onAddProductClick="/add-product"
         >
-          <BasicTableOne />
+          <BasicTableOne productsData={productsData} />
         </ComponentCard>
       </div>
     </>

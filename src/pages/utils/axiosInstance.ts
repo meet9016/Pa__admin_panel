@@ -1,41 +1,31 @@
-import axios from 'axios'
+import axios from "axios";
 
-// const baseURL = process.env.REACT_APP_API_URL;
-const baseURL = `${import.meta.env.REACT_APP_API_URL || ""}/api/auth`
-const apiAdminInstance = axios.create({
-  baseURL,
-  headers: {
-    'Content-Type': 'application/json'
-  }
-})
+const api = axios.create({
+  baseURL: import.meta.env.VITE_API_URL, // Env se URL le raha hai
+});
 
-export const api = apiAdminInstance;
-
-apiAdminInstance.interceptors.request.use(
-  async config => {
-    const token = localStorage.getItem('auth_token');
-    // const token = typeof window !== 'undefined' ? localStorage.getItem('auth_token') : null
+// ✅ Request Interceptor (auth token add karne ke liye)
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem("auth_token"); // ya sessionStorage
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    config.headers['ngrok-skip-browser-warning'] = 'true'
     return config;
   },
-  error => Promise.reject(error)
+  (error) => Promise.reject(error)
 );
 
-apiAdminInstance.interceptors.response.use(
-  function (response) {
-    return response;
-  },
-  error => {
-    const { response } = error;
-    console.log("throw", response);
-  
-    if (response.status === 401) {
-      localStorage.removeItem('auth_token');
-      window.location.href = '/login';
+// ✅ Response Interceptor (error handle karne ke liye)
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      console.error("Unauthorized! Redirecting to login...");
+      // Example: window.location.href = "/login";
     }
     return Promise.reject(error);
   }
 );
+
+export default api;
