@@ -255,7 +255,7 @@ export default function ProductForm() {
               value={selectedSubCategory}
               onChange={(e) => {
                 setSelectedSubCategory(e.value);
-                setErrors((prev) => ({ ...prev, category: "" }));
+                setErrors((prev) => ({ ...prev, sub_category: "" }));
               }}
               options={subCategoryList}
               optionLabel="name"
