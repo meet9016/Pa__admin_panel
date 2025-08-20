@@ -4,7 +4,15 @@ import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
 
-export default function UserInfoCard() {
+
+interface UserInfoCardProps {
+  user?: {
+    first_name: string;
+    last_name: string;
+    number: number,
+  };
+}
+export default function UserInfoCard({ user }: UserInfoCardProps) {
   const { isOpen, openModal, closeModal } = useModal();
   const handleSave = () => {
     // Handle save logic here
@@ -25,7 +33,7 @@ export default function UserInfoCard() {
                 First Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Musharof
+                {user ? `${user.first_name}` : "Loading.."}
               </p>
             </div>
 
@@ -34,7 +42,7 @@ export default function UserInfoCard() {
                 Last Name
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Chowdhury
+                {user ? `${user.last_name}` : "Loading.."}
               </p>
             </div>
 
@@ -43,7 +51,8 @@ export default function UserInfoCard() {
                 Email address
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                randomuser@pimjo.com
+                {/* randomuser@pimjo.com */}
+                -
               </p>
             </div>
 
@@ -52,7 +61,7 @@ export default function UserInfoCard() {
                 Phone
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                +09 363 398 46
+                {user ? `${user.number}` : "Loading.."}
               </p>
             </div>
 
@@ -61,13 +70,14 @@ export default function UserInfoCard() {
                 Bio
               </p>
               <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                Team Manager
+                {/* Team Manager */}
+                -
               </p>
             </div>
           </div>
         </div>
 
-        <button
+        {/* <button
           onClick={openModal}
           className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-300 bg-white px-4 py-3 text-sm font-medium text-gray-700 shadow-theme-xs hover:bg-gray-50 hover:text-gray-800 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-white/[0.03] dark:hover:text-gray-200 lg:inline-flex lg:w-auto"
         >
@@ -87,7 +97,7 @@ export default function UserInfoCard() {
             />
           </svg>
           Edit
-        </button>
+        </button> */}
       </div>
 
       <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">

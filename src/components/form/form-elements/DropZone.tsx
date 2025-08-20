@@ -47,11 +47,10 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
         <form
           {...getRootProps()}
           className={`dropzone rounded-xl border-dashed border-gray-300 p-7 lg:p-10
-          ${
-            isDragActive
+          ${isDragActive
               ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
               : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
-          }`}
+            }`}
           id="demo-upload"
         >
           <input {...getInputProps()} />
@@ -99,9 +98,9 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
                   images: prev.images.filter((_, i) => i !== index),
                 }))
               }
-              className="absolute top-2 right-2 bg-red-600 text-white p-1 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition"
+              className="absolute top-1 right-1 bg-red-600 text-white p-[2px] rounded-sm shadow-md opacity-0 group-hover:opacity-100 transition w-5 h-5 flex items-center justify-center"
             >
-              <i className="pi pi-trash text-sm"></i>
+              <i className="pi pi-times text-xs"></i>
             </button>
           </div>
         ))}

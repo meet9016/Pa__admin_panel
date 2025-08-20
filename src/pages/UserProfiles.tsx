@@ -3,8 +3,45 @@ import UserMetaCard from "../components/UserProfile/UserMetaCard";
 import UserInfoCard from "../components/UserProfile/UserInfoCard";
 import UserAddressCard from "../components/UserProfile/UserAddressCard";
 import PageMeta from "../components/common/PageMeta";
+import { useEffect, useState } from "react";
+import api from "./utils/axiosInstance";
+import endPointApi from "./utils/endPointApi";
+
+
+
+
+export interface Product {
+  prefix: string,
+  first_name: string,
+  middle_name: string,
+  last_name: string,
+  full_name: string,
+  number: number,
+  gender: string,
+  address: string
+  company_name: string
+}
 
 export default function UserProfiles() {
+  const [data, setData] = useState<Product[]>([]);
+
+
+  useEffect(() => {
+    const formData = new FormData();
+    formData.append('product_id', 'dVdSZWZEOW1XVWd6cEJzcXZsbTB4UT09')
+    const fetchData = async () => {
+      try {
+        const res = await api.post(`${endPointApi.profile}`, formData);
+        if (res.data && res.data.data) {
+          setData(res.data.data as Product[]);
+        }
+      } catch (error) {
+        console.log("API Error", error);
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <>
       <PageMeta
@@ -17,9 +54,9 @@ export default function UserProfiles() {
           Profile
         </h3>
         <div className="space-y-6">
-          <UserMetaCard />
-          <UserInfoCard />
-          <UserAddressCard />
+          <UserMetaCard user={data} />
+          <UserInfoCard user={data} />
+          <UserAddressCard user={data}/>
         </div>
       </div>
     </>
