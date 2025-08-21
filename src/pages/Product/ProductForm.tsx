@@ -8,6 +8,7 @@ import endPointApi from "../utils/endPointApi";
 import { Dropdown } from "primereact/dropdown";
 import { useLocation, useNavigate } from "react-router";
 import 'primeicons/primeicons.css';
+import { toast } from "react-toastify";
 
 
 export interface ProductData {
@@ -80,18 +81,6 @@ export default function ProductForm() {
         updated[index] = value;
         setProductForm({ ...productForm, details: updated });
     };
-
-
-
-
-
-
-
-
-
-
-
-
 
     useEffect(() => {
         if (productId) {
@@ -296,6 +285,9 @@ export default function ProductForm() {
             const res = await api.post(`${endPointApi.postaddProduct}`, formdata);
             if (res.data.status == 200) {
                 navigate("/product");
+                toast.success(res.data.message)
+            } else {
+                toast.error(res.data.message)
             }
         } catch (error) {
             console.error("API Error:", error);

@@ -84,11 +84,11 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
             key={index}
             className="relative w-full h-32 border rounded-xl overflow-hidden shadow group"
           >
-            <img
+            {/* <img
               src={URL.createObjectURL(file)} // File → blob URL preview
               alt={`preview-${index}`}
               className="object-cover w-full h-full"
-            />
+            /> */}
             {/* Delete Button on Hover */}
             <button
               type="button"

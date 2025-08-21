@@ -12,12 +12,14 @@ import Product from "./pages/Product/Product";
 import ProductForm from "./pages/Product/ProductForm";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Order from "./pages/Order/Order";
+import Toaster from "./components/common/Toaster";
 
 export default function App() {
   return (
     <>
       <Router>
         <ScrollToTop />
+        <Toaster />
         <Routes>
           {/* ✅ Protected Routes */}
           <Route element={<ProtectedRoute />}>

@@ -21,31 +21,38 @@ const DialogBox: React.FC<DialogBoxProps> = ({
     if (!isOpen) return null;
 
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center  bg-opacity-10">
-            <div className="relative bg-[#ecf3ff] rounded-3xl shadow-2xl max-w-3xl w-full md:w-1/2 lg:w-1/3 p-10 animate-fadeIn">
-                <h2 className="text-4xl font-extrabold text-gray-900 mb-6">
+        <div className="fixed inset-0 z-30  flex items-center justify-center bg-black/0 backdrop-blur-sm">
+            <div className="relative bg-white/90 rounded-2xl shadow-xl max-w-lg w-full p-8 animate-fadeIn border border-gray-300">
+                {/* Title */}
+                <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">
                     {title}
                 </h2>
-                <p className="text-lg text-gray-600 mb-10 leading-relaxed">
+
+                {/* Message */}
+                <p className="text-base text-gray-600 mb-8 leading-relaxed text-center">
                     {message}
                 </p>
-                <div className="flex justify-center gap-6">
+
+                {/* Buttons */}
+                <div className="flex justify-center gap-4">
                     <button
                         onClick={onConfirm}
-                        className="px-8 py-3 text-lg font-semibold rounded-full bg-red-600 text-white shadow-lg hover:bg-red-700 transform hover:scale-105 transition"
+                        className="px-6 py-2 text-base font-medium rounded-xl bg-red-500 text-white shadow-md hover:bg-red-600 transition-all duration-200"
                     >
-                        Yes
+                        Yes, Confirm
                     </button>
                     <button
                         onClick={onClose}
-                        className="px-8 py-3 text-lg font-semibold rounded-full bg-gray-200 text-gray-800 shadow-lg hover:bg-gray-300 transform hover:scale-105 transition"
+                        className="px-6 py-2 text-base font-medium rounded-xl bg-gray-100 text-gray-800 shadow-md hover:bg-gray-200 transition-all duration-200"
                     >
-                        No
+                        Cancel
                     </button>
                 </div>
+
+                {/* Close Icon */}
                 <button
                     onClick={onClose}
-                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-700 transition"
+                    className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition"
                 >
                     <i className="ri-close-line text-2xl"></i>
                 </button>

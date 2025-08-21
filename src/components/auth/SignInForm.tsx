@@ -7,6 +7,7 @@ import Button from "../ui/button/Button";
 import { saveToken } from "../../pages/utils/tokenManager";
 import endPointApi from "../../pages/utils/endPointApi";
 import api from "../../pages/utils/axiosInstance";
+import { toast } from "react-toastify";
 
 type FormData = {
   mobile: string;
@@ -42,13 +43,17 @@ export default function SignInForm() {
       formdata.append("number", formData.mobile || "");
       formdata.append("otp", formData.otp);
       const res = await api.post(`${endPointApi.loginUser}`, formdata);
-      
-      if(res.data.status == 200){
+
+      if (res.data.status == 200) {
         saveToken(res.data.data.token)
         navigate("/");
+        toast.success(res.data.message)
+      } else {
+        toast.error(res.data.message)
       }
     } catch (err: any) {
       setError(err.message || "Invalid email or password. Please try again.");
+
     } finally {
       setIsLoading(false);
     }
