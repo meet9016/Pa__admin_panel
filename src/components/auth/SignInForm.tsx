@@ -7,7 +7,6 @@ import Button from "../ui/button/Button";
 import { saveToken } from "../../pages/utils/tokenManager";
 import endPointApi from "../../pages/utils/endPointApi";
 import api from "../../pages/utils/axiosInstance";
-import axios from "axios";
 
 type FormData = {
   mobile: string;
