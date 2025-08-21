@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import ComponentCard from "../../components/common/ComponentCard";
 import Label from "../../components/form/Label";
 import Input from "../../components/form/input/InputField";
-import Select from "../../components/form/Select";
 import DropzoneComponent from "../../components/form/form-elements/DropZone";
 import api from "../utils/axiosInstance";
 import endPointApi from "../utils/endPointApi";
 import { Dropdown } from "primereact/dropdown";
-import Button from "../../components/ui/button/Button";
 import { useLocation, useNavigate } from "react-router";
 import 'primeicons/primeicons.css';
 
@@ -83,6 +81,18 @@ export default function ProductForm() {
         setProductForm({ ...productForm, details: updated });
     };
 
+
+
+
+
+
+
+
+
+
+
+
+
     useEffect(() => {
         if (productId) {
             const fetchEditData = async () => {
@@ -94,30 +104,57 @@ export default function ProductForm() {
 
                     if (res.data && res.data.data) {
                         const data = res.data.data;
-
-                        // Set form data
                         setProductForm({
                             name: data.product_name || "",
                             price: data.price || "",
                             cancel_price: data.cancle_price || "",
-                            specifications: data.specifications?.length ? data.specifications : [""],
-                            details: data.details?.length ? data.details : [""],
+                            specifications: data.product_details?.map(item => item.specification) || [""],
+                            details: data.product_details?.map(item => item.detail) || [""],
                             description: data.description || "",
-                            images: [], // optional: keep empty if you upload new images
+                            // images: data.images || [],
+                            images: data.images?.map((img: string) => ({ preview: img, file: null })) || [],
                         });
-
-                        // Set selected category & subcategory
-                        setSelectedCategory(data.category || null);
-                        setSelectedSubCategory(data.sub_category || null);
+                        const categoryObj = categoryList.find(
+                            (cat) => cat.name == data.category_name
+                        )
+                        setSelectedCategory(categoryObj || null)
+                        const subCategoryObj = subCategoryList.find(
+                            (subCat) => subCat.name == data.sub_category_name
+                        )
+                        setSelectedSubCategory(subCategoryObj || null)
                     }
                 } catch (err) {
                     console.log("Error fetching edit data:", err);
                 }
             };
-
             fetchEditData();
         }
-    }, [productId]);
+    }, [productId, categoryList, subCategoryList]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     useEffect(() => {
         const fetchCategories = async () => {
@@ -230,7 +267,9 @@ export default function ProductForm() {
             }
 
             const formdata = new FormData();
-
+            if (productId) {
+                formdata.append("product_id", productId);
+            }
             formdata.append("category_id", selectedCategory?.id || "");
             formdata.append("sub_category_id", selectedSubCategory?.id || "");
             formdata.append("product_name", productForm.name);
@@ -286,7 +325,7 @@ export default function ProductForm() {
                         />
 
                         {errors.category && (
-                            <small className="p-error">{errors.category}</small> // 👈 error text
+                            <small className="p-error">{errors.category}</small> //  error text
                         )}
                     </div>
                     <div>
@@ -307,7 +346,7 @@ export default function ProductForm() {
                                 }`}
                         />
                         {errors.sub_category && (
-                            <small className="p-error">{errors.sub_category}</small> // 👈 error text
+                            <small className="p-error">{errors.sub_category}</small> //  error text
                         )}
                     </div>
                 </div>
@@ -354,125 +393,145 @@ export default function ProductForm() {
                         </div>
                     </div>
                 </div>
-                <div className="grid grid-cols-2 gap-6">
-                    {/* Specifications */}
-                    <div>
-                        <label className="block text-gray-700 font-medium mb-2">
-                            Specifications
-                        </label>
-                        {productForm.specifications.map((spec, index) => (
-                            <div key={index} className="flex gap-2 mb-2">
-                                <input
-                                    type="text"
-                                    value={spec}
-                                    onChange={(e) => {
-                                        handleSpecificationChange(index, e.target.value);
-                                        setErrors((prev) => ({ ...prev, specifications: "" }));
-                                    }}
-                                    className={`flex-1 border rounded-lg px-3 py-2 ${errors.specifications && !spec.trim()
-                                        ? "border-red-500"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                <div className="col-span-2">
+                    {/* Label + Plus button row */}
+                    <div className="flex items-center justify-between mb-2">
+                        <Label htmlFor="specifications" className="block text-gray-700 font-medium">
+                            Specifications & Details
+                        </Label>
+                        <button
+                            type="button"
+                            onClick={() =>
+                                setProductForm({
+                                    ...productForm,
+                                    specifications: [...productForm.specifications, ""],
+                                    details: [...productForm.details, ""],
+                                })
+                            }
+                            className="bg-[#465fff] text-white w-8 h-8 flex items-center justify-center rounded-md hover:bg-[#364de0] transition"
+                        >
+                            <i className="pi pi-plus" style={{ fontSize: "12px" }}></i>
+                        </button>
+                    </div>
+
+                    {/* Dynamic rows */}
+                    {productForm.specifications.map((spec, index) => (
+                        <div key={index} className="flex gap-2 mb-2 items-center">
+                            {/* Specification input */}
+                            <Input
+                                type="text"
+                                name={`specification_${index}`}
+                                value={spec}
+                                onChange={(e) => {
+                                    handleSpecificationChange(index, e.target.value);
+                                    setErrors((prev) => ({ ...prev, specifications: "" }));
+                                }}
+                                placeholder={`Specification ${index + 1}`}
+                                hint={errors.specifications && !spec.trim() ? errors.specifications : ""}
+                                error={!!errors.specifications && !spec.trim()}
+                            />
+
+                            {/* Detail input */}
+                            <Input
+                                type="text"
+                                name={`detail_${index}`}
+                                value={productForm.details[index]}
+                                onChange={(e) => {
+                                    handleDetailChange(index, e.target.value);
+                                    setErrors((prev) => ({ ...prev, details: "" }));
+                                }}
+                                placeholder={`Detail ${index + 1}`}
+                                hint={
+                                    errors.details && !productForm.details[index]?.trim()
+                                        ? errors.details
                                         : ""
-                                        }`}
-                                    placeholder={`Specification ${index + 1}`}
-                                />
+                                }
+                                error={!!errors.details && !productForm.details[index]?.trim()}
+                            />
 
-                                {/* Add (+) button for all rows */}
+                            {/* Minus button */}
+                            {index > 0 && (
                                 <button
-                                    onClick={() =>
+                                    type="button"
+                                    onClick={() => {
                                         setProductForm({
                                             ...productForm,
-                                            specifications: [...productForm.specifications, ""],
-                                        })
-                                    }
-                                    className="bg-[#465fff] text-white w-8 h-9 flex items-center justify-center rounded-md hover:bg-[#364de0] transition"
-                                >
-                                    <i className="pi pi-plus" style={{ fontSize: '12px' }}></i>
-                                </button>
-
-                                {/* Show delete (–) button only from 2nd input onward */}
-                                {index > 0 && (
-                                    <button
-                                        onClick={() =>
-                                            setProductForm({
-                                                ...productForm,
-                                                specifications: productForm.specifications.filter(
-                                                    (_, i) => i !== index
-                                                ),
-                                            })
-                                        }
-                                        className="bg-[#465fff] text-white w-8 h-9 flex items-center justify-center rounded-md hover:bg-[#364de0] transition"
-                                    >
-                                        <i className="pi pi-minus" style={{ fontSize: '12px' }}></i>
-                                    </button>
-
-                                )}
-                            </div>
-                        ))}
-
-                        {/* Error message below input list */}
-                        {errors.specifications && (
-                            <p className="text-error-500 text-sm">{errors.specifications}</p>
-                        )}
-                    </div>
-
-                    {/* Details */}
-                    <div>
-                        <label className="block text-gray-700 font-medium mb-2">
-                            Details
-                        </label>
-
-                        {productForm.details.map((detail, index) => (
-                            <div key={index} className="flex gap-2 mb-2 items-center">
-                                <input
-                                    type="text"
-                                    value={detail}
-                                    onChange={(e) => {
-                                        handleDetailChange(index, e.target.value);
-                                        setErrors((prev) => ({ ...prev, details: "" }));
+                                            specifications: productForm.specifications.filter(
+                                                (_, i) => i !== index
+                                            ),
+                                            details: productForm.details.filter((_, i) => i !== index),
+                                        });
                                     }}
-                                    className={`flex-1 border rounded-lg px-3 py-2 ${errors.details && !detail.trim() ? "border-red-500" : ""
-                                        }`}
-                                    placeholder={`Detail ${index + 1}`}
-                                />
-
-                                {/* Add (+) button for all rows */}
-                                <button
-                                    onClick={() =>
-                                        setProductForm({
-                                            ...productForm,
-                                            details: [...productForm.details, ""],
-                                        })
-                                    }
-                                    className="bg-[#465fff] text-white w-8 h-9 flex items-center justify-center rounded-md hover:bg-[#364de0] transition"
+                                    className="bg-[#465fff] text-white w-8 h-8 flex items-center justify-center rounded-md hover:bg-[#364de0] transition"
                                 >
-                                    <i className="pi pi-plus" style={{ fontSize: '12px' }}></i>
+                                    <i className="pi pi-minus" style={{ fontSize: "12px" }}></i>
                                 </button>
+                            )}
+                        </div>
+                    ))}
 
-                                {/* Show delete (–) button only from 2nd input onward */}
-                                {index > 0 && (
-                                    <button
-                                        onClick={() =>
-                                            setProductForm({
-                                                ...productForm,
-                                                details: productForm.details.filter(
-                                                    (_, i) => i !== index
-                                                ),
-                                            })
-                                        }
-                                        className="bg-[#465fff] text-white w-8 h-9 flex items-center justify-center rounded-md hover:bg-[#364de0] transition"
-                                    >
-                                        <i className="pi pi-minus" style={{ fontSize: '12px' }}></i>
-                                    </button>
-                                )}
-                            </div>
-                        ))}
-
-                        {/* Error message */}
-                        {errors.details && (
-                            <p className="text-error-500 text-sm">{errors.details}</p>
-                        )}
-                    </div>
+                    {/* Error messages */}
+                    {errors.specifications && (
+                        <p className="text-error-500 text-sm">{errors.specifications}</p>
+                    )}
+                    {errors.details && <p className="text-error-500 text-sm">{errors.details}</p>}
                 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div className="grid grid-cols-2 gap-6">
                     <div>
                         {/* <Label htmlFor="description">Description</Label> */}
@@ -500,7 +559,7 @@ export default function ProductForm() {
                         onClick={addProduct}
                         className="bg-[#465fff] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-[#364de0] transition"
                     >
-                        Add Product
+                        {productId ? "Update Product" : "Add Product"}
                     </button>
 
                     <button
@@ -511,6 +570,6 @@ export default function ProductForm() {
                     </button>
                 </div>
             </div>
-        </ComponentCard>
+        </ComponentCard >
     );
 }
