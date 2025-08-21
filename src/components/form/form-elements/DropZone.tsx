@@ -14,12 +14,14 @@ interface DropzoneProps {
       image?: string;
     }>
   >;
+  productId: number;
 }
 const DropzoneComponent: React.FC<DropzoneProps> = ({
   productForm,
   setProductForm,
   error,
-  setErrors
+  setErrors,
+  productId,
 }) => {
   const onDrop = (acceptedFiles: File[]) => {
     setProductForm((prev) => ({
@@ -39,7 +41,6 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
     },
     multiple: true,
   });
-  console.log("errrr", error);
 
   return (
     <>
@@ -47,10 +48,11 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
         <form
           {...getRootProps()}
           className={`dropzone rounded-xl border-dashed border-gray-300 p-7 lg:p-10
-          ${isDragActive
+          ${
+            isDragActive
               ? "border-brand-500 bg-gray-100 dark:bg-gray-800"
               : "border-gray-300 bg-gray-50 dark:border-gray-700 dark:bg-gray-900"
-            }`}
+          }`}
           id="demo-upload"
         >
           <input {...getInputProps()} />
@@ -79,16 +81,30 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
       {error && <p className="text-error-500 text-sm">{error}</p>}
       {/* Image Preview Grid */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
-        {productForm?.images?.map((file, index) => (
+        {productForm?.images?.map((item, index) => (
           <div
-            key={index}
+            key={item?.preview?.id}
             className="relative w-full h-32 border rounded-xl overflow-hidden shadow group"
           >
-            {/* <img
-              src={URL.createObjectURL(file)} // File → blob URL preview
-              alt={`preview-${index}`}
-              className="object-cover w-full h-full"
-            /> */}
+            {productId ? (
+              // 👉 Edit time
+              <img
+                src={
+                  item.file
+                    ? URL.createObjectURL(item.file)
+                    : item.preview?.image
+                }
+                alt={`preview-${index}`}
+                className="object-cover w-full h-full"
+              />
+            ) : (
+              // 👉 Create time
+              <img
+                src={URL.createObjectURL(item)}
+                alt={`preview-${index}`}
+                className="object-cover w-full h-full"
+              />
+            )}
             {/* Delete Button on Hover */}
             <button
               type="button"

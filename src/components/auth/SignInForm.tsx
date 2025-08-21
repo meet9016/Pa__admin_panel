@@ -35,7 +35,6 @@ export default function SignInForm() {
   };
 
   const signIn = async () => {
-
     try {
       // Use auth service to login
       const formdata = new FormData();
@@ -43,17 +42,25 @@ export default function SignInForm() {
       formdata.append("number", formData.mobile || "");
       formdata.append("otp", formData.otp);
       const res = await api.post(`${endPointApi.loginUser}`, formdata);
+      console.log("res", res.data.data.user);
 
       if (res.data.status == 200) {
-        saveToken(res.data.data.token)
+        saveToken(res.data.data.token);
         navigate("/");
-        toast.success(res.data.message)
+        localStorage.setItem(
+          "userData",
+          JSON.stringify({
+            full_name: res.data.data.user.full_name,
+            email: res.data.data.user.email,
+          })
+        );
+
+        toast.success(res.data.message);
       } else {
-        toast.error(res.data.message)
+        toast.error(res.data.message);
       }
     } catch (err: any) {
       setError(err.message || "Invalid email or password. Please try again.");
-
     } finally {
       setIsLoading(false);
     }
@@ -117,7 +124,7 @@ export default function SignInForm() {
                   </Link>
                 </div>
                 <div>
-                  <Button className="w-full" size="sm" onClick={() => signIn()}>
+                  <Button className="w-full" size="sm">
                     Sign in
                   </Button>
                 </div>

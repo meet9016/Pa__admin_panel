@@ -64,7 +64,6 @@ export default function BasicTableOne({ productsData }: Props) {
         );
         setIsDialogOpen(false);
         setSelectedProductId(null);
-        console.log("Product deleted successfully");
       }
     } catch (error) {
       console.error("API Error", error);

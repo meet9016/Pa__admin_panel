@@ -44,7 +44,7 @@ export default function UserMetaCard({ user }: UserMetaCardProps) {
                 </p>
               </div>
             </div>
-            <div className="flex items-center order-2 gap-2 grow xl:order-3 xl:justify-end">
+            {/* <div className="flex items-center order-2 gap-2 grow xl:order-3 xl:justify-end">
               <a
                 href="https://www.facebook.com/PimjoHQ"
                 target="_blank"
@@ -128,7 +128,7 @@ export default function UserMetaCard({ user }: UserMetaCardProps) {
                   />
                 </svg>
               </a>
-            </div>
+            </div> */}
           </div>
           {/* <button
             onClick={openModal}
