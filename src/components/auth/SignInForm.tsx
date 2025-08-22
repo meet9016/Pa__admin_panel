@@ -134,7 +134,7 @@ export default function SignInForm() {
                     {error.otp && <p className="text-red-500 text-sm">{error.otp}</p>}
                   </div>
                 </div>
-                <div className="flex items-center justify-between">
+                {/* <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Checkbox checked={isChecked} onChange={setIsChecked} />
                     <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
@@ -147,7 +147,7 @@ export default function SignInForm() {
                   >
                     Forgot password?
                   </Link>
-                </div>
+                </div> */}
                 <div>
                   <Button className="w-full bg-brand-950" size="sm">
                     Sign in
@@ -156,7 +156,7 @@ export default function SignInForm() {
               </div>
             </form>
 
-            <div className="mt-5">
+            {/* <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                 Don&apos;t have an account? {""}
                 <Link
@@ -166,7 +166,7 @@ export default function SignInForm() {
                   Sign Up
                 </Link>
               </p>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
