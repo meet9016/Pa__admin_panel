@@ -52,7 +52,6 @@ export default function SignInForm() {
     newErrors.otp = "OTP is required";
   }
 
-  // Agar error hai to API call mat karo
   if (Object.keys(newErrors).length > 0) {
     setError(newErrors);
     return;
