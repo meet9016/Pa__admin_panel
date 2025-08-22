@@ -1,9 +1,7 @@
-import ComponentCard from "../../common/ComponentCard";
 import { useDropzone } from "react-dropzone";
-import Label from "../Label";
-import { useState } from "react";
 import { ProductData } from "../../../pages/Product/ProductForm";
-// import Dropzone from "react-dropzone";
+import endPointApi from "../../../pages/utils/endPointApi";
+import api from "../../../pages/utils/axiosInstance";
 
 interface DropzoneProps {
   productForm: ProductData;
@@ -14,19 +12,17 @@ interface DropzoneProps {
       image?: string;
     }>
   >;
-  productId: number;
 }
 const DropzoneComponent: React.FC<DropzoneProps> = ({
   productForm,
   setProductForm,
   error,
   setErrors,
-  productId,
 }) => {
   const onDrop = (acceptedFiles: File[]) => {
-    setProductForm((prev) => ({
+      setProductForm((prev) => ({
       ...prev,
-      images: [...prev.images, ...acceptedFiles], // keep File objects
+      images: [...prev.images, ...acceptedFiles],
     }));
     setErrors((prev) => ({ ...prev, image: "" }));
   };
@@ -41,6 +37,27 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
     },
     multiple: true,
   });
+
+  const removeImage = async (idOrIndex: any) => {
+    try {
+      if (typeof idOrIndex === "string" || typeof idOrIndex === "number") {
+        const formdata = new FormData();
+        formdata.append("product_image_id", idOrIndex);
+        await api.post(`${endPointApi.productImageDelete}`, formdata);
+      }
+
+      // UI state update (local remove)
+      setProductForm((prev: any) => ({
+        ...prev,
+        images: prev.images.filter(
+          (item: any, i: any) =>
+            item?.preview?.product_image_id !== idOrIndex && i !== idOrIndex
+        ),
+      }));
+    } catch (error) {
+      console.error("Image remove failed:", error);
+    }
+  };
 
   return (
     <>
@@ -80,39 +97,25 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
       </div>
       {error && <p className="text-error-500 text-sm">{error}</p>}
       {/* Image Preview Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-2">
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-2">
         {productForm?.images?.map((item, index) => (
           <div
-            key={item?.preview?.id}
+            key={item?.preview?.product_image_id}
             className="relative w-full h-32 border rounded-xl overflow-hidden shadow group"
           >
-            {productId ? (
-              // 👉 Edit time
-              <img
-                src={
-                  item.file
-                    ? URL.createObjectURL(item.file)
-                    : item.preview?.image
-                }
-                alt={`preview-${index}`}
-                className="object-cover w-full h-full"
-              />
-            ) : (
-              // 👉 Create time
-              <img
-                src={URL.createObjectURL(item)}
-                alt={`preview-${index}`}
-                className="object-cover w-full h-full"
-              />
-            )}
-            {/* Delete Button on Hover */}
+            <img
+              src={
+                item.preview?.image
+                  ? item.preview?.image
+                  : URL.createObjectURL(item)
+              }
+              alt={`preview-${index}`}
+              className="object-cover w-full h-full"
+            />
             <button
               type="button"
               onClick={() =>
-                setProductForm((prev) => ({
-                  ...prev,
-                  images: prev.images.filter((_, i) => i !== index),
-                }))
+                removeImage(item?.preview?.product_image_id ?? index)
               }
               className="absolute top-1 right-1 bg-red-600 text-white p-[2px] rounded-sm shadow-md opacity-0 group-hover:opacity-100 transition w-5 h-5 flex items-center justify-center"
             >

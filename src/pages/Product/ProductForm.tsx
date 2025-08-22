@@ -55,8 +55,6 @@ export default function ProductForm() {
     images: [],
   });
 
-  console.log("productForm", productForm);
-
   const [errors, setErrors] = useState<ProductFormErrors>({});
 
   const handleChange = (
@@ -95,18 +93,19 @@ export default function ProductForm() {
 
           if (res.data && res.data.data) {
             const data = res.data.data;
-            console.log("data", data);
 
             setProductForm({
               name: data.product_name || "",
               price: data.price || "",
               cancel_price: data.cancle_price || "",
               specifications: data.product_details?.map(
-                (item) => item.specification
+                (item: any) => item.specification
               ) || [""],
-              details: data.product_details?.map((item) => item.detail) || [""],
+              details: data.product_details?.map(
+                (item: any) => item.detail
+              ) || [""],
               specification_id: data.product_details?.map(
-                (item) => item.specification_id
+                (item: any) => item.specification_id
               ) || [""],
               description: data.description || "",
               // images: data.images || [],
@@ -117,11 +116,11 @@ export default function ProductForm() {
                 })) || [],
             });
             const categoryObj = categoryList.find(
-              (cat) => cat.name == data.category_name
+              (cat: any) => cat.name == data.category_name
             );
             setSelectedCategory(categoryObj || null);
             const subCategoryObj = subCategoryList.find(
-              (subCat) => subCat.name == data.sub_category_name
+              (subCat: any) => subCat.name == data.sub_category_name
             );
             setSelectedSubCategory(subCategoryObj || null);
           }
@@ -236,6 +235,20 @@ export default function ProductForm() {
 
       if (productForm.images.length == 0) {
         newErrors.image = "Please at list one image select";
+      } else if (productForm.images.length > 5) {
+        newErrors.image = "Please select maximum 5 images";
+      } else {
+        // 🔹 check size > 1MB
+        const largeImages: string[] = [];
+        productForm.images.forEach((file, idx) => {
+          if (file.size > 1024 * 1024) {
+            largeImages.push(`Image ${idx + 1} is larger than 1MB.`);
+          }
+        });
+
+        if (largeImages.length > 0) {
+          newErrors.image = largeImages.join(" | ");
+        }
       }
 
       if (Object.keys(newErrors).length > 0) {
@@ -247,8 +260,8 @@ export default function ProductForm() {
       if (productId) {
         formdata.append("product_id", productId);
         productForm.specification_id.forEach((spec, i) => {
-        formdata.append(`specification_id[${i}]`, spec);
-      });
+          formdata.append(`specification_id[${i}]`, spec);
+        });
       }
       formdata.append("category_id", selectedCategory?.id || "");
       formdata.append("sub_category_id", selectedSubCategory?.id || "");
@@ -280,8 +293,8 @@ export default function ProductForm() {
       } else {
         toast.error(res.data.message);
       }
-    } catch (error) {
-      console.error("API Error:", error);
+    } catch (error: any) {
+      toast.error("API Error:", error);
     }
   };
 

@@ -15,10 +15,8 @@ export default function Order() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const formData = new FormData();
-      formData.append("product_id", "dVdSZWZEOW1XVWd6cEJzcXZsbTB4UT09");
       try {
-        const res = await api.post(`${endPointApi.orderList}`, formData);
+        const res = await api.post(`${endPointApi.orderList}`);
         if (res.data && res.data.data) {
           setProducts(res.data.data);
         }

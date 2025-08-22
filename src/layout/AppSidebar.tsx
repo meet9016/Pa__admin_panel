@@ -5,10 +5,8 @@ import { Link, useLocation } from "react-router";
 import {
   ChevronDownIcon,
   GridIcon,
+  GroupIcon,
   HorizontaLDots,
-  ListIcon,
-  PageIcon,
-  TableIcon,
   UserCircleIcon,
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
@@ -37,7 +35,7 @@ const navItems: NavItem[] = [
     path: "/product",
   },
   {
-    icon: <UserCircleIcon />,
+    icon: <GroupIcon />,
     name: "Order",
     path: "/order",
   },
