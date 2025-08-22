@@ -33,31 +33,31 @@ export default function SignInForm() {
       [name]: value,
     }));
     setError((prev) => ({
-    ...prev,
-    [name]: "", 
-  }))
+      ...prev,
+      [name]: "",
+    }))
   };
 
   const signIn = async () => {
-     let newErrors: { mobile?: string; otp?: string } = {};
+    let newErrors: { mobile?: string; otp?: string } = {};
 
-  // Validation
-  if (!formData.mobile) {
-    newErrors.mobile = "Mobile number is required";
-  } else if (!/^\d{10}$/.test(formData.mobile)) {
-    newErrors.mobile = "Please enter a valid 10-digit mobile number";
-  }
+    // Validation
+    if (!formData.mobile) {
+      newErrors.mobile = "Mobile number is required";
+    } else if (!/^\d{10}$/.test(formData.mobile)) {
+      newErrors.mobile = "Please enter a valid 10-digit mobile number";
+    }
 
-  if (!formData.otp) {
-    newErrors.otp = "OTP is required";
-  }
+    if (!formData.otp) {
+      newErrors.otp = "OTP is required";
+    }
 
   if (Object.keys(newErrors).length > 0) {
     setError(newErrors);
     return;
   }
 
-  setError({});
+    setError({});
     try {
       // Use auth service to login
       const formdata = new FormData();
