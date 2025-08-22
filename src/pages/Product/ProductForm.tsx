@@ -372,6 +372,9 @@ export default function ProductForm() {
                 placeholder="Price"
                 value={productForm.price}
                 onChange={handleChange}
+                onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                }}
                 hint={errors.price}
                 error={!!errors.price}
               />
@@ -385,6 +388,9 @@ export default function ProductForm() {
                 placeholder="Cancel Price"
                 value={productForm.cancel_price}
                 onChange={handleChange}
+                 onInput={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  e.target.value = e.target.value.replace(/[^0-9]/g, "");
+                }}
                 hint={errors.cancel_price}
                 error={!!errors.cancel_price}
               />
@@ -410,8 +416,8 @@ export default function ProductForm() {
                   details: [...productForm.details, ""],
                 })
               }
-              className="bg-[#465fff] text-white w-8 h-8 flex items-center justify-center rounded-md 
-                 hover:bg-[#364de0] transition-colors duration-200"
+              className="bg-brand-950 text-white w-8 h-8 flex items-center justify-center rounded-md 
+                 transition-colors duration-200"
             >
               <i className="pi pi-plus text-xs"></i>
             </button>
@@ -481,10 +487,10 @@ export default function ProductForm() {
                         ),
                       });
                     }}
-                    className="bg-red-500 text-white w-8 h-8 flex items-center justify-center rounded-md 
+                    className="border border-brand-950 text-white w-8 h-8 flex items-center justify-center rounded-md 
                        hover:bg-red-600 transition-colors duration-200 self-center sm:self-auto"
                   >
-                    <i className="pi pi-minus text-xs"></i>
+                    <i className="pi pi-minus text-xs text-brand-950"></i>
                   </button>
                 )}
               </div>
@@ -518,14 +524,14 @@ export default function ProductForm() {
         <div className="flex gap-4">
           <button
             onClick={addProduct}
-            className="bg-[#465fff] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-[#364de0] transition"
+            className="bg-brand-950 text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-[#364de0] transition"
           >
             {productId ? "Update Product" : "Add Product"}
           </button>
 
           <button
             onClick={() => navigate("/product")}
-            className="border border-[#465fff] text-[#465fff] px-4 py-2 rounded-md text-sm font-medium"
+            className="border border-brand-950 text-brand-950 px-4 py-2 rounded-md text-sm font-medium"
           >
             Cancel
           </button>

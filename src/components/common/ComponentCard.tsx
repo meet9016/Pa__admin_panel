@@ -98,7 +98,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
         </div>
 
         {addProduct && (
-          <button onClick={() => navigate(onAddProductClick)} className="bg-[#465fff] text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-[#364de0] transition">
+          <button onClick={() => navigate(onAddProductClick)} className="bg-brand-950 text-white px-4 py-2 rounded-md text-sm font-medium transition">
             {addProduct}
           </button>
         )}

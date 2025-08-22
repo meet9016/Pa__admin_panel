@@ -23,7 +23,7 @@ export default function SignInForm() {
   });
 
   const [isChecked, setIsChecked] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<{ mobile?: string; otp?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -32,9 +32,33 @@ export default function SignInForm() {
       ...prev,
       [name]: value,
     }));
+    setError((prev) => ({
+    ...prev,
+    [name]: "", 
+  }))
   };
 
   const signIn = async () => {
+     let newErrors: { mobile?: string; otp?: string } = {};
+
+  // Validation
+  if (!formData.mobile) {
+    newErrors.mobile = "Mobile number is required";
+  } else if (!/^\d{10}$/.test(formData.mobile)) {
+    newErrors.mobile = "Please enter a valid 10-digit mobile number";
+  }
+
+  if (!formData.otp) {
+    newErrors.otp = "OTP is required";
+  }
+
+  // Agar error hai to API call mat karo
+  if (Object.keys(newErrors).length > 0) {
+    setError(newErrors);
+    return;
+  }
+
+  setError({});
     try {
       // Use auth service to login
       const formdata = new FormData();
@@ -70,7 +94,7 @@ export default function SignInForm() {
       <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
         <div>
           <div className="mb-5 sm:mb-8">
-            <h1 className="mb-2 font-semibold text-gray-800 text-title-sm dark:text-white/90 sm:text-title-md">
+            <h1 className="mb-2 font-semibold text-brand-950 text-title-sm dark:text-white/90 sm:text-title-md">
               Sign In
             </h1>
             <p className="text-sm text-gray-500 dark:text-gray-400">
@@ -95,6 +119,7 @@ export default function SignInForm() {
                     value={formData.mobile}
                     onChange={handleChange}
                   />
+                  {error.mobile && <p className="text-red-500 text-sm">{error.mobile}</p>}
                 </div>
                 <div>
                   <Label>
@@ -107,6 +132,7 @@ export default function SignInForm() {
                       value={formData.otp}
                       onChange={handleChange}
                     />
+                    {error.otp && <p className="text-red-500 text-sm">{error.otp}</p>}
                   </div>
                 </div>
                 <div className="flex items-center justify-between">
@@ -117,8 +143,8 @@ export default function SignInForm() {
                     </span>
                   </div>
                   <Link
-                    to="/reset-password"
-                    className="text-sm text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                    to=""
+                    className="text-sm text-brand-950 hover:text-brand-600 dark:text-brand-400"
                   >
                     Forgot password?
                   </Link>
@@ -135,8 +161,8 @@ export default function SignInForm() {
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                 Don&apos;t have an account? {""}
                 <Link
-                  to="/signup"
-                  className="text-brand-500 hover:text-brand-600 dark:text-brand-400"
+                  to="/"
+                  className="text-brand-950 hover:text-brand-600 dark:text-brand-400"
                 >
                   Sign Up
                 </Link>

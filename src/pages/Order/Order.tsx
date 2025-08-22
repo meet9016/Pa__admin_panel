@@ -27,20 +27,37 @@ export default function Order() {
     fetchData();
   }, []);
 
-  const allowExpansion = (rowData) => {
+  const allowExpansion = (rowData: any) => {
     return rowData?.order_items?.length > 0;
   };
 
-  const rowExpansionTemplate = (data) => {
+  const imageBodyTemplate = (rowData: any) => {
+    return (
+      <img
+        src={rowData}
+        alt={rowData?.image}
+        width="64px"
+        className="shadow-4"
+      />
+    );
+  };
+  const priceTemplate = (rowData: any) => {
+    return `₹ ${rowData.price}`;
+  };
+
+  const rowExpansionTemplate = (data: any) => {
     return (
       <div className="p-3">
         <h5>Orders for {data.user_name}</h5>
         <DataTable value={data.order_items}>
-          <Column field="id" header="Id"></Column>
           <Column field="product_name" header="Product Name"></Column>
           <Column field="quantity" header="Quantity"></Column>
-          <Column field="product_image" header="Product Image"></Column>
-          <Column field="price" header="Price"></Column>
+          <Column
+            field="product_image"
+            header="Product Image"
+            body={imageBodyTemplate}
+          ></Column>
+          <Column field="price" header="Price" body={priceTemplate}></Column>
           <Column field="sub_total" header="Sub Total"></Column>
         </DataTable>
       </div>
@@ -50,14 +67,12 @@ export default function Order() {
   return (
     <>
       <PageMeta
-        title="React.js Basic Tables Dashboard | TailAdmin - Next.js Admin Dashboard Template"
+        title="Order"
         description="This is React.js Basic Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       <PageBreadcrumb pageTitle="Order Table" />
       <div className="space-y-6">
-        <ComponentCard
-          title="Basic Order Table"
-        >
+        <ComponentCard title="Basic Order Table">
           <div className="card">
             <Toast ref={toast} />
             <DataTable
