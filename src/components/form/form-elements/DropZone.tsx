@@ -20,7 +20,7 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
   setErrors,
 }) => {
   const onDrop = (acceptedFiles: File[]) => {
-      setProductForm((prev) => ({
+    setProductForm((prev) => ({
       ...prev,
       images: [...prev.images, ...acceptedFiles],
     }));
@@ -42,7 +42,7 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
     try {
       if (typeof idOrIndex === "string" || typeof idOrIndex === "number") {
         const formdata = new FormData();
-        formdata.append("product_image_id", idOrIndex);
+        formdata.append("product_image_id", idOrIndex as string);
         await api.post(`${endPointApi.productImageDelete}`, formdata);
       }
 
@@ -61,7 +61,7 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
 
   return (
     <>
-      <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-xl hover:border-brand-500">
+      <div className="transition border border-gray-300 border-dashed cursor-pointer dark:hover:border-brand-500 dark:border-gray-700 rounded-lg hover:border-brand-500">
         <form
           {...getRootProps()}
           className={`dropzone rounded-xl border-dashed border-gray-300 p-7 lg:p-10
@@ -100,13 +100,13 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
       <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mt-2">
         {productForm?.images?.map((item, index) => (
           <div
-            key={item?.preview?.product_image_id}
+            key={(item as any)?.preview?.product_image_id}
             className="relative w-full h-32 border rounded-xl overflow-hidden shadow group"
           >
             <img
               src={
-                item.preview?.image
-                  ? item.preview?.image
+                (item as any).preview?.image
+                  ? (item as any).preview.image
                   : URL.createObjectURL(item)
               }
               alt={`preview-${index}`}
@@ -115,7 +115,7 @@ const DropzoneComponent: React.FC<DropzoneProps> = ({
             <button
               type="button"
               onClick={() =>
-                removeImage(item?.preview?.product_image_id ?? index)
+                 removeImage((item as any)?.preview?.product_image_id ?? index)
               }
               className="absolute top-1 right-1 bg-red-600 text-white p-[2px] rounded-sm shadow-md opacity-0 group-hover:opacity-100 transition w-5 h-5 flex items-center justify-center"
             >
