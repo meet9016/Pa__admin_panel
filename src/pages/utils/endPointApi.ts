@@ -11,6 +11,7 @@ export interface EndPointApi {
     profile: string,
     productDetail: string,
     productImageDelete: string
+    addProductAI: string
 }
 
 // Define and export the API endpoint object
@@ -26,7 +27,8 @@ const endPointApi: EndPointApi = {
     orderList: 'supplier-order-list',
     profile: 'supplier-profile',
     productDetail: 'supplier-product-details',
-    productImageDelete:'supplier-delete-product-image'
+    productImageDelete: 'supplier-delete-product-image',
+    addProductAI: 'supplier-ai-to-product-details',
 };
 
 export default endPointApi;
