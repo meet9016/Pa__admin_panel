@@ -468,27 +468,28 @@ export default function ProductForm() {
                   error={!!errors.name}
                   className="pr-16"
                 />
-                {/* <button
+                <button
                   type="button"
                   onClick={handleOnClickAI}
                   className="absolute inset-y-0 right-0 flex items-center px-3 m-1 bg-[#251c4b] text-white font-medium rounded-md shadow-md transition-all duration-200"
                   title="Auto-fill with AI"
                 >
                   AI
-                </button> */}
+                </button>
 
-                <button
+                {/* <button
                   type="button"
                   onClick={handleOnClickAI}
                   className="absolute inset-y-0 right-0 flex items-center m-1 font-medium rounded-md  transition-all duration-200"
                   title="Auto-fill with AI"
+                  disabled={productId}
                 >
                   <img
                     src={'../public/images/Aigif.gif'} // 👈 place your gif in /public or correct path
                     alt="AI"
                     className="w-10 h-10 border border-gray-300 rounded-md"
                   />
-                </button>
+                </button> */}
               </div>
             </div>
 
