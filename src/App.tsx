@@ -21,20 +21,20 @@ export default function App() {
         <ScrollToTop />
         <Toaster />
         <Routes>
-          {/* ✅ Protected Routes */}
+          {/* Protected Routes */}
           <Route element={<ProtectedRoute />}>
             <Route element={<AppLayout />}>
               <Route index path="/" element={<Home />} />
               <Route path="/profile" element={<UserProfiles />} />
               <Route path="/product" element={<Product />} />
-              <Route path="/order" element={<Order />}></Route>
+              <Route path="/order" element={<Order />} />
               <Route path="/add-product" element={<ProductForm />} />
               <Route path="/form-elements" element={<FormElements />} />
               <Route path="/basic-tables" element={<BasicTables />} />
             </Route>
           </Route>
 
-          {/* ❌ Public Routes */}
+          {/* Public Routes */}
           <Route path="/signin" element={<SignIn />} />
           <Route path="/signup" element={<SignUp />} />
 
