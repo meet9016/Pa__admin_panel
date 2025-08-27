@@ -249,6 +249,7 @@ export default function ProductForm() {
           specification_id: data.product_details?.map(
             (d) => d.specification_id ?? ""
           ) || [""],
+          searchkey: data.search_keywords || "",
           description: data.description || "",
           shortDescription: data.long_description || "",
           sku: data.sku || "",
