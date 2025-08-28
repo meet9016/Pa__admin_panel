@@ -37,7 +37,7 @@ const navItems: NavItem[] = [
   },
   {
     icon: <PageIcon />,
-    name: "Order",
+    name: "Inquiry",
     path: "/order",
   },
   // {

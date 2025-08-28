@@ -48,7 +48,7 @@ export default function Order() {
   const rowExpansionTemplate = (data: any) => {
     return (
       <div className="p-3">
-        <h5>Orders for {data.user_name}</h5>
+        {/* <h5>Inquiry Product List</h5> */}
         <DataTable value={data.order_items}>
           <Column field="product_name" header="Product Name"></Column>
           <Column field="quantity" header="Quantity"></Column>
@@ -57,8 +57,8 @@ export default function Order() {
             header="Product Image"
             body={imageBodyTemplate}
           ></Column>
-          <Column field="price" header="Price" body={priceTemplate}></Column>
-          <Column field="sub_total" header="Sub Total"></Column>
+          {/* <Column field="price" header="Price" body={priceTemplate}></Column>
+          <Column field="sub_total" header="Sub Total"></Column> */}
         </DataTable>
       </div>
     );
@@ -67,12 +67,12 @@ export default function Order() {
   return (
     <>
       <PageMeta
-        title="Order"
+        title="inquiry"
         description="This is React.js Basic Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
-      <PageBreadcrumb pageTitle="Order Table" />
+      <PageBreadcrumb pageTitle="Inquiry Table" />
       <div className="space-y-6">
-        <ComponentCard title="Basic Order Table">
+        <ComponentCard title="Inquiry Table">
           <div className="card">
             <Toast ref={toast} />
             <DataTable
@@ -84,16 +84,16 @@ export default function Order() {
               tableStyle={{ minWidth: "60rem" }}
             >
               <Column expander={allowExpansion} style={{ width: "5rem" }} />
-              <Column field="order_date" header="Order Date" sortable />
-              <Column field="order_number" header="Order Number" sortable />
+              <Column field="order_date" header="Inquiry Date" sortable />
+              <Column field="order_number" header="Inquiry Number" sortable />
               <Column field="user_name" header="Name" sortable />
               <Column field="mobile_number" header="Whatsapp No." sortable />
               <Column field="product_count" header="Product Count" sortable />
-              <Column
+              {/* <Column
                 field="final_total_amount"
                 header="Total Amount"
                 sortable
-              />
+              /> */}
             </DataTable>
           </div>
         </ComponentCard>
