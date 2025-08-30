@@ -27,9 +27,9 @@ export default function Order() {
     fetchData();
   }, []);
 
-  const allowExpansion = (rowData: any) => {
-    return rowData?.order_items?.length > 0;
-  };
+  // const allowExpansion = (rowData: any) => {
+  //   return rowData?.order_items?.length > 0;
+  // };
 
   const imageBodyTemplate = (rowData: any) => {
     return (
@@ -41,9 +41,27 @@ export default function Order() {
       />
     );
   };
-  const priceTemplate = (rowData: any) => {
-    return `₹ ${rowData.price}`;
+  // const priceTemplate = (rowData: any) => {
+  //   return `₹ ${rowData.price}`;
+  // };
+
+  const actionBodyTemplate = (rowData: any) => {
+    return (
+      <button
+        onClick={() => {
+          if (rowData.view_link) {
+            window.open(rowData.view_link, "_blank");
+          } else {
+            console.log("No view_link available");
+          }
+        }}
+        className="p-button p-button-text p-button-sm"
+      >
+        <i className="pi pi-eye text-blue-600" style={{ fontSize: "1.2rem" }}></i>
+      </button>
+    );
   };
+
 
   const rowExpansionTemplate = (data: any) => {
     return (
@@ -70,9 +88,9 @@ export default function Order() {
         title="inquiry"
         description="This is React.js Basic Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
-      <PageBreadcrumb pageTitle="Inquiry Table" />
+      <PageBreadcrumb pageTitle="Inquiry List" />
       <div className="space-y-6">
-        <ComponentCard title="Inquiry Table">
+        <ComponentCard >
           <div className="card">
             <Toast ref={toast} />
             <DataTable
@@ -83,12 +101,13 @@ export default function Order() {
               dataKey="id"
               tableStyle={{ minWidth: "60rem" }}
             >
-              <Column expander={allowExpansion} style={{ width: "5rem" }} />
+              <Column style={{ width: "5rem" }} />
               <Column field="order_date" header="Inquiry Date" sortable />
               <Column field="order_number" header="Inquiry Number" sortable />
               <Column field="user_name" header="Name" sortable />
               <Column field="mobile_number" header="Whatsapp No." sortable />
               <Column field="product_count" header="Product Count" sortable />
+              <Column header="Action" body={actionBodyTemplate} />
               {/* <Column
                 field="final_total_amount"
                 header="Total Amount"

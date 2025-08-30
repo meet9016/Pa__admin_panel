@@ -36,10 +36,10 @@ export default function Product() {
         title="Product"
         description="This is React.js Basic Tables Dashboard page for TailAdmin"
       />
-      <PageBreadcrumb pageTitle="Product Table" />
+      <PageBreadcrumb pageTitle="Product List" />
       <div className="space-y-6">
         <ComponentCard
-          title="Basic Product Table"
+
           addProduct="Add product"
           onAddProductClick="/add-product"
         >
