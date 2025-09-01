@@ -13,6 +13,9 @@ export interface EndPointApi {
     productImageDelete: string
     addProductAI: string
     home: string
+
+    //payment
+    subscriptiosCheckStatus: string
 }
 
 // Define and export the API endpoint object
@@ -30,7 +33,10 @@ const endPointApi: EndPointApi = {
     productDetail: 'supplier-product-details',
     productImageDelete: 'supplier-delete-product-image',
     addProductAI: 'supplier-ai-to-product-details',
-    home: 'supplier-home'
+    home: 'supplier-home',
+
+    //payment
+    subscriptiosCheckStatus:'subscriptios-check-status'
 };
 
 export default endPointApi;

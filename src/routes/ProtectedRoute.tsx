@@ -32,30 +32,14 @@
 
 // export default ProtectedRoute;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-
+import endPointApi from "../pages/utils/endPointApi";
+import api from "../pages/utils/axiosInstance";
 const ProtectedRoute: React.FC = () => {
   const location = useLocation();
   const [showModal, setShowModal] = useState(false);
+  const [redirectUrl, setRedirectUrl] = useState();
 
   // read token from query string if present
   const params = new URLSearchParams(location.search);
@@ -68,8 +52,6 @@ const ProtectedRoute: React.FC = () => {
     if (tokenFromUrl) {
       // if token in URL, save it
       localStorage.setItem("auth_token", tokenFromUrl);
-
-      // optional: remove token from URL after saving
       window.history.replaceState({}, document.title, location.pathname);
     }
   }, [tokenFromUrl, location.pathname]);
@@ -78,11 +60,25 @@ const ProtectedRoute: React.FC = () => {
 
   useEffect(() => {
     if (auth_token) {
-      // jab bhi login ho jaye, popup open kar do
       setShowModal(true);
     }
   }, [auth_token]);
 
+  useEffect(() => {
+    const checkSubscription = async () => {
+      try {
+        const res = await api.post(`${endPointApi.subscriptiosCheckStatus}`);
+        if (res.data.status === 200) {
+          setShowModal(!res.data.data.subscriptions_status);
+          setRedirectUrl(res.data.data.pay_url);
+        }
+      } catch (error) {
+        console.error("Error checking subscription:", error);
+      }
+    };
+
+    checkSubscription();
+  }, [location.pathname]);
 
   if (!auth_token) {
     return <Navigate to="/signin" replace />;
@@ -90,28 +86,33 @@ const ProtectedRoute: React.FC = () => {
 
   return (
     <>
-      <Outlet />;
+      <Outlet />
       {showModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-400/10 backdrop-blur-sm">
           <div
-            className="bg-white p-6 rounded-lg shadow-lg w-96 relative"
-            onClick={(e) => e.stopPropagation()} // background pe click se band na ho
+            className="bg-white p-0 rounded-lg shadow-lg w-full max-w-4xl relative"
+            onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-xl font-bold mb-4 text-center">Payment Required</h2>
-            <p className="mb-6 text-center">Please proceed with the payment to continue.</p>
-
-            <button
-              className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
-              onClick={() => setShowModal(false)} // sirf button pe hi close hoga
-            >
-              Pay Now
-            </button>
+            <img
+              src="https://pa.2-min.in/upload/web_logo/mainBanner.jpg"
+              className="w-full h-auto rounded-lg cursor-pointer"
+              onClick={async () => {
+                try {
+                  if (redirectUrl) {
+                    window.location.href = redirectUrl;
+                  }
+                } catch (error) {
+                  console.error("Payment error:", error);
+                } finally {
+                  setShowModal(true); // close modal again
+                }
+              }}
+            />
           </div>
         </div>
       )}
-
     </>
-  )
+  );
 };
 
 export default ProtectedRoute;

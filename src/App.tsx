@@ -13,6 +13,8 @@ import ProductForm from "./pages/Product/ProductForm";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Order from "./pages/Order/Order";
 import Toaster from "./components/common/Toaster";
+import Fail from "./pages/Payment/Fail";
+import Success from "./pages/Payment/Success";
 
 export default function App() {
   return (
@@ -33,6 +35,8 @@ export default function App() {
               <Route path="/basic-tables" element={<BasicTables />} />
             </Route>
           </Route>
+          <Route path="/payment-success" element={<Success />} />
+          <Route path="/payment-failed" element={<Fail />} />
 
           {/* Public Routes */}
           <Route path="/signin" element={<SignIn />} />
