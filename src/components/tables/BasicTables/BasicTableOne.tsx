@@ -26,7 +26,7 @@ export default function BasicTableOne({ productsData }: Props) {
   }, [productsData]);
 
   const imageBodyTemplate = (rowData: any) => {
-    return <img src={rowData.product_image} alt="product" width="30" />;
+    return <img src={rowData.product_image} alt="product" width="60" />;
   };
 
   const actionBodyTemplate = (rowData: Product) => {
@@ -80,15 +80,15 @@ export default function BasicTableOne({ productsData }: Props) {
         paginator rows={10}
         rowsPerPageOptions={[10, 20, 50]}
       >
-        <Column field="product_name" header="Product Name" sortable></Column>
-        <Column field="price" header="Price" sortable></Column>
-        <Column field="cancle_price" header="Cancel Price" sortable></Column>
-        <Column field="category_name" header="Category" sortable></Column>
-        <Column field="sub_category_name" header="Sub Category" sortable></Column>
         <Column body={imageBodyTemplate} header="Image" sortable></Column>
+        <Column field="product_name" header="Product Name" sortable></Column>
+        <Column field="category_name" header="Category" sortable></Column>
+        <Column field="price" header="Price" sortable></Column>
+        {/* <Column field="cancle_price" header="Cancel Price" sortable></Column>
+        <Column field="sub_category_name" header="Sub Category" sortable></Column> */}
         <Column body={actionBodyTemplate} header="Action"></Column>
       </DataTable>
-      
+
       <DialogBox
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

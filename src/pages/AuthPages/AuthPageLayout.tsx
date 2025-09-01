@@ -26,13 +26,13 @@ export default function AuthLayout({
                 />
               </Link>
               <p className="text-center text-gray-400 dark:text-white/60">
-                Free and Open-Source Tailwind CSS Admin Dashboard Template
+                Empowering growth and innovation with Progress Alliance.
               </p>
             </div>
           </div>
         </div>
         <div className="fixed z-50 hidden bottom-6 right-6 sm:block">
-          <ThemeTogglerTwo />
+          {/* <ThemeTogglerTwo /> */}
         </div>
       </div>
     </div>

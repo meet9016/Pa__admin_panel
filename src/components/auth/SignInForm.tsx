@@ -222,6 +222,7 @@ export default function SignInForm() {
   const [error, setError] = useState<{ mobile?: string; otp?: string }>({});
   const [isLoading, setIsLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
+  
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -304,11 +305,12 @@ export default function SignInForm() {
           "userData",
           JSON.stringify({
             full_name: res.data.data.user.full_name,
-            email: res.data.data.user.email,
+            email: res.data.data.user.number,
           })
         );
         toast.success(res.data.message);
         navigate("/");
+        setShowModal(true);
       } else {
         toast.error(res.data.message)
       }
@@ -319,72 +321,74 @@ export default function SignInForm() {
     }
   }
   return (
-    <div className="flex flex-col flex-1">
-      <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
-        <div>
-          <div className="mb-5 sm:mb-8">
-            <h1 className="mb-2 font-semibold text-brand-950 text-title-sm dark:text-white/90 sm:text-title-md">
-              Sign In
-            </h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">
-              Enter your email and password to sign in!
-            </p>
-          </div>
+    <>
+
+      <div className="flex flex-col flex-1">
+        <div className="flex flex-col justify-center flex-1 w-full max-w-md mx-auto">
           <div>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault(); // 👈 stop refresh
-                otpSent ? verifyOtp() : signIn();
-              }}
-            >
-              <div className="space-y-6">
-                <div>
-                  <Label>
-                    Mobile <span className="text-error-500">*</span>{" "}
-                  </Label>
-                  <Input
-                    name="mobile"
-                    placeholder="**********"
-                    value={formData.mobile}
-                    onChange={handleChange}
-                  // disabled={otpSent}
-                  />
-                  {error.mobile && <p className="text-red-500 text-sm">{error.mobile}</p>}
-                </div>
-                {
-                  otpSent && (
-                    <div>
-                      <Label>
-                        Otp <span className="text-error-500">*</span>{" "}
-                      </Label>
-                      {/* <Input
+            <div className="mb-5 sm:mb-8">
+              <h1 className="mb-2 font-semibold text-brand-950 text-title-sm dark:text-white/90 sm:text-title-md">
+                Sign In
+              </h1>
+              <p className="text-sm text-gray-500 dark:text-gray-400">
+                Enter your Mobile number and Otp to sign in!
+              </p>
+            </div>
+            <div>
+              <form
+                onSubmit={(e) => {
+                  e.preventDefault(); // 👈 stop refresh
+                  otpSent ? verifyOtp() : signIn();
+                }}
+              >
+                <div className="space-y-6">
+                  <div>
+                    <Label>
+                      Mobile <span className="text-error-500">*</span>{" "}
+                    </Label>
+                    <Input
+                      name="mobile"
+                      placeholder="**********"
+                      value={formData.mobile}
+                      onChange={handleChange}
+                    // disabled={otpSent}
+                    />
+                    {error.mobile && <p className="text-red-500 text-sm">{error.mobile}</p>}
+                  </div>
+                  {
+                    otpSent && (
+                      <div>
+                        <Label>
+                          Otp <span className="text-error-500">*</span>{" "}
+                        </Label>
+                        {/* <Input
                         name="otp"
                         placeholder="Enter your otp"
                         value={formData.otp}
                         onChange={handleChange}
                       /> */}
 
-                      <OtpInput
-                        value={formData.otp}
-                        onChange={(otp) => setFormData(prev => ({ ...prev, otp }))}
-                        numInputs={6}
-                        renderSeparator={<span className="text-white">-</span>}
-                        shouldAutoFocus
-                        renderInput={(props) => (
-                          <input
-                            {...props}
-                            style={{ width: "35px", height: "40px" }}
-                            className="border  border-gray-300 rounded-md text-center text-lg focus:outline-none focus:ring-2 focus:ring-[#251C4B] transition"
-                          />
-                        )}
-                      />
+                        <OtpInput
+                          value={formData.otp}
+                          onChange={(otp) => setFormData(prev => ({ ...prev, otp }))}
+                          numInputs={6}
+                          renderSeparator={<span className="text-white">-</span>}
+                          shouldAutoFocus
+                          renderInput={(props) => (
+                            <input
+                              {...props}
+                              style={{ width: "35px", height: "40px" }}
+                              className="border  border-gray-300 rounded-md text-center text-lg focus:outline-none focus:ring-2 focus:ring-[#251C4B] transition"
+                            />
+                          )}
+                        />
 
-                      {error.otp && <p className="text-red-500 text-sm">{error.otp}</p>}
-                    </div>
-                  )
-                }
+                        {error.otp && <p className="text-red-500 text-sm">{error.otp}</p>}
+                      </div>
+                    )
+                  }
 
-                {/* <div className="flex items-center justify-between">
+                  {/* <div className="flex items-center justify-between">
                   <div className="flex items-center gap-3">
                     <Checkbox checked={isChecked} onChange={setIsChecked} />
                     <span className="block font-normal text-gray-700 text-theme-sm dark:text-gray-400">
@@ -398,20 +402,20 @@ export default function SignInForm() {
                     Forgot password?
                   </Link>
                 </div> */}
-                <div>
-                  <Button className="w-full bg-brand-950" size="sm">
-                    {isLoading
-                      ? "Please wait..."
-                      : otpSent
-                        ? "Login"
-                        : "Send OTP"
-                    }
-                  </Button>
+                  <div>
+                    <Button className="w-full bg-brand-950" size="sm">
+                      {isLoading
+                        ? "Please wait..."
+                        : otpSent
+                          ? "Login"
+                          : "Send OTP"
+                      }
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </form>
+              </form>
 
-            {/* <div className="mt-5">
+              {/* <div className="mt-5">
               <p className="text-sm font-normal text-center text-gray-700 dark:text-gray-400 sm:text-start">
                 Don&apos;t have an account? {""}
                 <Link
@@ -422,10 +426,13 @@ export default function SignInForm() {
                 </Link>
               </p>
             </div> */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+
+     
+    </>
   );
 }
 

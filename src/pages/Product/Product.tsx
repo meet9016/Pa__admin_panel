@@ -5,6 +5,7 @@ import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import { useEffect, useState } from "react";
 import api from "../utils/axiosInstance";
 import endPointApi from "../utils/endPointApi";
+import { PlusIcon } from "../../icons";
 
 export interface Product {
   id: number;
@@ -36,10 +37,10 @@ export default function Product() {
         title="Product"
         description="This is React.js Basic Tables Dashboard page for TailAdmin"
       />
-      <PageBreadcrumb pageTitle="Product List" />
+      <PageBreadcrumb pageTitle="Products" />
       <div className="space-y-6">
         <ComponentCard
-
+          Plusicon={<PlusIcon />}
           addProduct="Add product"
           onAddProductClick="/add-product"
         >

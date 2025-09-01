@@ -7,6 +7,7 @@
 // }
 
 import { useNavigate } from "react-router";
+import { PlusIcon } from "../../icons";
 
 // const ComponentCard: React.FC<ComponentCardProps> = ({
 //   title,
@@ -68,6 +69,8 @@ interface ComponentCardProps {
   desc?: string; // Description text
   addProduct?: string // Add product
   onAddProductClick?: string; // new prop for click handler
+  Plusicon?: React.ReactNode;
+  dashboardTitle?: string;
 }
 
 const ComponentCard: React.FC<ComponentCardProps> = ({
@@ -75,8 +78,10 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   children,
   className = "",
   desc = "",
+  Plusicon = null,
   addProduct = "",
   onAddProductClick = "",
+  dashboardTitle = "",
 }) => {
   const navigate = useNavigate();
 
@@ -95,13 +100,19 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
               {desc}
             </p>
           )}
+          <h3 className="font-semibold text-[18px]">
+            {dashboardTitle}
+          </h3>
         </div>
 
         {addProduct && (
-          <button onClick={() => navigate(onAddProductClick)} className="bg-brand-950 text-white px-4 py-2 rounded-md text-sm font-medium transition">
-            {addProduct}
+          <button onClick={() => navigate(onAddProductClick)} className="bg-brand-950 text-white px-4 py-2 rounded-md text-sm font-medium transition flex items-center gap-2">
+            {Plusicon} {addProduct}
           </button>
         )}
+
+
+
       </div>
 
 

@@ -440,7 +440,7 @@ export default function ProductForm() {
   );
 
   return (
-    <ComponentCard title="Products Description">
+    <ComponentCard title={productId ? "Update Product" : ""}>
       <div className="relative">
         {/* overlay loader */}
         {loading && (
