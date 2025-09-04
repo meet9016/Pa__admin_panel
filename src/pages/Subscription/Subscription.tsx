@@ -8,6 +8,7 @@ import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
 import { PlusIcon } from "../../icons";
 
+
 export default function Subscription() {
   const [products, setProducts] = useState([]);
   // const [expandedRows, setExpandedRows] = useState(null);
@@ -29,19 +30,25 @@ export default function Subscription() {
     fetchData();
   }, []);
 
+  const formatDate = (value: string) => {
+    // console.log(value, 'valueeeeeee');
+    if (!value) return "";
+    return value.split(" ")[0];
+  };
+
+
   return (
     <>
       <PageMeta
-        title="Billing"
+        title="Invoice"
         description="This is React.js Basic Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
       {/* <PageBreadcrumb pageTitle="Billings" /> */}
-
       <div className="space-y-6">
         <ComponentCard
-          title="Billing List"
+          title="Invoice List"
           Plusicon={<PlusIcon />}
-          addProduct="Upgrade Plan"
+        // addProduct="Upgrade Plan"
         >
           <div className="card">
             <Toast ref={toast} />
@@ -53,12 +60,39 @@ export default function Subscription() {
               tableStyle={{ minWidth: "60rem" }}
             >
               <Column style={{ width: "5rem" }} />
+              <Column field="no" header="No." sortable />
               <Column field="invoice_no" header="Invoice No" sortable />
               <Column field="txnid" header="Transection Id" sortable />
-              <Column field="cdate" header="Payment Date" sortable />
-              <Column field="starting_date" header="Starting Date" sortable />
-              <Column field="ending_date" header="Ending Date" sortable />
-              <Column field="amount" header="Amount" sortable />
+              <Column
+                field="cdate"
+                header="Payment Date"
+                body={(rowData) => formatDate(rowData.cdate)}
+                sortable
+              />
+              <Column
+                field="starting_date"
+                header="Starting Date"
+                body={(rowData) => formatDate(rowData.starting_date)}
+                sortable
+              />
+              <Column
+                field="ending_date"
+                header="Ending Date"
+                body={(rowData) => formatDate(rowData.ending_date)}
+                sortable
+              />
+              {/* <Column field="amount" header="Amount" sortable /> */}
+              <Column
+                field="amount"
+                header="Amount"
+                body={(rowData) => (
+                  <span className="flex items-center gap-1">
+                    ₹ {rowData.amount}
+                  </span>
+                )}
+                sortable
+              />
+
             </DataTable>
           </div>
         </ComponentCard>

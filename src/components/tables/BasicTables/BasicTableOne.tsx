@@ -42,7 +42,7 @@ export default function BasicTableOne({ productsData }: Props) {
           className="pi pi-trash cursor-pointer"
           style={{ color: 'red' }}
           onClick={() => {
-             setSelectedProductId((rowData as any).product_id);
+            setSelectedProductId((rowData as any).product_id);
             setIsDialogOpen(true);
           }}
         ></i>
@@ -80,10 +80,16 @@ export default function BasicTableOne({ productsData }: Props) {
         paginator rows={10}
         rowsPerPageOptions={[10, 20, 50]}
       >
+        <Column field="no" header="No." sortable></Column>
         <Column body={imageBodyTemplate} header="Image" sortable></Column>
         <Column field="product_name" header="Product Name" sortable></Column>
         <Column field="category_name" header="Category" sortable></Column>
-        <Column field="price" header="Price" sortable></Column>
+        <Column field="price" body={(rowData) => (
+          <span className="flex items-center gap-1">
+            ₹ {rowData.price}
+          </span>
+        )} header="MRP" sortable>
+        </Column>
         {/* <Column field="cancle_price" header="Cancel Price" sortable></Column>
         <Column field="sub_category_name" header="Sub Category" sortable></Column> */}
         <Column body={actionBodyTemplate} header="Action"></Column>

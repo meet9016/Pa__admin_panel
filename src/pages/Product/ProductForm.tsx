@@ -476,7 +476,7 @@ export default function ProductForm() {
                   className="absolute inset-y-0 right-0 flex items-center px-3 m-1 bg-[#251c4b] text-white font-medium rounded-md shadow-md transition-all duration-200"
                   title="Auto-fill with AI"
                 >
-                  AI
+                    ChatGpt
                 </button>
 
                 {/* <button
@@ -562,7 +562,7 @@ export default function ProductForm() {
           {/* Prices */}
           <div className="grid grid-cols-2 gap-6">
             <div>
-              <Label htmlFor="price">Price</Label>
+              <Label htmlFor="price">MRP</Label>
               <Input
                 type="text"
                 name="price"
@@ -575,7 +575,7 @@ export default function ProductForm() {
               />
             </div>
             <div>
-              <Label htmlFor="cancel_price">Cancel price</Label>
+              <Label htmlFor="cancel_price">Discounted price</Label>
               <Input
                 type="text"
                 name="cancel_price"
@@ -716,6 +716,7 @@ export default function ProductForm() {
               <MyCKEditor
                 value={productForm.description}
                 onChange={handleEditorChange}
+                
               />
             </div>
             <div>

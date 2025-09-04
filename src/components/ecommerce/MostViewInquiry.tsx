@@ -18,17 +18,6 @@ export default function MostViewInquiry({
   return (
     <>
       <div className="space-y-6">
-        {/* <ComponentCard
-                    dashboardTitle="Most Product Inquiry"
-                >
-                    <div className="card">
-                        <Toast ref={toast} />
-                        <DataTable value={productInquiry} scrollable responsiveLayout="scroll">
-                            <Column field="product_name" header="Product" />
-                            <Column field="total_inquiries" header="Inquiry" />
-                        </DataTable>
-                    </div>
-                </ComponentCard> */}
         <ComponentCard title="Most Product Inquiry">
           <div className="card h-[345px]">
             <Toast ref={toast} />
@@ -36,6 +25,7 @@ export default function MostViewInquiry({
               value={productInquiry}
               scrollable
               responsiveLayout="scroll"
+              
             >
               <Column field="product_name" header="Product" />
               <Column field="total_inquiries" header="Inquiry" />

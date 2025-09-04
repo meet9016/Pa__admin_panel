@@ -40,7 +40,7 @@ const navItems: NavItem[] = [
   },
   {
     icon:  <i className="pi pi-credit-card  text-xl"></i>,
-    name: "Billing",
+    name: "Invoice",
     path: "/subscription",
   },
   {

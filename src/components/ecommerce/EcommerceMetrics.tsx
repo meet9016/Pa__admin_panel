@@ -31,7 +31,7 @@ export default function EcommerceMetrics({ totalProducts, totalOrders }: props) 
           </div>
           <Badge color="success">
             <ArrowUpIcon />
-            11.01%
+            0.00%
           </Badge>
         </div>
       </div>
@@ -56,7 +56,7 @@ export default function EcommerceMetrics({ totalProducts, totalOrders }: props) 
 
           <Badge color="error">
             <ArrowDownIcon />
-            9.05%
+            0.00%
           </Badge>
         </div>
       </div>

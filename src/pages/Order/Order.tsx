@@ -38,6 +38,7 @@ export default function Order() {
     );
   };
 
+  
   const actionBodyTemplate = (rowData: any) => {
     return (
       <button
@@ -48,12 +49,20 @@ export default function Order() {
             console.log("No view_link available");
           }
         }}
-        className="p-button p-button-text p-button-sm"
+        className="flex items-center gap-2 px-4 py-2 rounded-lg 
+                 bg-[#251c4b] text-white 
+                 hover:bg-[#3a2d6e] hover:shadow-md 
+                 transition-all duration-200"
       >
-        <i className="pi pi-eye text-blue-600" style={{ fontSize: "1.2rem" }}></i>
+        <i className="pi pi-eye text-white text-base"></i>
+        <span className="text-sm font-medium">View Product</span>
       </button>
     );
   };
+
+
+
+
 
 
   const rowExpansionTemplate = (data: any) => {
@@ -95,11 +104,11 @@ export default function Order() {
               tableStyle={{ minWidth: "60rem" }}
             >
               <Column style={{ width: "5rem" }} />
-              <Column field="order_date" header="Inquiry Date" sortable />
               <Column field="order_number" header="Inquiry Number" sortable />
               <Column field="user_name" header="Name" sortable />
               <Column field="mobile_number" header="Whatsapp No." sortable />
-              <Column field="product_count" header="Product Count" sortable />
+              <Column field="order_date" header="Inquiry Date" sortable />
+              {/* <Column field="product_count" header="Product Count" sortable /> */}
               <Column header="Action" body={actionBodyTemplate} />
             </DataTable>
           </div>
