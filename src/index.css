@@ -1,5 +1,6 @@
 @import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&display=swap") layer(base);
 
+
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
@@ -861,4 +862,3 @@ span.flatpickr-weekday,
 .simplebar-scrollbar.simplebar-visible:before {
   @apply opacity-100;
 }
-
