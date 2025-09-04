@@ -208,34 +208,6 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import ComponentCard from "../common/ComponentCard";
 import { Toast } from "primereact/toast";
 import { useRef } from "react";
@@ -245,7 +217,7 @@ import { Column } from "primereact/column";
 interface viewProductProps {
   viewProduct: {
     product_name: string;
-    total_views: number
+    total_views: number;
   }[];
 }
 
@@ -254,9 +226,7 @@ export default function RecentOrders({ viewProduct }: viewProductProps) {
   return (
     <>
       <div className="space-y-6">
-        <ComponentCard
-          dashboardTitle="Most View Product"
-        >
+        <ComponentCard title="Most View Product">
           <div className="card">
             <Toast ref={toast} />
             <DataTable value={viewProduct} responsiveLayout="scroll">

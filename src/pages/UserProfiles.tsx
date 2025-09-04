@@ -7,33 +7,31 @@ import { useEffect, useState } from "react";
 import api from "./utils/axiosInstance";
 import endPointApi from "./utils/endPointApi";
 
-
-
-
 export interface Product {
-  prefix: string,
-  first_name: string,
-  middle_name: string,
-  last_name: string,
-  full_name: string,
-  number: number,
-  gender: string,
-  address: string
-  company_name: string
+  prefix: string;
+  first_name: string;
+  middle_name: string;
+  last_name: string;
+  full_name: string;
+  number: number;
+  gender: string;
+  address: string;
+  company_name: string;
+  city: string;
+  pincode: string;
 }
 
 export default function UserProfiles() {
-  const [data, setData] = useState<Product[]>([]);
-
+  const [data, setData] = useState<Product | null>(null);
 
   useEffect(() => {
     const formData = new FormData();
-    formData.append('product_id', 'dVdSZWZEOW1XVWd6cEJzcXZsbTB4UT09')
+    formData.append("product_id", "dVdSZWZEOW1XVWd6cEJzcXZsbTB4UT09");
     const fetchData = async () => {
       try {
         const res = await api.post(`${endPointApi.profile}`, formData);
         if (res.data && res.data.data) {
-          setData(res.data.data as Product[]);
+          setData(res.data.data as Product);
         }
       } catch (error) {
         console.log("API Error", error);
@@ -53,11 +51,13 @@ export default function UserProfiles() {
         <h3 className="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">
           Profile
         </h3>
-        <div className="space-y-6">
-          <UserMetaCard user={data} />
-          <UserInfoCard user={data} />
-          <UserAddressCard user={data}/>
-        </div>
+        {data && (
+          <div className="space-y-6">
+            <UserMetaCard user={data} />
+            <UserInfoCard user={data} />
+            <UserAddressCard user={data} />
+          </div>
+        )}
       </div>
     </>
   );

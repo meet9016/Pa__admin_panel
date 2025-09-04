@@ -3,7 +3,7 @@ import { ProductData } from "../../../pages/Product/ProductForm";
 import endPointApi from "../../../pages/utils/endPointApi";
 import api from "../../../pages/utils/axiosInstance";
 
-interface DropzoneProps {
+export interface DropzoneProps {
   productForm: ProductData;
   setProductForm: React.Dispatch<React.SetStateAction<ProductData>>;
   error: string | undefined;
@@ -14,10 +14,10 @@ interface DropzoneProps {
   >;
 }
 const DropzoneComponent: React.FC<DropzoneProps> = ({
-  productForm,
-  setProductForm,
-  error,
-  setErrors,
+  productForm = {} as ProductData,
+  setProductForm = () => {},
+  error = "",
+  setErrors = () => {},
 }) => {
   const onDrop = (acceptedFiles: File[]) => {
     setProductForm((prev) => ({

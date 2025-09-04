@@ -193,10 +193,9 @@
 
 
 import { useState } from "react";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import Label from "../form/Label";
 import Input from "../form/input/InputField";
-import Checkbox from "../form/input/Checkbox";
 import Button from "../ui/button/Button";
 import { saveToken } from "../../pages/utils/tokenManager";
 import endPointApi from "../../pages/utils/endPointApi";
@@ -207,8 +206,13 @@ import OtpInput from 'react-otp-input';
 
 type FormData = {
   mobile: string;
-  // otp: string;
+  otp: string;
 };
+
+interface ErrorState {
+  mobile?: string;
+  otp?: string;
+}
 
 export default function SignInForm() {
   const navigate = useNavigate();
@@ -218,8 +222,9 @@ export default function SignInForm() {
     otp: "",
   });
 
-  const [isChecked, setIsChecked] = useState(false);
-  const [error, setError] = useState<{ mobile?: string; otp?: string }>({});
+  // const [error, setError] = useState<{ mobile?: string; otp?: string }>({});
+  const [error, setError] = useState<ErrorState>({});
+
   const [isLoading, setIsLoading] = useState(false);
   const [otpSent, setOtpSent] = useState(false);
   
@@ -258,7 +263,6 @@ export default function SignInForm() {
 
       formdata.append("number", formData.mobile || "");
       const res = await api.post(`${endPointApi.loginUser}`, formdata);
-      console.log("res", res.data.data.user);
 
       if (res.data.status == 200) {
         // saveToken(res.data.data.token);
@@ -283,7 +287,7 @@ export default function SignInForm() {
   };
 
   const verifyOtp = async () => {
-    let newErrors: { mobile?: string } = {};
+    const newErrors: ErrorState = {};
 
     if (!formData.otp) {
       newErrors.otp = "OTP is required";
@@ -310,7 +314,6 @@ export default function SignInForm() {
         );
         toast.success(res.data.message);
         navigate("/");
-        setShowModal(true);
       } else {
         toast.error(res.data.message)
       }

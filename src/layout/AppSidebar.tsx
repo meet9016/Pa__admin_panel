@@ -5,14 +5,8 @@ import { Link, useLocation } from "react-router";
 import {
   BoxCubeIcon,
   ChevronDownIcon,
-  DownloadIcon,
-  EyeIcon,
   GridIcon,
-  GroupIcon,
   HorizontaLDots,
-  PageIcon,
-  UserCircleIcon,
-
 } from "../icons";
 import { useSidebar } from "../context/SidebarContext";
 
@@ -40,9 +34,19 @@ const navItems: NavItem[] = [
     path: "/product",
   },
   {
-    icon: <PageIcon />,
+    icon: <i className="pi pi-whatsapp text-xl"></i>,
     name: "Inquiry",
     path: "/order",
+  },
+  {
+    icon:  <i className="pi pi-credit-card  text-xl"></i>,
+    name: "Billing",
+    path: "/subscription",
+  },
+  {
+    icon: <i className="pi pi-phone text-xl"></i>,
+    name: "Support",
+    path: "/support",
   },
   // {
   //   name: "Forms",

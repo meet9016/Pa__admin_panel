@@ -15,18 +15,21 @@ export default function Home() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-
-        const res = await api.post(`${endPointApi.home}`, {})
+        const res = await api.post(`${endPointApi.home}`, {});
         if (res.data && res.data.data) {
-          setDashboardData(res.data.data)
+          setDashboardData(res.data.data);
           setYearlyInquiry(res.data.data.yearly_inquiry || []);
+          localStorage.setItem(
+            "userData",
+            JSON.stringify(res.data.data.user_data)
+          );
         }
       } catch (error) {
         console.log("API Error", error);
       }
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
   return (
     <>
       <PageMeta
@@ -35,23 +38,17 @@ export default function Home() {
       />
       <div className="grid grid-cols-12 gap-4 md:gap-6">
         <div className="col-span-12 space-y-6 xl:col-span-7">
-          {
-            dashboardData && (
-              <EcommerceMetrics
-                totalProducts={dashboardData.total_products}
-                totalOrders={dashboardData.total_order}
-              />
-            )
-          }
+          {dashboardData && (
+            <EcommerceMetrics
+              totalProducts={dashboardData.total_products}
+              totalOrders={dashboardData.total_order}
+            />
+          )}
 
-          <MonthlySalesChart
-            yearlyInquiry={yearlyInquiry}
-          />
-
+          <MonthlySalesChart yearlyInquiry={yearlyInquiry} />
         </div>
 
         <div className="col-span-12 xl:col-span-5">
-          {/* <MonthlyTarget /> */}
           <MostViewInquiry
             productInquiry={dashboardData?.most_product_inquiry || []}
           />
@@ -63,9 +60,7 @@ export default function Home() {
 
         <div className="col-span-12 xl:col-span-5">
           {/* <DemographicCard /> */}
-          <RecentOrders
-            viewProduct={dashboardData?.most_view_location || []}
-          />
+          <RecentOrders viewProduct={dashboardData?.most_view_location || []} />
         </div>
 
         <div className="col-span-12 xl:col-span-7">
@@ -78,11 +73,6 @@ export default function Home() {
           />
         </div>
       </div>
-
-
-
-
-      
     </>
   );
 }

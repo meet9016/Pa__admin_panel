@@ -4,15 +4,16 @@ import Button from "../ui/button/Button";
 import Input from "../form/input/InputField";
 import Label from "../form/Label";
 
-
 interface UserAddressCardProps {
-  user?: {
-    address: string
+  user: {
+    city: string;
+    pincode: string;
+    address: string;
   };
 }
 
 export default function UserAddressCard({ user }: UserAddressCardProps) {
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, closeModal } = useModal();
   const handleSave = () => {
     // Handle save logic here
     console.log("Saving changes...");
@@ -30,20 +31,19 @@ export default function UserAddressCard({ user }: UserAddressCardProps) {
             <div className="grid grid-cols-1 gap-4 lg:grid-cols-2 lg:gap-7 2xl:gap-x-32">
               <div>
                 <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  Country
+                  Address
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  {/* United States. */}
-                  -
+                  {user ? `${user.address}` : "-"}
                 </p>
               </div>
 
               <div>
                 <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
-                  City/State
+                  City
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  {user ? `${user.address}` : "Loading.."}
+                  {user ? `${user.city}` : "Loading.."}
                 </p>
               </div>
 
@@ -52,20 +52,18 @@ export default function UserAddressCard({ user }: UserAddressCardProps) {
                   Postal Code
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  {/* ERT 2489 */}
-                  -
+                  {user ? `${user.pincode}` : "-"}
                 </p>
               </div>
 
-              <div>
+              {/* <div>
                 <p className="mb-2 text-xs leading-normal text-gray-500 dark:text-gray-400">
                   TAX ID
                 </p>
                 <p className="text-sm font-medium text-gray-800 dark:text-white/90">
-                  {/* AS4568384 */}
                   -
                 </p>
-              </div>
+              </div> */}
             </div>
           </div>
 

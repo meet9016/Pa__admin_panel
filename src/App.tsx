@@ -15,6 +15,8 @@ import Order from "./pages/Order/Order";
 import Toaster from "./components/common/Toaster";
 import Fail from "./pages/Payment/Fail";
 import Success from "./pages/Payment/Success";
+import Support from "./pages/Support/Support";
+import Subscription from "./pages/Subscription/Subscription";
 
 export default function App() {
   return (
@@ -30,6 +32,8 @@ export default function App() {
               <Route path="/profile" element={<UserProfiles />} />
               <Route path="/product" element={<Product />} />
               <Route path="/order" element={<Order />} />
+              <Route path="/subscription" element={<Subscription />} />
+              <Route path="/support" element={<Support />} />
               <Route path="/add-product" element={<ProductForm />} />
               <Route path="/form-elements" element={<FormElements />} />
               <Route path="/basic-tables" element={<BasicTables />} />

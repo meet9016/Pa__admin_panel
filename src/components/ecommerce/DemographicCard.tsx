@@ -114,41 +114,17 @@
 //   );
 // }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 import { useRef } from "react";
 import ComponentCard from "../common/ComponentCard";
 import { Toast } from "primereact/toast";
 import { DataTable } from "primereact/datatable";
 import { Column } from "primereact/column";
 
-
 interface viewLocationProps {
   viewLocation: {
     product_name: string;
-    city: string
-    total_views: number
+    city: string;
+    total_views: number;
   }[];
 }
 
@@ -158,12 +134,12 @@ export default function DemographicCard({ viewLocation }: viewLocationProps) {
     <>
       <div className="space-y-6">
         <ComponentCard
-          dashboardTitle="Most View Location"
+          title="Most View Location"
+          // dashboardTitle="Most View Location"
         >
           <div className="card">
             <Toast ref={toast} />
             <DataTable value={viewLocation} responsiveLayout="scroll">
-
               <Column field="product_name" header="Product" />
               <Column field="total_views" header="View" />
               <Column field="city" header="Location" />

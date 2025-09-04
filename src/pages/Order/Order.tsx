@@ -1,16 +1,16 @@
-import React, { useState, useEffect, useRef } from "react";
-import { DataTable } from "primereact/datatable";
+import { useState, useEffect, useRef } from "react";
+import { DataTable, DataTableExpandedRows } from "primereact/datatable";
 import { Column } from "primereact/column";
 import { Toast } from "primereact/toast";
 import api from "../utils/axiosInstance";
 import endPointApi from "../utils/endPointApi";
 import PageMeta from "../../components/common/PageMeta";
-import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import ComponentCard from "../../components/common/ComponentCard";
 
 export default function Order() {
   const [products, setProducts] = useState([]);
-  const [expandedRows, setExpandedRows] = useState(null);
+  // const [expandedRows, setExpandedRows] = useState(null);
+  const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>({});
   const toast = useRef(null);
 
   useEffect(() => {
@@ -27,10 +27,6 @@ export default function Order() {
     fetchData();
   }, []);
 
-  // const allowExpansion = (rowData: any) => {
-  //   return rowData?.order_items?.length > 0;
-  // };
-
   const imageBodyTemplate = (rowData: any) => {
     return (
       <img
@@ -41,9 +37,6 @@ export default function Order() {
       />
     );
   };
-  // const priceTemplate = (rowData: any) => {
-  //   return `₹ ${rowData.price}`;
-  // };
 
   const actionBodyTemplate = (rowData: any) => {
     return (
@@ -88,15 +81,15 @@ export default function Order() {
         title="inquiry"
         description="This is React.js Basic Tables Dashboard page for TailAdmin - React.js Tailwind CSS Admin Dashboard Template"
       />
-      <PageBreadcrumb pageTitle="Inquirys" />
+      {/* <PageBreadcrumb pageTitle="Inquirys" /> */}
       <div className="space-y-6">
-        <ComponentCard >
+        <ComponentCard title="Inquiry List">
           <div className="card">
             <Toast ref={toast} />
             <DataTable
               value={products}
               expandedRows={expandedRows}
-              onRowToggle={(e) => setExpandedRows(e.data)}
+              onRowToggle={(e: any) => setExpandedRows(e.data)}
               rowExpansionTemplate={rowExpansionTemplate}
               dataKey="id"
               tableStyle={{ minWidth: "60rem" }}
@@ -108,11 +101,6 @@ export default function Order() {
               <Column field="mobile_number" header="Whatsapp No." sortable />
               <Column field="product_count" header="Product Count" sortable />
               <Column header="Action" body={actionBodyTemplate} />
-              {/* <Column
-                field="final_total_amount"
-                header="Total Amount"
-                sortable
-              /> */}
             </DataTable>
           </div>
         </ComponentCard>

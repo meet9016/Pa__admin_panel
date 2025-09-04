@@ -1,7 +1,6 @@
 import ComponentCard from "../../components/common/ComponentCard";
 import BasicTableOne from "../../components/tables/BasicTables/BasicTableOne";
 import PageMeta from "../../components/common/PageMeta";
-import PageBreadcrumb from "../../components/common/PageBreadCrumb";
 import { useEffect, useState } from "react";
 import api from "../utils/axiosInstance";
 import endPointApi from "../utils/endPointApi";
@@ -37,9 +36,10 @@ export default function Product() {
         title="Product"
         description="This is React.js Basic Tables Dashboard page for TailAdmin"
       />
-      <PageBreadcrumb pageTitle="Products" />
+      {/* <PageBreadcrumb pageTitle="Products" /> */}
       <div className="space-y-6">
         <ComponentCard
+          title="Product List"
           Plusicon={<PlusIcon />}
           addProduct="Add product"
           onAddProductClick="/add-product"

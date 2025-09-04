@@ -3,7 +3,6 @@ import { ApexOptions } from "apexcharts";
 import { useState } from "react";
 import { Dropdown } from "../ui/dropdown/Dropdown";
 import { DropdownItem } from "../ui/dropdown/DropdownItem";
-import { MoreDotIcon } from "../../icons";
 
 export default function MonthlyTarget() {
   const series = [75.55];
@@ -57,10 +56,6 @@ export default function MonthlyTarget() {
     labels: ["Progress"],
   };
   const [isOpen, setIsOpen] = useState(false);
-
-  function toggleDropdown() {
-    setIsOpen(!isOpen);
-  }
 
   function closeDropdown() {
     setIsOpen(false);

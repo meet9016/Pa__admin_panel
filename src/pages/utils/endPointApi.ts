@@ -13,6 +13,7 @@ export interface EndPointApi {
     productImageDelete: string
     addProductAI: string
     home: string
+    supplierBilling: string
 
     //payment
     subscriptiosCheckStatus: string
@@ -34,7 +35,7 @@ const endPointApi: EndPointApi = {
     productImageDelete: 'supplier-delete-product-image',
     addProductAI: 'supplier-ai-to-product-details',
     home: 'supplier-home',
-
+    supplierBilling:'supplier-billing',
     //payment
     subscriptiosCheckStatus:'subscriptios-check-status'
 };

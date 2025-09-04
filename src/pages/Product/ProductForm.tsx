@@ -32,6 +32,7 @@ interface ApiProductDetail {
   images?: string[];
   category_name?: string;
   sub_category_name?: string;
+  search_keywords?: string;
   product_details?: {
     specification: string;
     detail: string;
@@ -98,7 +99,7 @@ export default function ProductForm() {
   const [selectedSubCategory, setSelectedSubCategory] =
     useState<CategoryOption | null>(null);
 
-  const [aiData, setAiData] = useState<AiResp | null>(null);
+  // const [aiData, setAiData] = useState<AiResp | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
   const [productForm, setProductForm] = useState<ProductData>({
@@ -323,7 +324,7 @@ export default function ProductForm() {
           if (match) setSelectedSubCategory(match);
         }
 
-        setAiData(ai);
+        // setAiData(ai);
       }
     } catch (err) {
       console.log("Error (AI):", err);
@@ -399,8 +400,8 @@ export default function ProductForm() {
       fd.append("product_name", productForm.name);
       fd.append("price", productForm.price);
       fd.append("cancle_price", productForm.cancel_price);
-      fd.append("description", productForm.description);
-      fd.append("long_description", productForm.shortDescription ?? "");
+      fd.append("description", productForm.shortDescription);
+      fd.append("long_description", productForm.description ?? "");
       fd.append("sku", productForm.sku ?? "");
       fd.append("search_keywords", productForm.searchkey ?? "");
 
@@ -446,7 +447,7 @@ export default function ProductForm() {
         {loading && (
           <div className="absolute inset-0 flex justify-center items-center  backdrop-blur-sm z-20">
             <img
-              src="../public/images/Aigif.gif"
+              src="https://superadmin.progressalliance.org/upload/web_logo/Aigif.gif"
               alt="Loading..."
               className="w-50 h-40 border border-gray-300 rounded-md"
             />
@@ -723,7 +724,7 @@ export default function ProductForm() {
                 productForm={productForm}
                 error={errors.image}
                 setErrors={setErrors}
-                productId={productId as any}
+                // productId={productId as any}
               />
             </div>
           </div>

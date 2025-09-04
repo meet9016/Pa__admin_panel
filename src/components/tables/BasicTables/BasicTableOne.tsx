@@ -35,14 +35,14 @@ export default function BasicTableOne({ productsData }: Props) {
         <i
           className="pi pi-pen-to-square cursor-pointer"
           style={{ color: 'green' }}
-          onClick={() => navigate('/add-product', { state: { productId: rowData.product_id } })}
+          onClick={() => navigate('/add-product', { state: { productId: (rowData as any).product_id } })}
         ></i>
 
         <i
           className="pi pi-trash cursor-pointer"
           style={{ color: 'red' }}
           onClick={() => {
-            setSelectedProductId(rowData.product_id);
+             setSelectedProductId((rowData as any).product_id);
             setIsDialogOpen(true);
           }}
         ></i>
@@ -60,7 +60,7 @@ export default function BasicTableOne({ productsData }: Props) {
       const res = await api.post(`${endPointApi.deleteProduct}`, formData);
       if (res.data && res.data.data) {
         setTableData((prevData) =>
-          prevData.filter((item) => item.product_id !== selectedProductId)
+          prevData.filter((item: any) => item.product_id !== selectedProductId)
         );
         setIsDialogOpen(false);
         setSelectedProductId(null);
