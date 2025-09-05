@@ -476,8 +476,11 @@ export default function ProductForm() {
                   className="absolute inset-y-0 right-0 flex items-center px-3 m-1 bg-[#251c4b] text-white font-medium rounded-md shadow-md transition-all duration-200"
                   title="Auto-fill with AI"
                 >
-                    ChatGpt
+                  ChatGpt
                 </button>
+
+
+
 
                 {/* <button
                   type="button"
@@ -526,9 +529,8 @@ export default function ProductForm() {
                 filter
                 valueTemplate={selectedCategoryTemplate}
                 itemTemplate={categoryOptionTemplate}
-                className={`w-full md:w-14rem ${
-                  errors.category ? "p-invalid" : ""
-                }`}
+                className={`w-full md:w-14rem ${errors.category ? "p-invalid" : ""
+                  }`}
               />
               {errors.category && (
                 <small className="p-error">{errors.category}</small>
@@ -549,9 +551,8 @@ export default function ProductForm() {
                 filter
                 valueTemplate={selectedCategoryTemplate}
                 itemTemplate={categoryOptionTemplate}
-                className={`w-full md:w-14rem ${
-                  errors.sub_category ? "p-invalid" : ""
-                }`}
+                className={`w-full md:w-14rem ${errors.sub_category ? "p-invalid" : ""
+                  }`}
               />
               {errors.sub_category && (
                 <small className="p-error">{errors.sub_category}</small>
@@ -618,7 +619,7 @@ export default function ProductForm() {
           </div>
 
           {/* Specifications & Details */}
-          <div className="col-span-2">
+          {/* <div className="col-span-2">
             <div className="flex items-center justify-between mb-3">
               <Label
                 htmlFor="specifications"
@@ -708,7 +709,99 @@ export default function ProductForm() {
                 </div>
               ))}
             </div>
+          </div> */}
+
+
+          <div className="col-span-2">
+            <div className="flex items-center justify-between mb-3">
+              <Label
+                htmlFor="specifications"
+                className="block text-gray-700 font-semibold text-sm sm:text-base"
+              >
+                Specifications & Details
+              </Label>
+              <button
+                type="button"
+                onClick={() =>
+                  setProductForm((prev) => ({
+                    ...prev,
+                    specifications: [...prev.specifications, ""],
+                    details: [...prev.details, ""],
+                  }))
+                }
+                className="bg-brand-950 text-white w-8 h-8 flex items-center justify-center rounded-md transition-colors duration-200"
+              >
+                <i className="pi pi-plus text-xs"></i>
+              </button>
+            </div>
+
+            <div className="space-y-3">
+              {productForm.specifications.map((spec, index) => (
+                <div key={index} className="grid grid-cols-12 gap-3 items-center">
+                  {/* Specification */}
+                  <div className="col-span-6">
+                    <Input
+                      type="text"
+                      name={`specification_${index}`}
+                      value={spec}
+                      onChange={(e) => {
+                        handleSpecificationChange(index, e.target.value);
+                        setErrors((prev) => ({ ...prev, specifications: "" }));
+                      }}
+                      placeholder={`Specification ${index + 1}`}
+                      error={!!errors.specifications && !spec.trim()}
+                    />
+                    {errors.specifications && !spec.trim() && (
+                      <p className="text-error-500 text-xs mt-1">
+                        {errors.specifications}
+                      </p>
+                    )}
+                  </div>
+
+                  {/* Detail + Minus Button */}
+                  <div className="col-span-6 flex items-center gap-2">
+                    <div className="flex-1">
+                      <Input
+                        type="text"
+                        name={`detail_${index}`}
+                        value={productForm.details[index] ?? ""}
+                        onChange={(e) => {
+                          handleDetailChange(index, e.target.value);
+                          setErrors((prev) => ({ ...prev, details: "" }));
+                        }}
+                        placeholder={`Detail ${index + 1}`}
+                        error={!!errors.details && !productForm.details[index]?.trim()}
+                      />
+                      {errors.details && !productForm.details[index]?.trim() && (
+                        <p className="text-error-500 text-xs mt-1">
+                          {errors.details}
+                        </p>
+                      )}
+                    </div>
+
+                    {index > 0 && (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setProductForm((prev) => ({
+                            ...prev,
+                            specifications: prev.specifications.filter((_, i) => i !== index),
+                            details: prev.details.filter((_, i) => i !== index),
+                          }));
+                        }}
+                        className="border border-brand-950 text-white w-8 h-8 flex items-center justify-center rounded-md transition-colors duration-200"
+                        title="Remove row"
+                      >
+                        <i className="pi pi-minus text-xs text-brand-950"></i>
+                      </button>
+                    )}
+                  </div>
+                </div>
+              ))}
+
+            </div>
           </div>
+
 
           {/* Description + Images */}
           <div className="grid grid-cols-2 gap-6">
@@ -716,7 +809,7 @@ export default function ProductForm() {
               <MyCKEditor
                 value={productForm.description}
                 onChange={handleEditorChange}
-                
+
               />
             </div>
             <div>
@@ -725,7 +818,7 @@ export default function ProductForm() {
                 productForm={productForm}
                 error={errors.image}
                 setErrors={setErrors}
-                // productId={productId as any}
+              // productId={productId as any}
               />
             </div>
           </div>

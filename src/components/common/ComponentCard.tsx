@@ -6,6 +6,8 @@
 //   addProduct?: string // Add product
 // }
 
+import { DataTable } from "primereact/datatable";
+import React from "react";
 import { useNavigate } from "react-router";
 
 // const ComponentCard: React.FC<ComponentCardProps> = ({
@@ -83,6 +85,26 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
   dashboardTitle = "",
 }) => {
   const navigate = useNavigate()
+
+  const elementContainsDataTable = (node: React.ReactNode): boolean => {
+    const arr = React.Children.toArray(node);
+    for (const item of arr) {
+      if (!React.isValidElement(item)) continue;
+      const type: any = item.type;
+
+      if (type === DataTable) return true;
+      const typeName = type?.displayName || type?.name;
+      if (typeName === "DataTable") return true;
+      if ((item as any).props?.children) {
+        if (elementContainsDataTable((item as any).props.children)) return true;
+      }
+    }
+    return false;
+  };
+
+  const hasDataTable = elementContainsDataTable(children);
+
+
   return (
     <div
       className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
@@ -115,7 +137,16 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
 
 
       {/* Card Body */}
-      <div className="p-4 border-t border-gray-100 dark:border-gray-800 sm:p-4">
+      {/* <div className="p-4 border-t border-gray-100 dark:border-gray-800 sm:p-4">
+        <div className="space-y-6">{children}</div>
+      </div> */}
+      <div
+        className={
+          hasDataTable
+            ? "p-0 border-t border-gray-100 dark:border-gray-800 sm:p-0"
+            : "p-4 border-t border-gray-100 dark:border-gray-800 sm:p-4"
+        }
+      >
         <div className="space-y-6">{children}</div>
       </div>
 

@@ -38,7 +38,7 @@ export default function Order() {
     );
   };
 
-  
+
   const actionBodyTemplate = (rowData: any) => {
     return (
       <button
@@ -102,6 +102,7 @@ export default function Order() {
               rowExpansionTemplate={rowExpansionTemplate}
               dataKey="id"
               tableStyle={{ minWidth: "60rem" }}
+              emptyMessage="No product found"
             >
               <Column style={{ width: "5rem" }} />
               <Column field="order_number" header="Inquiry Number" sortable />

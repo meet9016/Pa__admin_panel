@@ -79,6 +79,7 @@ export default function BasicTableOne({ productsData }: Props) {
         tableStyle={{ minWidth: '60rem' }}
         paginator rows={10}
         rowsPerPageOptions={[10, 20, 50]}
+        emptyMessage="No product found"
       >
         <Column field="no" header="No." sortable></Column>
         <Column body={imageBodyTemplate} header="Image" sortable></Column>

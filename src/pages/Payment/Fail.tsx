@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 
 const Fail = () => {
- const navigate = useNavigate()
+  const navigate = useNavigate()
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, []);
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50 px-4">
       {/* Red circle with cross */}

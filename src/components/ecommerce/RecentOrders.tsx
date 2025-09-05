@@ -229,7 +229,11 @@ export default function RecentOrders({ viewProduct }: viewProductProps) {
         <ComponentCard title="Most View Product">
           <div className="card">
             <Toast ref={toast} />
-            <DataTable value={viewProduct} responsiveLayout="scroll">
+            <DataTable
+              value={viewProduct}
+              responsiveLayout="scroll"
+               emptyMessage="No product found"
+            >
               <Column field="product_name" header="Product" />
               <Column field="total_views" header="View" />
             </DataTable>

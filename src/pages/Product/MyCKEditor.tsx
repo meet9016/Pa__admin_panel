@@ -19,6 +19,15 @@ const MyCKEditor: React.FC<Props> = ({ value, onChange }) => {
         onChange(data) // call parent handler
         console.log("CKEditor Data:", data)
       }}
+
+      onReady={editor => {
+        // Set fixed height
+        const editable = editor.ui.getEditableElement()
+        if (editable) {
+          editable.style.height = '260px'
+          // editable.style.borderRadius = '8px'
+        }
+      }}
       config={{
         toolbar: [
           'heading',

@@ -25,7 +25,7 @@ export default function MostViewInquiry({
               value={productInquiry}
               scrollable
               responsiveLayout="scroll"
-              
+               emptyMessage="No product found"
             >
               <Column field="product_name" header="Product" />
               <Column field="total_inquiries" header="Inquiry" />

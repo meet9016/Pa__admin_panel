@@ -58,6 +58,7 @@ export default function Subscription() {
               onRowToggle={(e: any) => setExpandedRows(e.data)}
               dataKey="id"
               tableStyle={{ minWidth: "60rem" }}
+              emptyMessage="No product found"
             >
               <Column style={{ width: "5rem" }} />
               <Column field="no" header="No." sortable />
