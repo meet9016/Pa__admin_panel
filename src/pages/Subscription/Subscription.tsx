@@ -36,6 +36,28 @@ export default function Subscription() {
     return value.split(" ")[0];
   };
 
+  const actionBodyTemplate = (rowData: any) => {
+    console.log("rowData",rowData);
+    
+    return (
+      <button
+        onClick={() => {
+          if (rowData.invoive_link) {
+            window.open(rowData.invoive_link, "_blank");
+          } else {
+            console.log("No view_link available");
+          }
+        }}
+        className="flex items-center gap-2 px-4 py-2 rounded-lg 
+                 bg-[#251c4b] text-white 
+                 hover:bg-[#3a2d6e] hover:shadow-md 
+                 transition-all duration-200"
+      >
+        <i className="pi pi-download text-white text-base"></i>
+        {/* <span className="text-sm font-medium">Download</span> */}
+      </button>
+    );
+  };
 
   return (
     <>
@@ -93,7 +115,7 @@ export default function Subscription() {
                 )}
                 sortable
               />
-
+              <Column header="Action" body={(rowData) => actionBodyTemplate(rowData)} />
             </DataTable>
           </div>
         </ComponentCard>

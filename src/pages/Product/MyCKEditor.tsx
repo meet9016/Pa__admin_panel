@@ -21,13 +21,27 @@ const MyCKEditor: React.FC<Props> = ({ value, onChange }) => {
       }}
 
       onReady={editor => {
-        // Set fixed height
-        const editable = editor.ui.getEditableElement()
-        if (editable) {
-          editable.style.height = '260px'
-          // editable.style.borderRadius = '8px'
+        // Set fixed height to the DOM editable element
+        const editableDom = editor.ui.getEditableElement();
+        if (editableDom) {
+          editableDom.style.minHeight = '260px';
+          editableDom.style.height = '260px';
+          editableDom.style.maxHeight = '260px';
+          editableDom.style.overflowY = 'auto';
         }
+
+        // Set styles on the internal CKEditor view (for consistency)
+        editor.editing.view.change((writer) => {
+          const editableView = editor.editing.view.document.getRoot();
+          if (editableView) {
+            writer.setStyle('min-height', '260px', editableView);
+            writer.setStyle('height', '260px', editableView);
+            writer.setStyle('max-height', '260px', editableView);
+            writer.setStyle('overflow-y', 'auto', editableView);
+          }
+        });
       }}
+
       config={{
         toolbar: [
           'heading',

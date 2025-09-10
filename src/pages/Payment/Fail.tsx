@@ -36,7 +36,7 @@ const Fail = () => {
         className="px-6 py-2 bg-red-600 text-white rounded-lg shadow hover:bg-red-700 transition"
         onClick={() => navigate('/')}
       >
-        Go Back Home
+        Go Back Dashboard
       </button>
     </div>
   );

@@ -68,7 +68,7 @@ interface ComponentCardProps {
   children: React.ReactNode;
   className?: string; // Additional custom classes for styling
   desc?: string; // Description text
-  addProduct?: string // Add product
+  addProduct?: React.ReactNode; // Add product
   onAddProductClick?: string; // new prop for click handler
   Plusicon?: React.ReactNode;
   dashboardTitle?: string;

@@ -17,6 +17,9 @@ export interface EndPointApi {
 
     //payment
     subscriptiosCheckStatus: string
+
+    //Edit profile
+    supplierEditProfile: string
 }
 
 // Define and export the API endpoint object
@@ -37,7 +40,10 @@ const endPointApi: EndPointApi = {
     home: 'supplier-home',
     supplierBilling:'supplier-billing',
     //payment
-    subscriptiosCheckStatus:'subscriptios-check-status'
+    subscriptiosCheckStatus:'subscriptios-check-status',
+
+    //Edit
+    supplierEditProfile: 'supplier-edit-profile'
 };
 
 export default endPointApi;

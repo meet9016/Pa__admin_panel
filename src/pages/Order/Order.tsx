@@ -6,9 +6,20 @@ import api from "../utils/axiosInstance";
 import endPointApi from "../utils/endPointApi";
 import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
+interface Product {
+  order_number: string;
+  user_name: string;
+  mobile_number: string;
+  order_date: string;
+  product_count: string;
+  final_total_amount: string;
+  // Include other fields if needed
+}
+
 
 export default function Order() {
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
+
   // const [expandedRows, setExpandedRows] = useState(null);
   const [expandedRows, setExpandedRows] = useState<DataTableExpandedRows>({});
   const toast = useRef(null);
@@ -26,18 +37,6 @@ export default function Order() {
     };
     fetchData();
   }, []);
-
-  const imageBodyTemplate = (rowData: any) => {
-    return (
-      <img
-        src={rowData}
-        alt={rowData?.image}
-        width="64px"
-        className="shadow-4"
-      />
-    );
-  };
-
 
   const actionBodyTemplate = (rowData: any) => {
     return (
@@ -60,30 +59,6 @@ export default function Order() {
     );
   };
 
-
-
-
-
-
-  const rowExpansionTemplate = (data: any) => {
-    return (
-      <div className="p-3">
-        {/* <h5>Inquiry Product List</h5> */}
-        <DataTable value={data.order_items}>
-          <Column field="product_name" header="Product Name"></Column>
-          <Column field="quantity" header="Quantity"></Column>
-          <Column
-            field="product_image"
-            header="Product Image"
-            body={imageBodyTemplate}
-          ></Column>
-          {/* <Column field="price" header="Price" body={priceTemplate}></Column>
-          <Column field="sub_total" header="Sub Total"></Column> */}
-        </DataTable>
-      </div>
-    );
-  };
-
   return (
     <>
       <PageMeta
@@ -92,14 +67,17 @@ export default function Order() {
       />
       {/* <PageBreadcrumb pageTitle="Inquirys" /> */}
       <div className="space-y-6">
-        <ComponentCard title="Inquiry List">
+        <ComponentCard
+          title="Inquiry List"
+          // Plusicon={<DownloadIcon />}
+          
+        >
           <div className="card">
             <Toast ref={toast} />
             <DataTable
               value={products}
               expandedRows={expandedRows}
               onRowToggle={(e: any) => setExpandedRows(e.data)}
-              rowExpansionTemplate={rowExpansionTemplate}
               dataKey="id"
               tableStyle={{ minWidth: "60rem" }}
               emptyMessage="No product found"
@@ -114,7 +92,7 @@ export default function Order() {
             </DataTable>
           </div>
         </ComponentCard>
-      </div>
+      </div >
     </>
   );
 }

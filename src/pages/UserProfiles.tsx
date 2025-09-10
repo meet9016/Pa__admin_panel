@@ -1,11 +1,6 @@
 import PageBreadcrumb from "../components/common/PageBreadCrumb";
-import UserMetaCard from "../components/UserProfile/UserMetaCard";
 import UserInfoCard from "../components/UserProfile/UserInfoCard";
-import UserAddressCard from "../components/UserProfile/UserAddressCard";
 import PageMeta from "../components/common/PageMeta";
-import { useEffect, useState } from "react";
-import api from "./utils/axiosInstance";
-import endPointApi from "./utils/endPointApi";
 
 export interface Product {
   prefix: string;
@@ -22,23 +17,23 @@ export interface Product {
 }
 
 export default function UserProfiles() {
-  const [data, setData] = useState<Product | null>(null);
+  // const [data, setData] = useState<Product | null>(null);
 
-  useEffect(() => {
-    const formData = new FormData();
-    formData.append("product_id", "dVdSZWZEOW1XVWd6cEJzcXZsbTB4UT09");
-    const fetchData = async () => {
-      try {
-        const res = await api.post(`${endPointApi.profile}`, formData);
-        if (res.data && res.data.data) {
-          setData(res.data.data as Product);
-        }
-      } catch (error) {
-        console.log("API Error", error);
-      }
-    };
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const formData = new FormData();
+  //   formData.append("product_id", "dVdSZWZEOW1XVWd6cEJzcXZsbTB4UT09");
+  //   const fetchData = async () => {
+  //     try {
+  //       const res = await api.post(`${endPointApi.profile}`, formData);
+  //       if (res.data && res.data.data) {
+  //         setData(res.data.data as Product);
+  //       }
+  //     } catch (error) {
+  //       console.log("API Error", error);
+  //     }
+  //   };
+  //   fetchData();
+  // }, []);
 
   return (
     <>
@@ -48,16 +43,14 @@ export default function UserProfiles() {
       />
       <PageBreadcrumb pageTitle="Profile" />
       <div className="rounded-2xl border border-gray-200 bg-white p-5 dark:border-gray-800 dark:bg-white/[0.03] lg:p-6">
-        <h3 className="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">
+        {/* <h3 className="mb-5 text-lg font-semibold text-gray-800 dark:text-white/90 lg:mb-7">
           Profile
-        </h3>
-        {data && (
+        </h3> */}
           <div className="space-y-6">
-            <UserMetaCard user={data} />
-            <UserInfoCard user={data} />
-            <UserAddressCard user={data} />
+            {/* <UserMetaCard user={data} /> */}
+            <UserInfoCard />
+            {/* <UserAddressCard user={data} /> */}
           </div>
-        )}
       </div>
     </>
   );

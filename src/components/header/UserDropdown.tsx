@@ -6,7 +6,6 @@ import { Link } from "react-router";
 export default function UserDropdown() {
   const [isOpen, setIsOpen] = useState(false);
   const userData = JSON.parse(localStorage.getItem("userData") || "{}");
-  console.log("userData", userData);
 
   function toggleDropdown() {
     setIsOpen(!isOpen);

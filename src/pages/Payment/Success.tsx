@@ -35,10 +35,10 @@ const Success = () => {
 
       {/* Button */}
       <button
-        onClick={() => navigate("/")}
+        onClick={() => navigate("/profile")}
         className="px-6 py-2 bg-green-600 text-white rounded-lg shadow hover:bg-green-700 transition"
       >
-        Go Back Home
+        Go Back Dashboard
       </button>
     </div>
   );
