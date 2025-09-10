@@ -9,6 +9,7 @@ const AppHeader: React.FC = () => {
 
   const { isMobileOpen, toggleSidebar, toggleMobileSidebar } = useSidebar();
 
+
   const handleToggle = () => {
     if (window.innerWidth >= 1024) {
       toggleSidebar();
@@ -86,6 +87,7 @@ const AppHeader: React.FC = () => {
               className="dark:hidden"
               src="./images/logo/logo.png"
               alt="Logo"
+              width={"150px"}
             />
             <img
               className="hidden dark:block"
@@ -94,7 +96,7 @@ const AppHeader: React.FC = () => {
             />
           </Link>
 
-          <button
+          {/* <button
             onClick={toggleApplicationMenu}
             className="flex items-center justify-center w-10 h-10 text-gray-700 rounded-lg z-99999 hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-800 lg:hidden"
           >
@@ -112,7 +114,14 @@ const AppHeader: React.FC = () => {
                 fill="currentColor"
               />
             </svg>
-          </button>
+          </button> */}
+       <div
+  className={`flex items-center justify-between w-auto sm:w-full gap-4 px-2 py-2 sm:px-5 sm:py-4 lg:justify-end lg:px-0 lg:shadow-none`}
+>
+  
+  <UserDropdown />
+</div>
+
 
           <div className="hidden lg:block">
             <form>
@@ -149,21 +158,16 @@ const AppHeader: React.FC = () => {
             </form>
           </div>
         </div>
-        <div
+        {/* <div
           className={`${
             isApplicationMenuOpen ? "flex" : "hidden"
           } items-center justify-between w-full gap-4 px-5 py-4 lg:flex shadow-theme-md lg:justify-end lg:px-0 lg:shadow-none`}
         >
           <div className="flex items-center gap-2 2xsm:gap-3">
-            {/* <!-- Dark Mode Toggler --> */}
-            {/* <ThemeToggleButton /> */}
-            {/* <!-- Dark Mode Toggler --> */}
-            {/* <NotificationDropdown /> */}
-            {/* <!-- Notification Menu Area --> */}
+           
           </div>
-          {/* <!-- User Area --> */}
           <UserDropdown />
-        </div>
+        </div> */}
       </div>
     </header>
   );

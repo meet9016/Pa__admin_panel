@@ -82,7 +82,7 @@ export default function Subscription() {
               tableStyle={{ minWidth: "60rem" }}
               emptyMessage="No product found"
             >
-              <Column style={{ width: "5rem" }} />
+              {/* <Column style={{ width: "5rem" }} /> */}
               <Column field="no" header="No." sortable />
               <Column field="invoice_no" header="Invoice No" sortable />
               <Column field="txnid" header="Transection Id" sortable />

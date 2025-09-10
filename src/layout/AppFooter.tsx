@@ -1,15 +1,23 @@
 const AppFooter: React.FC = () => {
   return (
-    <footer className="fixed bottom-0 left-0 w-full bg-white z-50 shadow-md">
-      <div className="lg:flex-row lg:px-6">
-        <div
-          className="items-center justify-between w-full gap-4 px-5 py-1 lg:flex lg:justify-end text-brand-950"
-        >
-          <span>Developed by, <strong>SHOPNO ECOMMERCE PVT LTD</strong></span>
+   <footer className="w-full bg-white shadow-md py-3">
+  <div className="container mx-auto px-4">
+    <p className="text-center text-sm text-gray-700">
+      © {new Date().getFullYear()} <span className="font-medium">Progress Alliance Foundation</span>. 
+      All Rights Reserved. | Designed with{" "}
+      <span className="text-red-500">❤</span> by{" "}
+      <a 
+        href="https://shopnoecommerce.com" 
+        target="_blank" 
+        rel="noopener noreferrer" 
+        className="text-blue-600 hover:underline font-medium"
+      >
+        Shopno E-commerce Private Limited
+      </a>
+    </p>
+  </div>
+</footer>
 
-        </div>
-      </div>
-    </footer>
 
 
 

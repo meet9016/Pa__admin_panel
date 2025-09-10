@@ -19,7 +19,12 @@ export default function MostViewInquiry({
     <>
       <div className="space-y-6">
         <ComponentCard title="Most Product Inquiry">
-          <div className="card h-[345px]">
+          <div className="
+  min-h-[250px] 
+  sm:min-h-[300px] 
+  md:min-h-[320px] 
+  lg:min-h-[390px]
+">
             <Toast ref={toast} />
             <DataTable
               value={productInquiry}

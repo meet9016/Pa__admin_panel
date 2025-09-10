@@ -82,7 +82,7 @@ export default function Order() {
               tableStyle={{ minWidth: "60rem" }}
               emptyMessage="No product found"
             >
-              <Column style={{ width: "5rem" }} />
+              {/* <Column style={{ width: "5rem" }} /> */}
               <Column field="order_number" header="Inquiry Number" sortable />
               <Column field="user_name" header="Name" sortable />
               <Column field="mobile_number" header="Whatsapp No." sortable />

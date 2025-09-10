@@ -1,14 +1,15 @@
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import 'primereact/resources/primereact.css';
-import 'primereact/resources/themes/lara-light-indigo/theme.css';
-import { Product } from '../../../pages/Product/Product';
-import 'primeicons/primeicons.css';
-import { useState, useEffect } from 'react';
-import DialogBox from '../../common/DialogBox';
-import api from '../../../pages/utils/axiosInstance';
-import endPointApi from '../../../pages/utils/endPointApi';
-import { useNavigate } from 'react-router';
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import "primereact/resources/primereact.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import { Product } from "../../../pages/Product/Product";
+import "primeicons/primeicons.css";
+import { useState, useEffect } from "react";
+import DialogBox from "../../common/DialogBox";
+import api from "../../../pages/utils/axiosInstance";
+import endPointApi from "../../../pages/utils/endPointApi";
+import { useNavigate } from "react-router";
+import { PencilIcon, PlusIcon, TrashBinIcon } from "../../../icons";
 
 type Props = {
   productsData: Product[];
@@ -19,7 +20,6 @@ export default function BasicTableOne({ productsData }: Props) {
   const [selectedProductId, setSelectedProductId] = useState<any>(null);
   const [tableData, setTableData] = useState<Product[]>([]);
   const navigate = useNavigate();
-
 
   useEffect(() => {
     setTableData(productsData);
@@ -34,13 +34,17 @@ export default function BasicTableOne({ productsData }: Props) {
       <div className="flex gap-5">
         <i
           className="pi pi-pen-to-square cursor-pointer"
-          style={{ color: 'green' }}
-          onClick={() => navigate('/add-product', { state: { productId: (rowData as any).product_id } })}
+          style={{ color: "green" }}
+          onClick={() =>
+            navigate("/add-product", {
+              state: { productId: (rowData as any).product_id },
+            })
+          }
         ></i>
 
         <i
           className="pi pi-trash cursor-pointer"
-          style={{ color: 'red' }}
+          style={{ color: "red" }}
           onClick={() => {
             setSelectedProductId((rowData as any).product_id);
             setIsDialogOpen(true);
@@ -50,12 +54,10 @@ export default function BasicTableOne({ productsData }: Props) {
     );
   };
 
-
-
   const handleConfirmDelete = async () => {
     if (!selectedProductId) return;
     const formData = new FormData();
-    formData.append('product_id', selectedProductId)
+    formData.append("product_id", selectedProductId);
     try {
       const res = await api.post(`${endPointApi.deleteProduct}`, formData);
       if (res.data && res.data.data) {
@@ -70,32 +72,132 @@ export default function BasicTableOne({ productsData }: Props) {
     }
   };
 
-
   return (
-    <div className={`relative rounded-xl transition ${isDialogOpen ? "bg-gray-100" : "bg-white"}`}>
-      <DataTable
-        value={tableData ?? []}
-        dataKey="product_id"
-        tableStyle={{ minWidth: '60rem' }}
-        paginator rows={10}
-        rowsPerPageOptions={[10, 20, 50]}
-        emptyMessage="No product found"
-      >
-        <Column field="no" header="No." sortable></Column>
-        <Column body={imageBodyTemplate} header="Image" sortable></Column>
-        <Column field="product_name" header="Product Name" sortable></Column>
-        <Column field="category_name" header="Category" sortable></Column>
-        <Column field="price" body={(rowData) => (
-          <span className="flex items-center gap-1">
-            ₹ {rowData.price}
-          </span>
-        )} header="MRP" sortable>
-        </Column>
-        {/* <Column field="cancle_price" header="Cancel Price" sortable></Column>
-        <Column field="sub_category_name" header="Sub Category" sortable></Column> */}
-        <Column body={actionBodyTemplate} header="Action"></Column>
-      </DataTable>
+    // <div className={`relative rounded-xl transition ${isDialogOpen ? "bg-gray-100" : "bg-white"}`}>
+    //   <DataTable
+    //     value={tableData ?? []}
+    //     dataKey="product_id"
+    //     tableStyle={{ minWidth: '60rem' }}
+    //     paginator rows={10}
+    //     rowsPerPageOptions={[10, 20, 50]}
+    //     emptyMessage="No product found"
+    //   >
+    //     <Column field="no" header="No." sortable></Column>
+    //     <Column body={imageBodyTemplate} header="Image" sortable></Column>
+    //     <Column field="product_name" header="Product Name" sortable></Column>
+    //     <Column field="category_name" header="Category" sortable></Column>
+    //     <Column field="price" body={(rowData) => (
+    //       <span className="flex items-center gap-1">
+    //         ₹ {rowData.price}
+    //       </span>
+    //     )} header="MRP" sortable>
+    //     </Column>
+    //     <Column body={actionBodyTemplate} header="Action"></Column>
+    //   </DataTable>
 
+    //   <DialogBox
+    //     isOpen={isDialogOpen}
+    //     onClose={() => setIsDialogOpen(false)}
+    //     onConfirm={handleConfirmDelete}
+    //     title="Delete Product"
+    //     message="Are you sure you want to delete this item?"
+    //   />
+    // </div>
+    <div
+      className={`relative rounded-xl transition ${
+        isDialogOpen ? "bg-gray-100" : "bg-white"
+      }`}
+    >
+      {/* Desktop / Tablet Table */}
+      <div className="hidden md:block">
+        <DataTable
+          value={tableData ?? []}
+          dataKey="product_id"
+          tableStyle={{ minWidth: "60rem" }}
+          paginator
+          rows={10}
+          rowsPerPageOptions={[10, 20, 50]}
+          emptyMessage="No product found"
+        >
+          <Column field="no" header="No." sortable />
+          <Column body={imageBodyTemplate} header="Image" sortable />
+          <Column field="product_name" header="Product Name" sortable />
+          <Column field="category_name" header="Category" sortable />
+          <Column
+            field="price"
+            header="MRP"
+            body={(rowData) => (
+              <span className="flex items-center gap-1">₹ {rowData.price}</span>
+            )}
+            sortable
+          />
+          <Column body={actionBodyTemplate} header="Action" />
+        </DataTable>
+      </div>
+
+      {/* Mobile Card View */}
+      <div className="grid gap-4 md:hidden">
+        {(tableData ?? []).map((row: any, index: number) => (
+          <div
+            key={row.product_id}
+            className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-lg transition-all duration-300 p-3"
+          >
+            {/* Left: Image */}
+            <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-100 shadow-sm">
+              <img
+                src={row.product_image}
+                alt={row.product_name}
+                className="h-full w-full object-cover"
+              />
+
+              {/* Serial ID Badge */}
+              <div className="absolute -top-2 -left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md">
+                {index + 1}
+              </div>
+            </div>
+
+            {/* Right: Details & Actions */}
+            <div className="flex flex-col justify-between flex-1">
+              {/* Product Info */}
+              <div>
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug">
+                  {row.product_name}
+                </h3>
+                <p className="text-gray-500 text-xs mt-0.5">
+                  {row.category_name}
+                </p>
+                <p className="text-blue-600 text-sm font-bold mt-1">
+                  ₹ {row.price}
+                </p>
+              </div>
+
+              {/* Action Icons */}
+              <div className="flex gap-4 mt-2">
+                {/* Edit */}
+                <i
+                  className="pi pi-pen-to-square cursor-pointer text-green-600 text-base hover:scale-110 transition"
+                  onClick={() =>
+                    navigate("/add-product", {
+                      state: { productId: row.product_id },
+                    })
+                  }
+                ></i>
+
+                {/* Delete */}
+                <i
+                  className="pi pi-trash cursor-pointer text-red-600 text-base hover:scale-110 transition"
+                  onClick={() => {
+                    setSelectedProductId(row.product_id);
+                    setIsDialogOpen(true);
+                  }}
+                ></i>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Dialog */}
       <DialogBox
         isOpen={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}

@@ -35,7 +35,7 @@ export default function Support() {
           </div>
         </div>
 
-        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
+        {/* <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
           <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white/90">
             Need Help?
           </h3>
@@ -56,7 +56,7 @@ export default function Support() {
               </p>
             </div>
           </div>
-        </div>
+        </div> */}
         {/* Email Support */}
         <div className="">
           {/* <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white/90">

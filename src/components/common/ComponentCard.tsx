@@ -143,8 +143,8 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       <div
         className={
           hasDataTable
-            ? "p-0 border-t border-gray-100 dark:border-gray-800 sm:p-0"
-            : "p-4 border-t border-gray-100 dark:border-gray-800 sm:p-4"
+            ? "p-4 border-t border-gray-100 dark:border-gray-800 sm:p-0"
+            : "p-4 border-t border-gray-100 dark:border-gray-800 sm:p-0"
         }
       >
         <div className="space-y-6">{children}</div>
