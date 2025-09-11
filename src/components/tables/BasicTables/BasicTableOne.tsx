@@ -151,11 +151,11 @@ const actionBodyTemplate = (rowData: Product) => {
       </div>
 
       {/* Mobile Card View */}
-      <div className="grid gap-4 md:hidden">
+      <div className="grid gap-1 md:hidden">
         {(tableData ?? []).map((row: any, index: number) => (
           <div
             key={row.product_id}
-            className="flex items-center gap-3 rounded-xl border border-gray-200 bg-white shadow-md hover:shadow-lg transition-all duration-300 p-3"
+            className="flex items-center gap-3 border-b transition-all duration-300 p-3"
           >
             {/* Left: Image */}
             <div className="relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border border-gray-100 shadow-sm">
@@ -165,29 +165,36 @@ const actionBodyTemplate = (rowData: Product) => {
                 className="h-full w-full object-cover"
               />
 
-              {/* Serial ID Badge */}
-              <div className="absolute -top-2 -left-2 bg-blue-600 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-md">
-                {index + 1}
-              </div>
+             
             </div>
 
             {/* Right: Details & Actions */}
             <div className="flex flex-col justify-between flex-1">
               {/* Product Info */}
               <div>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug">
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug" style={{marginTop:"-15px"}}>
                   {row.product_name}
                 </h3>
                 <p className="text-gray-500 text-xs mt-0.5">
                   {row.category_name}
                 </p>
-                <p className="text-blue-600 text-sm font-bold mt-1">
+                <p className="text-black-600 text-sm font-bold mt-1">
                   ₹ {row.price}
                 </p>
               </div>
 
-              {/* Action Icons */}
-              <div className="flex gap-4 mt-2">
+             {/* Action Icons */}
+              <div className="flex gap-4 mt-2 mobile-view-btn">
+                {/* View */}
+                <i
+                  className="pi pi-eye cursor-pointer text-blue-600 text-base hover:scale-110 transition"
+                  onClick={() =>
+                    window.open(
+                      `https://shop.progressalliance.org/single-product/${row.product_id}`,
+                      "_blank"
+                    )
+                  }
+                ></i>
                 {/* Edit */}
                 <i
                   className="pi pi-pen-to-square cursor-pointer text-green-600 text-base hover:scale-110 transition"
@@ -197,7 +204,6 @@ const actionBodyTemplate = (rowData: Product) => {
                     })
                   }
                 ></i>
-
                 {/* Delete */}
                 <i
                   className="pi pi-trash cursor-pointer text-red-600 text-base hover:scale-110 transition"
@@ -206,6 +212,7 @@ const actionBodyTemplate = (rowData: Product) => {
                     setIsDialogOpen(true);
                   }}
                 ></i>
+                
               </div>
             </div>
           </div>
