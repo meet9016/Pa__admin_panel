@@ -9,7 +9,6 @@ import DialogBox from "../../common/DialogBox";
 import api from "../../../pages/utils/axiosInstance";
 import endPointApi from "../../../pages/utils/endPointApi";
 import { useNavigate } from "react-router";
-import { PencilIcon, PlusIcon, TrashBinIcon } from "../../../icons";
 
 type Props = {
   productsData: Product[];
@@ -29,45 +28,46 @@ export default function BasicTableOne({ productsData }: Props) {
     return <img src={rowData.product_image} alt="product" width="60" />;
   };
 
-const actionBodyTemplate = (rowData: Product) => {
+  const actionBodyTemplate = (rowData: Product) => {
 
-  return (
-    <div className="flex gap-5">
-      {/* View Button */}
-      <i
-        className="pi pi-eye text-white text-base"
-        style={{ color: "blue" }}
-        onClick={() =>
-          navigate(`https://shop.progressalliance.org/single-product/${"eUxuTVdvZFhkRGIrcE52OCtZVXpNdz09"}`, {
-            state: { productId: (rowData as any).product_id },
-          })
-        }
-      ></i>
+    return (
+      <div className="flex gap-5">
+        {/* View Button */}
+        <i
+          className="pi pi-eye text-white text-base"
+          style={{ color: "blue" }}
+          onClick={() =>
+            window.open(
+              `https://shop.progressalliance.org/single-product/${
+                (rowData as any).product_id
+              }`,
+              "_blank"
+            )
+          }
+        ></i>
+        {/* Edit Button */}
+        <i
+          className="pi pi-pen-to-square cursor-pointer"
+          style={{ color: "green" }}
+          onClick={() =>
+            navigate("/add-product", {
+              state: { productId: (rowData as any).product_id },
+            })
+          }
+        ></i>
 
-      {/* Edit Button */}
-      <i
-        className="pi pi-pen-to-square cursor-pointer"
-        style={{ color: "green" }}
-        onClick={() =>
-          navigate("/add-product", {
-            state: { productId: (rowData as any).product_id },
-          })
-        }
-      ></i>
-
-      {/* Delete Button */}
-      <i
-        className="pi pi-trash cursor-pointer"
-        style={{ color: "red" }}
-        onClick={() => {
-          setSelectedProductId((rowData as any).product_id);
-          setIsDialogOpen(true);
-        }}
-      ></i>
-    </div>
-  );
-};
-
+        {/* Delete Button */}
+        <i
+          className="pi pi-trash cursor-pointer"
+          style={{ color: "red" }}
+          onClick={() => {
+            setSelectedProductId((rowData as any).product_id);
+            setIsDialogOpen(true);
+          }}
+        ></i>
+      </div>
+    );
+  };
 
   const handleConfirmDelete = async () => {
     if (!selectedProductId) return;

@@ -251,8 +251,8 @@ export default function ProductForm() {
             (d) => d.specification_id ?? ""
           ) || [""],
           searchkey: data.search_keywords || "",
-          description: data.description || "",
-          shortDescription: data.long_description || "",
+          description: data.long_description || "",
+          shortDescription: data.description || "",
           sku: data.sku || "",
           images:
             data.images?.map((img) =>
@@ -375,8 +375,9 @@ export default function ProductForm() {
         const large: string[] = [];
         productForm.images.forEach((f, idx) => {
           const size = (f as File).size ?? 0;
-          if (size > 1024 * 1024)
-            large.push(`Image ${idx + 1} is larger than 1MB.`);
+          if (size > 5 * 1024 * 1024) {
+            large.push(`Image ${idx + 1} is larger than 5MB.`);
+          }
         });
         if (large.length) newErrors.image = large.join(" | ");
       }
@@ -451,8 +452,26 @@ export default function ProductForm() {
               alt="Loading..."
               className="w-50 h-40 border border-gray-300 rounded-md"
             /> */}
-            <div role="status" className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2">
-              <svg aria-hidden="true" className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600" viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z" fill="currentColor" /><path d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z" fill="currentFill" /></svg>
+            <div
+              role="status"
+              className="absolute -translate-x-1/2 -translate-y-1/2 top-2/4 left-1/2"
+            >
+              <svg
+                aria-hidden="true"
+                className="w-8 h-8 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                viewBox="0 0 100 101"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                  fill="currentColor"
+                />
+                <path
+                  d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                  fill="currentFill"
+                />
+              </svg>
               <span className="sr-only">Loading...</span>
             </div>
           </div>
@@ -465,7 +484,9 @@ export default function ProductForm() {
               <Label htmlFor="name">Product Name</Label>
 
               {/* Input + Button container */}
-              <div className="relative"> {/* 👈 Fixed height */}
+              <div className="relative">
+                {" "}
+                {/* 👈 Fixed height */}
                 <Input
                   type="text"
                   name="name"
@@ -488,7 +509,9 @@ export default function ProductForm() {
 
               {/* Error message shown BELOW input, not affecting layout */}
               {errors.name && (
-                <p className="text-sm text-red-500 mt-1">Please enter a product name</p>
+                <p className="text-sm text-red-500 mt-1">
+                  Please enter a product name
+                </p>
               )}
             </div>
 
@@ -523,8 +546,9 @@ export default function ProductForm() {
                 filter
                 valueTemplate={selectedCategoryTemplate}
                 itemTemplate={categoryOptionTemplate}
-                className={`w-full md:w-14rem custom-dropdown focus:outline-hidden ${errors.category ? "p-invalid" : ""}`}
-                
+                className={`w-full md:w-14rem custom-dropdown focus:outline-hidden ${
+                  errors.category ? "p-invalid" : ""
+                }`}
               />
               {errors.category && (
                 <small className="p-error">{errors.category}</small>
@@ -545,8 +569,9 @@ export default function ProductForm() {
                 filter
                 valueTemplate={selectedCategoryTemplate}
                 itemTemplate={categoryOptionTemplate}
-                className={`w-full md:w-14rem custom-dropdown ${errors.category ? "p-invalid" : ""}`}
-
+                className={`w-full md:w-14rem custom-dropdown ${
+                  errors.category ? "p-invalid" : ""
+                }`}
               />
               {errors.sub_category && (
                 <small className="p-error">{errors.sub_category}</small>
@@ -705,7 +730,6 @@ export default function ProductForm() {
             </div>
           </div> */}
 
-
           <div className="col-span-2">
             <div className="flex items-center justify-between mb-3">
               <Label
@@ -731,7 +755,10 @@ export default function ProductForm() {
 
             <div className="space-y-3">
               {productForm.specifications.map((spec, index) => (
-                <div key={index} className="grid grid-cols-12 gap-3 items-center">
+                <div
+                  key={index}
+                  className="grid grid-cols-12 gap-3 items-center"
+                >
                   {/* Specification */}
                   <div className="col-span-6">
                     <Input
@@ -764,13 +791,17 @@ export default function ProductForm() {
                           setErrors((prev) => ({ ...prev, details: "" }));
                         }}
                         placeholder={`Detail ${index + 1}`}
-                        error={!!errors.details && !productForm.details[index]?.trim()}
+                        error={
+                          !!errors.details &&
+                          !productForm.details[index]?.trim()
+                        }
                       />
-                      {errors.details && !productForm.details[index]?.trim() && (
-                        <p className="text-error-500 text-xs mt-1">
-                          {errors.details}
-                        </p>
-                      )}
+                      {errors.details &&
+                        !productForm.details[index]?.trim() && (
+                          <p className="text-error-500 text-xs mt-1">
+                            {errors.details}
+                          </p>
+                        )}
                     </div>
 
                     {index > 0 && (
@@ -779,7 +810,9 @@ export default function ProductForm() {
                         onClick={() => {
                           setProductForm((prev) => ({
                             ...prev,
-                            specifications: prev.specifications.filter((_, i) => i !== index),
+                            specifications: prev.specifications.filter(
+                              (_, i) => i !== index
+                            ),
                             details: prev.details.filter((_, i) => i !== index),
                           }));
                         }}
@@ -792,10 +825,8 @@ export default function ProductForm() {
                   </div>
                 </div>
               ))}
-
             </div>
           </div>
-
 
           {/* Description + Images */}
           <div className="grid grid-cols-1 gap-6">
@@ -811,7 +842,7 @@ export default function ProductForm() {
                 productForm={productForm}
                 error={errors.image}
                 setErrors={setErrors}
-              // productId={productId as any}
+                // productId={productId as any}
               />
             </div>
           </div>
