@@ -72,52 +72,114 @@ export default function Subscription() {
           Plusicon={<PlusIcon />}
         // addProduct="Upgrade Plan"
         >
-          <div className="card">
-            <Toast ref={toast} />
-            <DataTable
-              value={products}
-              expandedRows={expandedRows}
-              onRowToggle={(e: any) => setExpandedRows(e.data)}
-              dataKey="id"
-              tableStyle={{ minWidth: "60rem" }}
-              emptyMessage="No product found"
-            >
-              {/* <Column style={{ width: "5rem" }} /> */}
-              <Column field="no" header="No." sortable />
-              <Column field="invoice_no" header="Invoice No" sortable />
-              <Column field="txnid" header="Transection Id" sortable />
-              <Column
-                field="cdate"
-                header="Payment Date"
-                body={(rowData) => formatDate(rowData.cdate)}
-                sortable
-              />
-              <Column
-                field="starting_date"
-                header="Starting Date"
-                body={(rowData) => formatDate(rowData.starting_date)}
-                sortable
-              />
-              <Column
-                field="ending_date"
-                header="Ending Date"
-                body={(rowData) => formatDate(rowData.ending_date)}
-                sortable
-              />
-              {/* <Column field="amount" header="Amount" sortable /> */}
-              <Column
-                field="amount"
-                header="Amount"
-                body={(rowData) => (
-                  <span className="flex items-center gap-1">
-                    ₹ {rowData.amount}
-                  </span>
-                )}
-                sortable
-              />
-              <Column header="Action" body={(rowData) => actionBodyTemplate(rowData)} />
-            </DataTable>
-          </div>
+        <div className="card">
+  <Toast ref={toast} />
+
+  {/* ✅ Desktop Table */}
+  <div className="hidden md:block">
+    <DataTable
+      value={products}
+      expandedRows={expandedRows}
+      onRowToggle={(e: any) => setExpandedRows(e.data)}
+      dataKey="id"
+      tableStyle={{ minWidth: "60rem" }}
+      emptyMessage="No product found"
+    >
+      <Column field="no" header="No." sortable />
+      <Column field="invoice_no" header="Invoice No" sortable />
+      <Column field="txnid" header="Transaction Id" sortable />
+      <Column
+        field="cdate"
+        header="Payment Date"
+        body={(rowData) => formatDate(rowData.cdate)}
+        sortable
+      />
+      <Column
+        field="starting_date"
+        header="Starting Date"
+        body={(rowData) => formatDate(rowData.starting_date)}
+        sortable
+      />
+      <Column
+        field="ending_date"
+        header="Ending Date"
+        body={(rowData) => formatDate(rowData.ending_date)}
+        sortable
+      />
+      <Column
+        field="amount"
+        header="Amount"
+        body={(rowData) => (
+          <span className="flex items-center gap-1 font-medium text-gray-800">
+            ₹ {rowData.amount}
+          </span>
+        )}
+        sortable
+      />
+      <Column
+        header="Invoice"
+        body={(rowData) => actionBodyTemplate(rowData)}
+      />
+    </DataTable>
+  </div>
+
+  {/* ✅ Mobile Cards */}
+  <div className="grid gap-4 md:hidden">
+    {(products ?? []).map((row: any, index: number) => (
+      <div
+        key={row.id}
+        className="rounded-2xl border border-gray-200 bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"
+      >
+        {/* Header with Invoice No */}
+        <div className="flex justify-between items-center px-3 py-2 border-b bg-gray-50">
+          <span className="text-xs font-semibold text-gray-600">
+            #{index + 1} • {row.invoice_no}
+          </span>
+          <span className="text-xs text-gray-500">{formatDate(row.cdate)}</span>
+        </div>
+
+        {/* Main Content */}
+        <div className="p-3 space-y-1 text-sm text-gray-700">
+          <p>
+            <span className="font-semibold">Txn Id:</span> {row.txnid}
+          </p>
+          <p>
+            <span className="font-semibold">Start:</span>{" "}
+            {formatDate(row.starting_date)}
+          </p>
+          <p>
+            <span className="font-semibold">End:</span>{" "}
+            {formatDate(row.ending_date)}
+          </p>
+          <p className="font-semibold text-blue-600">
+            ₹ {row.amount}
+          </p>
+        </div>
+
+        {/* Footer Action */}
+        <div className="flex justify-end px-3 py-2 border-t bg-gray-50">
+          <button
+            onClick={() => {
+              if (row.invoive_link) {
+                window.open(row.invoive_link, "_blank");
+              } else {
+                console.log("No invoice link available");
+              }
+            }}
+            className="flex items-center gap-2 px-4 py-2 rounded-lg 
+                       bg-[#251c4b] text-white 
+                       hover:bg-[#3a2d6e] hover:shadow-md 
+                       transition-all duration-200"
+          >
+            <i className="pi pi-download text-white text-base"></i>
+            <span className="text-sm font-medium">Download</span>
+          </button>
+        </div>
+      </div>
+    ))}
+  </div>
+</div>
+
         </ComponentCard>
       </div>
     </>

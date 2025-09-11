@@ -783,28 +783,12 @@ span.flatpickr-weekday,
   color: #6b7280 !important;      /* Optional: match placeholder color */
   font-weight: 400 !important;    /* Optional */
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+/* Hide logo inside sidebar on mobile (<=768px) */
+@media (max-width: 768px) {
+  .mobile-hidden-logo-sidebar {
+    display: none !important;
+  }
+  .margintop-sidebar{
+    margin: 40px 0px;
+  }
+}

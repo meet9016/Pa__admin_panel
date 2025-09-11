@@ -29,30 +29,45 @@ export default function BasicTableOne({ productsData }: Props) {
     return <img src={rowData.product_image} alt="product" width="60" />;
   };
 
-  const actionBodyTemplate = (rowData: Product) => {
-    return (
-      <div className="flex gap-5">
-        <i
-          className="pi pi-pen-to-square cursor-pointer"
-          style={{ color: "green" }}
-          onClick={() =>
-            navigate("/add-product", {
-              state: { productId: (rowData as any).product_id },
-            })
-          }
-        ></i>
+const actionBodyTemplate = (rowData: Product) => {
 
-        <i
-          className="pi pi-trash cursor-pointer"
-          style={{ color: "red" }}
-          onClick={() => {
-            setSelectedProductId((rowData as any).product_id);
-            setIsDialogOpen(true);
-          }}
-        ></i>
-      </div>
-    );
-  };
+  return (
+    <div className="flex gap-5">
+      {/* View Button */}
+      <i
+        className="pi pi-eye text-white text-base"
+        style={{ color: "blue" }}
+        onClick={() =>
+          navigate(`https://shop.progressalliance.org/single-product/${"eUxuTVdvZFhkRGIrcE52OCtZVXpNdz09"}`, {
+            state: { productId: (rowData as any).product_id },
+          })
+        }
+      ></i>
+
+      {/* Edit Button */}
+      <i
+        className="pi pi-pen-to-square cursor-pointer"
+        style={{ color: "green" }}
+        onClick={() =>
+          navigate("/add-product", {
+            state: { productId: (rowData as any).product_id },
+          })
+        }
+      ></i>
+
+      {/* Delete Button */}
+      <i
+        className="pi pi-trash cursor-pointer"
+        style={{ color: "red" }}
+        onClick={() => {
+          setSelectedProductId((rowData as any).product_id);
+          setIsDialogOpen(true);
+        }}
+      ></i>
+    </div>
+  );
+};
+
 
   const handleConfirmDelete = async () => {
     if (!selectedProductId) return;

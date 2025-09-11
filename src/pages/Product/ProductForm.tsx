@@ -442,7 +442,7 @@ export default function ProductForm() {
 
   return (
     <ComponentCard title={productId ? "Update Product" : ""}>
-      <div className="relative p-6">
+      <div className="relative p-2 md:p-6">
         {/* overlay loader */}
         {loading && (
           <div className="absolute inset-0 flex justify-center items-center  backdrop-blur-sm z-20">
@@ -460,12 +460,12 @@ export default function ProductForm() {
 
         <div className={`${mainWrapperClass} space-y-6`}>
           {/* Top row: Product + AI + Search Key */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div className="relative">
               <Label htmlFor="name">Product Name</Label>
 
               {/* Input + Button container */}
-              <div className="relative h-10"> {/* 👈 Fixed height */}
+              <div className="relative"> {/* 👈 Fixed height */}
                 <Input
                   type="text"
                   name="name"
@@ -474,7 +474,7 @@ export default function ProductForm() {
                   onChange={handleChange}
                   // hint={errors.name}
                   error={!!errors.name}
-                  className="pr-20 h-full" // 👈 right padding for button + fixed height
+                  className="pr-20" // 👈 right padding for button + fixed height
                 />
                 <button
                   type="button"
@@ -492,7 +492,7 @@ export default function ProductForm() {
               )}
             </div>
 
-            <div>
+            <div className="grid grid-cols-1">
               <Label htmlFor="searchkey">Search Keyword</Label>
               <Input
                 type="text"
@@ -507,7 +507,7 @@ export default function ProductForm() {
           </div>
 
           {/* Category / Sub Category */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <Label>Category</Label>
               <Dropdown
@@ -555,7 +555,7 @@ export default function ProductForm() {
           </div>
 
           {/* Prices */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <Label htmlFor="price">MRP</Label>
               <Input
@@ -585,7 +585,7 @@ export default function ProductForm() {
           </div>
 
           {/* ShortDesc / SKU */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
               <Label htmlFor="shortDescription">Short Description</Label>
               <Input
@@ -798,7 +798,7 @@ export default function ProductForm() {
 
 
           {/* Description + Images */}
-          <div className="grid grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 gap-6">
             <div>
               <MyCKEditor
                 value={productForm.description}
