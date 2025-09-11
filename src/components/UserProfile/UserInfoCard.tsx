@@ -10,6 +10,7 @@ interface FormData {
   number: string;
   company_name: string;
   address: string;
+  gst: string;
   facebook: string;
   instagram_link: string;
   youtube_link: string;
@@ -25,13 +26,17 @@ export default function UserInfoCard() {
     number: "",
     company_name: "",
     address: "",
+    gst: "",
     facebook: "",
     instagram_link: "",
     youtube_link: "",
     linkdin_link: "",
     website_link: "",
   });
-  const [selectedImage] = useState<File | null>(null);
+  console.log(editData, 'ee');
+
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
+
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
 
   // Handle input changes
@@ -61,6 +66,7 @@ export default function UserInfoCard() {
             full_name: res.data.data.full_name || "",
             number: res.data.data.number || "",
             company_name: res.data.data.company_name || "",
+            gst: res.data.data.gst_number || "",
             address: res.data.data.address || "",
             facebook: res.data.data.facebook || "", // Default to empty string if not available
             instagram_link: res.data.data.instagram_link || "",
@@ -83,12 +89,14 @@ export default function UserInfoCard() {
       formData.append("full_name", editData?.full_name);
       formData.append("number", editData?.number);
       formData.append("company_name", editData?.company_name);
+      formData.append("gst_number", editData?.gst);
       formData.append("address", editData?.address);
       formData.append("gender", "male");
       formData.append("user_image", "male");
 
+
       if (selectedImage) {
-        formData.append("business_logo", selectedImage); // Match your API's expected field
+        formData.append("business_logo", selectedImage);
       }
       const res = await api.post(
         `${endPointApi.supplierEditProfile}`,
@@ -114,22 +122,61 @@ export default function UserInfoCard() {
     const { name, value } = e.target;
     setSocialLinks((prev) => ({ ...prev, [name]: value }));
   };
+
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setSelectedImage(file);
+      setPreviewUrl(URL.createObjectURL(file));
+    }
+  };
   return (
     <>
       <div className="p-2  mb-5 bg-white dark:bg-gray-900">
         <div className="w-full flex flex-col md:flex-row gap-6">
           {/* Left: Image with Edit Icon */}
-          <div className="relative w-full md:w-1/3">
-            <img
-              src={previewUrl || "/images/user/owner.png"}
-              alt="User"
-              className="w-full object-cover rounded-2xl"
+          <div className="relative w-100 h-100 group">
+            {/* Avatar Image */}
+            <label htmlFor="avatar-upload" className="cursor-pointer block w-full h-full">
+              <div className="w-100 h-80 overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 relative">
+                <img
+                  src={previewUrl || "/images/user/owner.png"} // Use preview or fallback
+                  alt="user"
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Camera Overlay */}
+                <div className="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition">
+                  <i className="pi pi-camera text-white text-4xl transform group-hover:scale-110 transition-transform"></i>
+                </div>
+
+                {/* Edit Icon Top-Right */}
+                <button
+                  type="button"
+                  className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-100 transition"
+                  onClick={(e) => {
+                    e.preventDefault(); // prevent label click
+                    document.getElementById("avatar-upload").click();
+                  }}
+                >
+                  <i className="pi pi-pencil text-xl text-gray-700"></i>
+                </button>
+              </div>
+            </label>
+
+            {/* Hidden File Input */}
+            <input
+              type="file"
+              id="avatar-upload"
+              onChange={handleImageChange}
+              className="hidden"
+              accept="image/*"
             />
-            {/* Edit Icon Overlay */}
-            <button className="absolute top-3 right-3 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow-md transition">
-              <i className="pi pi-pencil text-base"></i>
-            </button>
           </div>
+
+
+
 
           {/* Right: Details */}
           <div className="flex flex-col flex-1 justify-between gap-6">
@@ -166,15 +213,26 @@ export default function UserInfoCard() {
                 />
               </div>
               <div>
-                <Label htmlFor="address">Address</Label>
+                <Label htmlFor="gst">GST</Label>
                 <Input
                   type="text"
-                  name="address"
-                  placeholder="Address"
-                  value={editData?.address}
+                  name="gst"
+                  placeholder="gst"
+                  value={editData?.gst}
                   onChange={handleChange}
                 />
               </div>
+            </div>
+            <div>
+              <Label htmlFor="address">Address</Label>
+              <Input
+                type="text"
+                name="address"
+                placeholder="Address"
+                value={editData?.address}
+                onChange={handleChange}
+                className="w-full"
+              />
             </div>
 
             {/* Social Links */}
@@ -190,47 +248,47 @@ export default function UserInfoCard() {
                     name="facebook"
                     placeholder="Facebook URL"
                     value={editData?.facebook}
-                    onChange={handleSocialChange}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
                   <Label htmlFor="instagram">Instagram</Label>
                   <Input
                     type="text"
-                    name="instagram"
+                    name="instagram_link"
                     placeholder="Instagram URL"
                     value={editData?.instagram_link}
-                    onChange={handleSocialChange}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
                   <Label htmlFor="youtube">YouTube</Label>
                   <Input
                     type="text"
-                    name="youtube"
+                    name="youtube_link"
                     placeholder="YouTube URL"
                     value={editData?.youtube_link}
-                    onChange={handleSocialChange}
+                    onChange={handleChange}
                   />
                 </div>
                 <div>
                   <Label htmlFor="linkedin">LinkedIn</Label>
                   <Input
                     type="text"
-                    name="linkedin"
+                    name="linkdin_link"
                     placeholder="LinkedIn URL"
                     value={editData?.linkdin_link}
-                    onChange={handleSocialChange}
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="sm:col-span-2">
                   <Label htmlFor="website">Website</Label>
                   <Input
                     type="text"
-                    name="website"
+                    name="website_link"
                     placeholder="Website URL"
                     value={editData?.website_link}
-                    onChange={handleSocialChange}
+                    onChange={handleChange}
                   />
                 </div>
               </div>
