@@ -180,7 +180,7 @@ export default function UserInfoCard() {
               type="text"
               name="facebook"
               placeholder="Facebook URL"
-              value={editData?.facebook}
+              // value={editData?.facebook}
               onChange={handleSocialChange}
             />
           </div>
@@ -190,7 +190,7 @@ export default function UserInfoCard() {
               type="text"
               name="instagram"
               placeholder="Instagram URL"
-              value={editData?.instagram_link}
+              // value={editData?.instagram_link}
               onChange={handleSocialChange}
             />
           </div>
@@ -200,7 +200,7 @@ export default function UserInfoCard() {
               type="text"
               name="youtube"
               placeholder="YouTube URL"
-              value={socialLinks.youtube_link}
+              // value={socialLinks.youtube_link}
               onChange={handleSocialChange}
             />
           </div>
@@ -210,7 +210,7 @@ export default function UserInfoCard() {
               type="text"
               name="linkedin"
               placeholder="LinkedIn URL"
-              value={editData?.linkdin_link}
+              // value={editData?.linkdin_link}
               onChange={handleSocialChange}
             />
           </div>
@@ -220,7 +220,7 @@ export default function UserInfoCard() {
               type="text"
               name="website"
               placeholder="Website URL"
-              value={editData?.website_link}
+              // value={editData?.website_link}
               onChange={handleSocialChange}
             />
           </div>
