@@ -167,7 +167,7 @@ const AppSidebar: React.FC = () => {
   };
 
   // Function to handle menu item clicks and close sidebar for mobile view
-  const handleMenuClick = (menuItem: NavItem) => {
+  const handleMenuClick = () => {
     // If it's mobile, close the sidebar after clicking a menu item
     if (window.innerWidth < 1024 && isMobileOpen) {
       toggleMobileSidebar(); // Close the sidebar for mobile
@@ -216,7 +216,7 @@ const AppSidebar: React.FC = () => {
                 to={nav.path}
                 className={`menu-item group ${isActive(nav.path) ? "menu-item-active" : "menu-item-inactive"
                 }`}
-                onClick={() => handleMenuClick(nav)} // Close sidebar on mobile when menu item is clicked
+                onClick={() => handleMenuClick()} // Close sidebar on mobile when menu item is clicked
               >
                 <span
                   className={`menu-item-icon-size ${isActive(nav.path)

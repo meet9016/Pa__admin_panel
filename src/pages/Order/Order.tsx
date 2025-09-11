@@ -6,7 +6,6 @@ import api from "../utils/axiosInstance";
 import endPointApi from "../utils/endPointApi";
 import PageMeta from "../../components/common/PageMeta";
 import ComponentCard from "../../components/common/ComponentCard";
-import { Navigate } from "react-router";
 interface Product {
   order_number: string;
   user_name: string;

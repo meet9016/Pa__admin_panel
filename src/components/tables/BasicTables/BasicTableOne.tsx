@@ -151,7 +151,7 @@ export default function BasicTableOne({ productsData }: Props) {
 
       {/* Mobile Card View */}
       <div className="grid gap-1 md:hidden">
-        {(tableData ?? []).map((row: any, index: number) => (
+        {(tableData ?? []).map((row: any) => (
           <div
             key={row.product_id}
             className="flex items-center gap-3 border-b transition-all duration-300 p-3"
