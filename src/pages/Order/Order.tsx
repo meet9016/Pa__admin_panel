@@ -110,21 +110,23 @@ export default function Order() {
             </div>
 
             {/* ✅ Mobile Cards */}
-            <div className="grid gap-4 md:hidden">
+            <div className="grid gap-2 md:hidden">
               {products?.length > 0 ? (
                 products.map((row: any) => (
                   <div
                     key={row.id}
-                    className="rounded-xl border border-gray-200 bg-white p-4 shadow-md hover:shadow-lg transition-all duration-300"
+                    className="p-3 border-b transition-all duration-300"
                   >
                     {/* Header */}
                     <div className="flex justify-between items-center mb-2">
                       <h3 className="text-sm font-semibold text-gray-800">
                         Inquiry #{row.order_number}
                       </h3>
-                      <span className="text-xs text-gray-500">
+                      <span className="text-xs text-gray-500 flex items-center gap-1">
+                        <i className="pi pi-calendar text-gray-400 text-sm"></i>
                         {row.order_date}
                       </span>
+                      
                     </div>
 
                     {/* Body */}
@@ -134,12 +136,12 @@ export default function Order() {
                         {row.user_name}
                       </p>
                       <p>
-                        <span className="font-medium">WhatsApp:</span>{" "}
+                        <span className="font-medium">Number:</span>{" "}
                         {row.mobile_number}
                       </p>
                     </div>
                     {/* Footer Action */}
-                    <div className="mt-3 flex justify-end">
+                    <div className="mt-3 flex justify-start">
                       <button
                         onClick={() => {
                           if (row.view_link) {
@@ -151,7 +153,7 @@ export default function Order() {
                         className="flex items-center gap-2 px-4 py-2 rounded-lg 
                bg-[#251c4b] text-white 
                hover:bg-[#3a2d6e] hover:shadow-md 
-               transition-all duration-200"
+               transition-all duration-200 view-product-btn"
                       >
                         <i className="pi pi-eye text-white text-base"></i>
                         <span className="text-sm font-medium">

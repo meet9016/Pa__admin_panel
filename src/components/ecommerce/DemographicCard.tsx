@@ -137,7 +137,7 @@ export default function DemographicCard({ viewLocation }: viewLocationProps) {
           title="Most View Location"
         // dashboardTitle="Most View Location"
         >
-          <div className="card">
+         <div className="card">
             <Toast ref={toast} />
             <DataTable
               value={viewLocation}

@@ -93,7 +93,7 @@ export default function UserInfoCard() {
     }
   };
   const [socialLinks, setSocialLinks] = useState({
-    facebook: "https://www.facebook.com/PimjoHQ",
+    facebook: "",
     x: "https://x.com/PimjoHQ",
     linkedin: "https://www.linkedin.com/company/pimjo",
     instagram: "https://instagram.com/PimjoHQ",
@@ -105,250 +105,141 @@ export default function UserInfoCard() {
   };
   return (
     <>
-      <div className="p-5 rounded-2xl dark:border-gray-800 lg:p-6 mb-5">
-        <div className="w-full overflow-hidden flex flex-col md:flex-row">
-          {/* Left: Image with Edit Icon */}
-          <div className="relative w-full md:w-1/3">
-            <img
-              src={previewUrl || "/images/user/owner.png"}
-              alt="User"
-              className="w-full h-56 md:h-full object-cover rounded-2xl"
+   <div className="p-2  mb-5 bg-white dark:bg-gray-900">
+  <div className="w-full flex flex-col md:flex-row gap-6">
+    {/* Left: Image with Edit Icon */}
+    <div className="relative w-full md:w-1/3">
+      <img
+        src={previewUrl || "/images/user/owner.png"}
+        alt="User"
+        className="w-full object-cover rounded-2xl"
+      />
+      {/* Edit Icon Overlay */}
+      <button
+        className="absolute top-3 right-3 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow-md transition"
+      >
+        <i className="pi pi-pencil text-base"></i>
+      </button>
+    </div>
+
+    {/* Right: Details */}
+    <div className="flex flex-col flex-1 justify-between gap-6">
+      {/* User Info */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        <div>
+          <Label htmlFor="full_name">Full Name</Label>
+          <Input
+            type="text"
+            name="full_name"
+            placeholder="Full Name"
+            value={editData?.full_name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="number">Number</Label>
+          <Input
+            type="text"
+            name="number"
+            placeholder="Number"
+            value={editData?.number}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="company_name">Company Name</Label>
+          <Input
+            type="text"
+            name="company_name"
+            placeholder="Company Name"
+            value={editData?.company_name}
+            onChange={handleChange}
+          />
+        </div>
+        <div>
+          <Label htmlFor="address">Address</Label>
+          <Input
+            type="text"
+            name="address"
+            placeholder="Address"
+            value={editData?.address}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      {/* Social Links */}
+      <div>
+        <h5 className="mb-4 text-lg font-medium text-gray-800 dark:text-white/90">
+          Social Links
+        </h5>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div>
+            <Label htmlFor="facebook">Facebook</Label>
+            <Input
+              type="text"
+              name="facebook"
+              placeholder="Facebook URL"
+              value={editData?.facebook}
+              onChange={handleSocialChange}
             />
-            {/* Edit Icon Overlay */}
-            <button
-              // onClick={handleImageChange}
-              className="absolute top-3 right-3 flex items-center justify-center w-10 h-10 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow-md transition"
-            >
-              <i className="pi pi-pencil text-base"></i>
-            </button>
           </div>
-
-          {/* Right: Content */}
-          <div className="flex flex-col flex-1 justify-center p-2 md:p-6 gap-6">
-            {/* User Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-              <div>
-                <Label htmlFor="full_name">Full Name</Label>
-                <Input
-                  type="text"
-                  name="full_name"
-                  placeholder="Full Name"
-                  value={editData?.full_name}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="number">Number</Label>
-                <Input
-                  type="text"
-                  name="number"
-                  placeholder="Number"
-                  value={editData?.number}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="company_name">Company Name</Label>
-                <Input
-                  type="text"
-                  name="company_name"
-                  placeholder="Company Name"
-                  value={editData?.company_name}
-                  onChange={handleChange}
-                />
-              </div>
-
-              <div>
-                <Label htmlFor="address">Address</Label>
-                <Input
-                  type="text"
-                  name="address"
-                  placeholder="Address"
-                  value={editData?.address}
-                  onChange={handleChange}
-                />
-              </div>
-            </div>
-
-            {/* Footer: Save Button */}
-            <div className="flex items-center gap-3 mt-6 lg:justify-end">
-               <button
-              className="bg-[#241B4B] hover:bg-[#3a2d6e] text-white shadow-md px-4 py-2 rounded-lg transition"
-              onClick={handleSave}
-            >
-                Save Changes
-              </button>
-            </div>
+          <div>
+            <Label htmlFor="instagram">Instagram</Label>
+            <Input
+              type="text"
+              name="instagram"
+              placeholder="Instagram URL"
+              value={editData?.instagram_link}
+              onChange={handleSocialChange}
+            />
+          </div>
+          <div>
+            <Label htmlFor="youtube">YouTube</Label>
+            <Input
+              type="text"
+              name="youtube"
+              placeholder="YouTube URL"
+              value={socialLinks.youtube_link}
+              onChange={handleSocialChange}
+            />
+          </div>
+          <div>
+            <Label htmlFor="linkedin">LinkedIn</Label>
+            <Input
+              type="text"
+              name="linkedin"
+              placeholder="LinkedIn URL"
+              value={editData?.linkdin_link}
+              onChange={handleSocialChange}
+            />
+          </div>
+          <div className="sm:col-span-2">
+            <Label htmlFor="website">Website</Label>
+            <Input
+              type="text"
+              name="website"
+              placeholder="Website URL"
+              value={editData?.website_link}
+              onChange={handleSocialChange}
+            />
           </div>
         </div>
-
-        {/* <Modal isOpen={isOpen} onClose={closeModal} className="max-w-[700px] m-4">
-        <div className="no-scrollbar relative w-full max-w-[700px] overflow-y-auto rounded-3xl bg-white p-4 dark:bg-gray-900 lg:p-11">
-          <div className="px-2 pr-14">
-            <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-              Edit Personal Information
-            </h4>
-            <p className="mb-6 text-sm text-gray-500 dark:text-gray-400 lg:mb-7">
-              Update your details to keep your profile up-to-date.
-            </p>
-          </div>
-          <form className="flex flex-col">
-            <div className="custom-scrollbar h-[450px] overflow-y-auto px-2 pb-3">
-              <div>
-                <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
-                  Social Links
-                </h5>
-
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div>
-                    <Label>Facebook</Label>
-                    <Input
-                      type="text"
-                      value="https://www.facebook.com/PimjoHQ"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>X.com</Label>
-                    <Input type="text" value="https://x.com/PimjoHQ" />
-                  </div>
-
-                  <div>
-                    <Label>Linkedin</Label>
-                    <Input
-                      type="text"
-                      value="https://www.linkedin.com/company/pimjo"
-                    />
-                  </div>
-
-                  <div>
-                    <Label>Instagram</Label>
-                    <Input type="text" value="https://instagram.com/PimjoHQ" />
-                  </div>
-                </div>
-              </div>
-              <div className="mt-7">
-                <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
-                  Personal Information
-                </h5>
-
-                <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>First Name</Label>
-                    <Input type="text" value="Musharof" />
-                  </div>
-
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>Last Name</Label>
-                    <Input type="text" value="Chowdhury" />
-                  </div>
-
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>Email Address</Label>
-                    <Input type="text" value="randomuser@pimjo.com" />
-                  </div>
-
-                  <div className="col-span-2 lg:col-span-1">
-                    <Label>Phone</Label>
-                    <Input type="text" value="+09 363 398 46" />
-                  </div>
-
-                  <div className="col-span-2">
-                    <Label>Bio</Label>
-                    <Input type="text" value="Team Manager" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="flex items-center gap-3 px-2 mt-6 lg:justify-end">
-              <Button size="sm" variant="outline" onClick={closeModal}>
-                Close
-              </Button>
-              <Button size="sm" onClick={handleSave}>
-                Save Changes
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Modal> */}
       </div>
-      <div className="p-5 rounded-2xl dark:border-gray-800 lg:p-6">
-        {/* Header */}
-        <div className="mb-8">
-          <h4 className="mb-2 text-2xl font-semibold text-gray-800 dark:text-white/90">
-            Edit Personal Information
-          </h4>
-          <p className="text-sm text-gray-500 dark:text-gray-400">
-            Update your details to keep your profile up-to-date.
-          </p>
-        </div>
 
-        {/* Form */}
-        <form className="flex flex-col">
-          <div className="custom-scrollbar overflow-y-auto pr-2">
-            {/* Social Links */}
-            <div>
-              <h5 className="mb-5 text-lg font-medium text-gray-800 dark:text-white/90 lg:mb-6">
-                Social Links
-              </h5>
-              <div className="grid grid-cols-1 gap-x-6 gap-y-5 lg:grid-cols-2">
-                <div>
-                  <Label htmlFor="facebook">Facebook</Label>
-                  <Input
-                    type="text"
-                    name="facebook"
-                    value={socialLinks.facebook}
-                    onChange={handleSocialChange}
-                    placeholder="Enter Facebook URL"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="x">X.com</Label>
-                  <Input
-                    type="text"
-                    name="x"
-                    value={socialLinks.x}
-                    onChange={handleSocialChange}
-                    placeholder="Enter X.com URL"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="linkedin">LinkedIn</Label>
-                  <Input
-                    type="text"
-                    name="linkedin"
-                    value={socialLinks.linkedin}
-                    onChange={handleSocialChange}
-                    placeholder="Enter LinkedIn URL"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="instagram">Instagram</Label>
-                  <Input
-                    type="text"
-                    name="instagram"
-                    value={socialLinks.instagram}
-                    onChange={handleSocialChange}
-                    placeholder="Enter Instagram URL"
-                  />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Buttons */}
-          <div className="flex items-center gap-3 mt-6 lg:justify-end">
-            <button
-              className="bg-[#241B4B] hover:bg-[#3a2d6e] text-white shadow-md px-4 py-2 rounded-lg transition"
-              onClick={handleSave}
-            >
-              Save Changes
-            </button>
-          </div>
-        </form>
+      {/* Save Button */}
+      <div className="flex justify-end mt-6">
+        <button
+          className="bg-[#241B4B] hover:bg-[#3a2d6e] text-white shadow-md px-6 py-2 rounded-lg transition"
+          onClick={handleSave}
+        >
+          Save Changes
+        </button>
       </div>
+    </div>
+  </div>
+</div>
+
     </>
   );
 }

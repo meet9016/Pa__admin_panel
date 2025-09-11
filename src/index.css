@@ -791,4 +791,27 @@ span.flatpickr-weekday,
   .margintop-sidebar{
     margin: 40px 0px;
   }
+  .mobile-view-btn{
+        position: absolute;
+    right: 16px;
+    margin-top: -20px;
+    display: flex
+;
+    flex-direction: column;
+  }
+  .view-product-btn{
+    position: absolute;
+    right: 30px;
+    /* bottom: 30px; */
+    margin-top: -50px;
+  }
+  .footer-mobile{
+position: absolute;
+bottom: 0px;
+  }
+  .mobile-download{
+        position: absolute;
+    right: 25px;
+    margin-top: -32px;
+  }
 }

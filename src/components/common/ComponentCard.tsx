@@ -107,7 +107,7 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
 
   return (
     <div
-      className={`rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03] ${className}`}
+      className={`rounded-2xl border border-gray-200 dark:border-gray-800 ${className}`}
     >
       {/* Card Header */}
       <div className="px-6 py-5 flex items-center justify-between">
@@ -143,8 +143,8 @@ const ComponentCard: React.FC<ComponentCardProps> = ({
       <div
         className={
           hasDataTable
-            ? "p-4 border-t border-gray-100 dark:border-gray-800 sm:p-0"
-            : "p-4 border-t border-gray-100 dark:border-gray-800 sm:p-0"
+            ? "p-0 border border-gray-100 dark:border-gray-800 sm:p-0"
+            : "p-0 border border-gray-100 dark:border-gray-800 sm:p-0"
         }
       >
         <div className="space-y-6">{children}</div>
