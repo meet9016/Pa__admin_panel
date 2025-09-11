@@ -29,7 +29,6 @@ export default function BasicTableOne({ productsData }: Props) {
   };
 
   const actionBodyTemplate = (rowData: Product) => {
-
     return (
       <div className="flex gap-5">
         {/* View Button */}
@@ -197,7 +196,6 @@ export default function BasicTableOne({ productsData }: Props) {
                     })
                   }
                 ></i>
-
                 {/* Delete */}
                 <i
                   className="pi pi-trash cursor-pointer text-red-600 text-base hover:scale-110 transition"
@@ -205,6 +203,16 @@ export default function BasicTableOne({ productsData }: Props) {
                     setSelectedProductId(row.product_id);
                     setIsDialogOpen(true);
                   }}
+                ></i>
+                {/* View */}
+                <i
+                  className="pi pi-eye cursor-pointer text-blue-600 text-base hover:scale-110 transition"
+                  onClick={() =>
+                    window.open(
+                      `https://shop.progressalliance.org/single-product/${row.product_id}`,
+                      "_blank"
+                    )
+                  }
                 ></i>
               </div>
             </div>
