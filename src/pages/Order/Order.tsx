@@ -68,7 +68,7 @@ export default function Order() {
       <div className="space-y-6">
         <ComponentCard
           title="Inquiry List"
-          // Plusicon={<DownloadIcon />}
+        // Plusicon={<DownloadIcon />}
         >
           {/* <div className="card">
             <Toast ref={toast} />
@@ -98,13 +98,21 @@ export default function Order() {
                 onRowToggle={(e: any) => setExpandedRows(e.data)}
                 dataKey="id"
                 tableStyle={{ minWidth: "60rem" }}
-                emptyMessage="No product found"
+                emptyMessage="No Inquiry found"
+                className="bg-white"
+                tableClassName="bg-white"
+                headerClassName="!bg-white"
               >
-                <Column field="order_number" header="Inquiry Number" sortable />
-                <Column field="user_name" header="Name" sortable />
-                <Column field="mobile_number" header="Whatsapp No." sortable />
-                <Column field="order_date" header="Inquiry Date" sortable />
-                <Column header="Action" body={actionBodyTemplate} />
+                <Column field="order_number" headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" header="Inquiry Number" sortable />
+                <Column field="user_name" headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" header="Name" sortable />
+                <Column field="mobile_number" headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" header="Whatsapp No." sortable />
+                <Column field="order_date" headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" header="Inquiry Date" sortable />
+                <Column header="Action" headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" body={actionBodyTemplate} />
               </DataTable>
             </div>
 
@@ -125,7 +133,7 @@ export default function Order() {
                         <i className="pi pi-calendar text-gray-400 text-sm"></i>
                         {row.order_date}
                       </span>
-                      
+
                     </div>
 
                     {/* Body */}

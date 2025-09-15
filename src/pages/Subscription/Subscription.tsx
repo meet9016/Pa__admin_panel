@@ -69,7 +69,7 @@ export default function Subscription() {
         <ComponentCard
           title="Invoice List"
           Plusicon={<PlusIcon />}
-          // addProduct="Upgrade Plan"
+        // addProduct="Upgrade Plan"
         >
           <div className="card">
             <Toast ref={toast} />
@@ -83,29 +83,42 @@ export default function Subscription() {
                 dataKey="id"
                 tableStyle={{ minWidth: "60rem" }}
                 emptyMessage="No product found"
+                className="bg-white"
+                tableClassName="bg-white"
+                headerClassName="!bg-white"
               >
-                <Column field="no" header="No." sortable />
-                <Column field="invoice_no" header="Invoice No" sortable />
-                <Column field="txnid" header="Transaction Id" sortable />
-                <Column
+                <Column headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" field="no" header="No." sortable />
+                <Column headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" field="invoice_no" header="Invoice No" sortable />
+                <Column headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800" field="txnid" header="Transaction Id" sortable />
+                <Column headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800"
                   field="cdate"
                   header="Payment Date"
                   body={(rowData) => formatDate(rowData.cdate)}
                   sortable
                 />
                 <Column
+                  headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800"
                   field="starting_date"
                   header="Starting Date"
                   body={(rowData) => formatDate(rowData.starting_date)}
                   sortable
                 />
                 <Column
+                  headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800"
                   field="ending_date"
                   header="Ending Date"
                   body={(rowData) => formatDate(rowData.ending_date)}
                   sortable
                 />
                 <Column
+                  headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800"
                   field="amount"
                   header="Amount"
                   body={(rowData) => (
@@ -116,6 +129,8 @@ export default function Subscription() {
                   sortable
                 />
                 <Column
+                  headerClassName="!bg-white text-gray-900"
+                  bodyClassName="!bg-white text-gray-800"
                   header="Invoice"
                   body={(rowData) => actionBodyTemplate(rowData)}
                 />

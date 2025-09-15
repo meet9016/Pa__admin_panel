@@ -232,10 +232,19 @@ export default function RecentOrders({ viewProduct }: viewProductProps) {
             <DataTable
               value={viewProduct}
               responsiveLayout="scroll"
-               emptyMessage="No product found"
+              emptyMessage="No product found"
+              className="bg-white"
+              tableClassName="bg-white"
+              headerClassName="!bg-white"
             >
-              <Column field="product_name" header="Product" />
-              <Column field="total_views" header="View" />
+              <Column field="product_name"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+                header="Product" />
+              <Column field="total_views"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+                header="View" />
             </DataTable>
           </div>
         </ComponentCard>

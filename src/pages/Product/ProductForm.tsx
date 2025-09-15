@@ -94,6 +94,8 @@ export default function ProductForm() {
 
   const [categoryList, setCategoryList] = useState<CategoryOption[]>([]);
   const [subCategoryList, setSubCategoryList] = useState<CategoryOption[]>([]);
+  console.log("subCategoryList", subCategoryList);
+
   const [selectedCategory, setSelectedCategory] =
     useState<CategoryOption | null>(null);
   const [selectedSubCategory, setSelectedSubCategory] =
@@ -117,6 +119,9 @@ export default function ProductForm() {
   });
 
   const [errors, setErrors] = useState<ProductFormErrors>({});
+  const [pendingSubCategoryId, setPendingSubCategoryId] = useState<
+    string | number | null
+  >(null);
 
   // ---- Helpers ----
   const categoryOptionTemplate = (option: CategoryOption) => {
@@ -247,6 +252,7 @@ export default function ProductForm() {
             "",
           ],
           details: data.product_details?.map((d) => d.detail) || [""],
+
           specification_id: data.product_details?.map(
             (d) => d.specification_id ?? ""
           ) || [""],
@@ -269,6 +275,8 @@ export default function ProductForm() {
           subCategoryList.find((s) => s.name === data.sub_category_name) ||
           null;
         setSelectedSubCategory(subCategoryObj);
+        console.log(selectedSubCategory, 'aaa');
+
       } catch (err) {
         console.log("Error fetching edit data:", err);
       }
@@ -278,6 +286,17 @@ export default function ProductForm() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [productId, categoryList, subCategoryList]);
 
+  useEffect(() => {
+    if (pendingSubCategoryId && subCategoryList.length > 0) {
+      const match = subCategoryList.find(
+        (s) => String(s.id) === String(pendingSubCategoryId)
+      );
+      if (match) {
+        setSelectedSubCategory(match);
+        setPendingSubCategoryId(null); // clear after match
+      }
+    }
+  }, [pendingSubCategoryId, subCategoryList]);
   // ---- AI Autofill ----
   const handleOnClickAI = async () => {
     if (!productForm.name.trim()) {
@@ -294,6 +313,7 @@ export default function ProductForm() {
       if (ai) {
         const aiSpecifications = ai.specifications?.map((s) => s.name) || [];
         const aiDetails = ai.specifications?.map((s) => s.value) || [];
+        console.log("aii", ai);
 
         setProductForm((prev) => ({
           ...prev,
@@ -318,10 +338,7 @@ export default function ProductForm() {
           if (match) setSelectedCategory(match);
         }
         if (ai.sub_category_id) {
-          const match = subCategoryList.find(
-            (s) => String(s.id) === String(ai.sub_category_id)
-          );
-          if (match) setSelectedSubCategory(match);
+          setPendingSubCategoryId(ai.sub_category_id);
         }
 
         // setAiData(ai);
@@ -332,6 +349,10 @@ export default function ProductForm() {
       setLoading(false);
     }
   };
+
+
+
+
 
   // ---- Submit ----
   const addOrUpdateProduct = async () => {
@@ -442,7 +463,7 @@ export default function ProductForm() {
   );
 
   return (
-    <ComponentCard title={productId ? "Update Product" : ""}>
+    <ComponentCard title={productId ? "Update Product" : "Add Product"}>
       <div className="relative p-2 md:p-6">
         {/* overlay loader */}
         {loading && (

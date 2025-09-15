@@ -24,16 +24,28 @@ export default function MostViewInquiry({
   sm:min-h-[300px] 
   md:min-h-[320px] 
   lg:min-h-[390px]
+  
 ">
             <Toast ref={toast} />
             <DataTable
               value={productInquiry}
               scrollable
               responsiveLayout="scroll"
-               emptyMessage="No product found"
+              emptyMessage="No product found"
+              className="bg-white" 
+              tableClassName="bg-white" 
+              headerClassName="!bg-white"   
             >
-              <Column field="product_name" header="Product" />
-              <Column field="total_inquiries" header="Inquiry" />
+              <Column field="product_name"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+                header="Product"
+              />
+              <Column field="total_inquiries"
+                header="Inquiry"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+              />
             </DataTable>
           </div>
         </ComponentCard>

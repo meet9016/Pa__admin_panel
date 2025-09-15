@@ -137,16 +137,28 @@ export default function DemographicCard({ viewLocation }: viewLocationProps) {
           title="Most View Location"
         // dashboardTitle="Most View Location"
         >
-         <div className="card">
+          <div className="card">
             <Toast ref={toast} />
             <DataTable
               value={viewLocation}
               responsiveLayout="scroll"
               emptyMessage="No product found"
+              className="bg-white"
+              tableClassName="bg-white"
+              headerClassName="!bg-white"
             >
-              <Column field="product_name" header="Product" />
-              <Column field="total_views" header="View" />
-              <Column field="city" header="Location" />
+              <Column field="product_name"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+                header="Product" />
+              <Column field="total_views"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+                header="View" />
+              <Column field="city"
+                headerClassName="!bg-white text-gray-900"
+                bodyClassName="!bg-white text-gray-800"
+                header="Location" />
             </DataTable>
           </div>
         </ComponentCard>

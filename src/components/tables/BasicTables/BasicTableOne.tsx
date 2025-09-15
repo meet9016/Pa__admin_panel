@@ -130,20 +130,31 @@ export default function BasicTableOne({ productsData }: Props) {
           rows={10}
           rowsPerPageOptions={[10, 20, 50]}
           emptyMessage="No product found"
+          className="bg-white"
+          tableClassName="bg-white"
+          headerClassName="!bg-white"
         >
-          <Column field="no" header="No." sortable />
-          <Column body={imageBodyTemplate} header="Image" sortable />
-          <Column field="product_name" header="Product Name" sortable />
-          <Column field="category_name" header="Category" sortable />
+          <Column field="no" header="No." headerClassName="!bg-white text-gray-900"
+            bodyClassName="!bg-white text-gray-800" sortable />
+          <Column body={imageBodyTemplate} headerClassName="!bg-white text-gray-900"
+            bodyClassName="!bg-white text-gray-800" header="Image" sortable />
+          <Column field="product_name" headerClassName="!bg-white text-gray-900"
+            bodyClassName="!bg-white text-gray-800" header="Product Name" sortable />
+          <Column field="category_name" headerClassName="!bg-white text-gray-900"
+            bodyClassName="!bg-white text-gray-800" header="Category" sortable />
           <Column
             field="price"
+            headerClassName="!bg-white text-gray-900"
+            bodyClassName="!bg-white text-gray-800"
             header="MRP"
             body={(rowData) => (
               <span className="flex items-center gap-1">₹ {rowData.price}</span>
             )}
             sortable
           />
-          <Column body={actionBodyTemplate} header="Action" />
+          <Column
+            headerClassName="!bg-white text-gray-900"
+            bodyClassName="!bg-white text-gray-800" body={actionBodyTemplate} header="Action" />
         </DataTable>
       </div>
 

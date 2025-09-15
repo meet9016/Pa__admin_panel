@@ -10,6 +10,7 @@ interface FormData {
   number: string;
   company_name: string;
   address: string;
+  whatsapp: string;
   gst: string;
   facebook: string;
   instagram_link: string;
@@ -26,6 +27,7 @@ export default function UserInfoCard() {
     number: "",
     company_name: "",
     address: "",
+    whatsapp: "",
     gst: "",
     facebook: "",
     instagram_link: "",
@@ -33,7 +35,13 @@ export default function UserInfoCard() {
     linkdin_link: "",
     website_link: "",
   });
-  console.log(editData, 'ee');
+
+  const [errors, setErrors] = useState<Record<string, string>>({});
+
+
+
+
+
 
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
@@ -45,6 +53,7 @@ export default function UserInfoCard() {
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    setErrors((prev) => ({ ...prev, [name]: "" }));
   };
 
   // const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -67,6 +76,7 @@ export default function UserInfoCard() {
             number: res.data.data.number || "",
             company_name: res.data.data.company_name || "",
             gst: res.data.data.gst_number || "",
+            whatsapp: res.data.data.whatsapp_number || "",
             address: res.data.data.address || "",
             facebook: res.data.data.facebook_link || "", // Default to empty string if not available
             instagram_link: res.data.data.instagram_link || "",
@@ -84,14 +94,47 @@ export default function UserInfoCard() {
   }, []);
 
   const handleSave = async () => {
+    let newErrors: Record<string, string> = {};
+
+    if (!editData.full_name.trim()) {
+      newErrors.full_name = "Full Name is required";
+    }
+    if (!editData.number.trim()) {
+      newErrors.number = "Number is required";
+    } else if (editData.number.length !== 10) {
+      newErrors.number = "Number must be 10 digits";
+    }
+    if (!editData.company_name.trim()) {
+      newErrors.company_name = "Company Name is required";
+    }
+    if (!editData.whatsapp.trim()) {
+      newErrors.whatsapp = "WhatsApp Number is required";
+    } else if (editData.whatsapp.length !== 10) {
+      newErrors.whatsapp = "WhatsApp Number must be 10 digits";
+    }
+    if (!editData.gst.trim()) {
+      newErrors.gst = "GST is required";
+    }
+    if (!editData.address.trim()) {
+      newErrors.address = "Address is required";
+    }
+
+    setErrors(newErrors);
+
+    // agar errors hai to API call mat karna
+    if (Object.keys(newErrors).length > 0) return;
+
+
     try {
       const formData = new FormData();
       formData.append("full_name", editData?.full_name);
       formData.append("number", editData?.number);
       formData.append("company_name", editData?.company_name);
       formData.append("gst_number", editData?.gst);
+
       formData.append("address", editData?.address);
       formData.append("address", editData?.address);
+      formData.append("whatsapp_number", editData?.whatsapp);
       formData.append("facebook_link", editData?.facebook);
       formData.append("instagram_link", editData?.instagram_link);
       formData.append("youtube_link", editData?.youtube_link);
@@ -199,6 +242,9 @@ export default function UserInfoCard() {
                   value={editData?.full_name}
                   onChange={handleChange}
                 />
+                {errors.full_name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.full_name}</p>
+                )}
               </div>
               <div>
                 <Label htmlFor="number">Number</Label>
@@ -209,6 +255,9 @@ export default function UserInfoCard() {
                   value={editData?.number}
                   onChange={handleChange}
                 />
+                {errors.number && (
+                  <p className="text-red-500 text-sm mt-1">{errors.number}</p>
+                )}
               </div>
               <div>
                 <Label htmlFor="company_name">Company Name</Label>
@@ -219,6 +268,22 @@ export default function UserInfoCard() {
                   value={editData?.company_name}
                   onChange={handleChange}
                 />
+                {errors.company_name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.company_name}</p>
+                )}
+              </div>
+              <div>
+                <Label htmlFor="company_name">WhatsApp Number</Label>
+                <Input
+                  type="text"
+                  name="whatsapp"
+                  placeholder="Whatsapp Number"
+                  value={editData?.whatsapp}
+                  onChange={handleChange}
+                />
+                {errors.whatsapp && (
+                  <p className="text-red-500 text-sm mt-1">{errors.whatsapp}</p>
+                )}
               </div>
               <div>
                 <Label htmlFor="gst">GST</Label>
@@ -229,6 +294,9 @@ export default function UserInfoCard() {
                   value={editData?.gst}
                   onChange={handleChange}
                 />
+                {errors.gst && (
+                  <p className="text-red-500 text-sm mt-1">{errors.gst}</p>
+                )}
               </div>
             </div>
             <div>
@@ -241,6 +309,9 @@ export default function UserInfoCard() {
                 onChange={handleChange}
                 className="w-full"
               />
+              {errors.address && (
+                <p className="text-red-500 text-sm mt-1">{errors.address}</p>
+              )}
             </div>
 
             {/* Social Links */}
