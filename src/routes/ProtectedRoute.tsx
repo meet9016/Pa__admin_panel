@@ -75,7 +75,7 @@ const ProtectedRoute: React.FC = () => {
             onClick={(e) => e.stopPropagation()}
           >
             <img
-              src="https://pa.2-min.in/upload/web_logo/mainBanner.jpg"
+             src={`${import.meta.env.VITE_API_URL}/upload/web_logo/mainBanner.jpg`}
               className="w-full h-auto rounded-lg cursor-pointer"
               onClick={async () => {
                 try {
