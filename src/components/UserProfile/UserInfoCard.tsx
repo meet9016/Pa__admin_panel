@@ -68,7 +68,7 @@ export default function UserInfoCard() {
             company_name: res.data.data.company_name || "",
             gst: res.data.data.gst_number || "",
             address: res.data.data.address || "",
-            facebook: res.data.data.facebook || "", // Default to empty string if not available
+            facebook: res.data.data.facebook_link || "", // Default to empty string if not available
             instagram_link: res.data.data.instagram_link || "",
             youtube_link: res.data.data.youtube_link || "",
             linkdin_link: res.data.data.linkdin_link || "",
@@ -91,7 +91,12 @@ export default function UserInfoCard() {
       formData.append("company_name", editData?.company_name);
       formData.append("gst_number", editData?.gst);
       formData.append("address", editData?.address);
-      formData.append("gender", "male");
+      formData.append("address", editData?.address);
+      formData.append("facebook_link", editData?.facebook);
+      formData.append("instagram_link", editData?.instagram_link);
+      formData.append("youtube_link", editData?.youtube_link);
+      formData.append("linkdin_link", editData?.linkdin_link);
+      formData.append("website_link", editData?.website_link);
       formData.append("user_image", "male");
 
 
@@ -111,17 +116,16 @@ export default function UserInfoCard() {
       console.log("API Error", error);
     }
   };
-  const [, setSocialLinks] = useState({
-    facebook: "",
-    x: "https://x.com/PimjoHQ",
-    linkedin: "https://www.linkedin.com/company/pimjo",
-    instagram: "https://instagram.com/PimjoHQ",
-  });
+  // const [, setSocialLinks] = useState({
+  //   facebook: "",
+  //   x: "https://x.com/PimjoHQ",
+  //   linkedin: "https://www.linkedin.com/company/pimjo",
+  //   instagram: "https://instagram.com/PimjoHQ",
 
-  const handleSocialChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setSocialLinks((prev) => ({ ...prev, [name]: value }));
-  };
+  // const handleSocialChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const { name, value } = e.target;
+  //   setSocialLinks((prev) => ({ ...prev, [name]: value }));
+  // };
 
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -156,9 +160,13 @@ export default function UserInfoCard() {
                   type="button"
                   className="absolute top-3 right-3 w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-md hover:bg-gray-100 transition"
                   onClick={(e) => {
-                    e.preventDefault(); // prevent label click
-                    document.getElementById("avatar-upload").click();
+                    e.preventDefault();
+                    const input = document.getElementById("avatar-upload");
+                    if (input) {
+                      input.click();
+                    }
                   }}
+
                 >
                   <i className="pi pi-pencil text-xl text-gray-700"></i>
                 </button>

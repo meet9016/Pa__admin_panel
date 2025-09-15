@@ -33,17 +33,16 @@ export default function BasicTableOne({ productsData }: Props) {
       <div className="flex gap-5">
         {/* View Button */}
         <i
-          className="pi pi-eye text-white text-base"
-          style={{ color: "blue" }}
+          className="pi pi-eye text-base text-blue-500 hidden sm:inline-block"
           onClick={() =>
             window.open(
-              `https://shop.progressalliance.org/single-product/${
-                (rowData as any).product_id
+              `https://shop.progressalliance.org/single-product/${(rowData as any).product_id
               }`,
               "_blank"
             )
           }
         ></i>
+
         {/* Edit Button */}
         <i
           className="pi pi-pen-to-square cursor-pointer"
@@ -118,9 +117,8 @@ export default function BasicTableOne({ productsData }: Props) {
     //   />
     // </div>
     <div
-      className={`relative rounded-xl transition ${
-        isDialogOpen ? "bg-gray-100" : "bg-white"
-      }`}
+      className={`relative rounded-xl transition ${isDialogOpen ? "bg-gray-100" : "bg-white"
+        }`}
     >
       {/* Desktop / Tablet Table */}
       <div className="hidden md:block">
@@ -164,14 +162,14 @@ export default function BasicTableOne({ productsData }: Props) {
                 className="h-full w-full object-cover"
               />
 
-             
+
             </div>
 
             {/* Right: Details & Actions */}
             <div className="flex flex-col justify-between flex-1">
               {/* Product Info */}
               <div>
-                <h3 className="font-semibold text-gray-900 text-sm leading-snug" style={{marginTop:"-15px"}}>
+                <h3 className="font-semibold text-gray-900 text-sm leading-snug" style={{ marginTop: "-15px" }}>
                   {row.product_name}
                 </h3>
                 <p className="text-gray-500 text-xs mt-0.5">
@@ -182,10 +180,10 @@ export default function BasicTableOne({ productsData }: Props) {
                 </p>
               </div>
 
-             {/* Action Icons */}
+              {/* Action Icons */}
               <div className="flex gap-4 mt-2 mobile-view-btn">
                 {/* View */}
-                <i
+                {/* <i
                   className="pi pi-eye cursor-pointer text-blue-600 text-base hover:scale-110 transition"
                   onClick={() =>
                     window.open(
@@ -193,7 +191,7 @@ export default function BasicTableOne({ productsData }: Props) {
                       "_blank"
                     )
                   }
-                ></i>
+                ></i> */}
                 {/* Edit */}
                 <i
                   className="pi pi-pen-to-square cursor-pointer text-green-600 text-base hover:scale-110 transition"

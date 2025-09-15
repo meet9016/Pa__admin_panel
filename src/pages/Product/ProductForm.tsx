@@ -546,9 +546,8 @@ export default function ProductForm() {
                 filter
                 valueTemplate={selectedCategoryTemplate}
                 itemTemplate={categoryOptionTemplate}
-                className={`w-full md:w-14rem custom-dropdown focus:outline-hidden ${
-                  errors.category ? "p-invalid" : ""
-                }`}
+                className={`w-full md:w-14rem custom-dropdown focus:outline-hidden ${errors.category ? "p-invalid" : ""
+                  }`}
               />
               {errors.category && (
                 <small className="p-error">{errors.category}</small>
@@ -569,9 +568,8 @@ export default function ProductForm() {
                 filter
                 valueTemplate={selectedCategoryTemplate}
                 itemTemplate={categoryOptionTemplate}
-                className={`w-full md:w-14rem custom-dropdown ${
-                  errors.category ? "p-invalid" : ""
-                }`}
+                className={`w-full md:w-14rem custom-dropdown ${errors.category ? "p-invalid" : ""
+                  }`}
               />
               {errors.sub_category && (
                 <small className="p-error">{errors.sub_category}</small>
@@ -585,26 +583,26 @@ export default function ProductForm() {
               <Label htmlFor="price">MRP</Label>
               <Input
                 type="text"
-                name="price"
-                placeholder="Price"
-                value={productForm.price}
+                name="cancel_price"
+                placeholder="Mrp"
+                value={productForm.cancel_price}
                 onChange={handleChange}
                 onInput={numericInput}
-                hint={errors.price}
-                error={!!errors.price}
+                hint={errors.cancel_price}
+                error={!!errors.cancel_price}
               />
             </div>
             <div>
               <Label htmlFor="cancel_price">Discounted price</Label>
               <Input
                 type="text"
-                name="cancel_price"
-                placeholder="Cancel Price"
-                value={productForm.cancel_price}
+                name="price"
+                placeholder="Discounted price"
+                value={productForm.price}
                 onChange={handleChange}
                 onInput={numericInput}
-                hint={errors.cancel_price}
-                error={!!errors.cancel_price}
+                hint={errors.price}
+                error={!!errors.price}
               />
             </div>
           </div>
@@ -842,7 +840,7 @@ export default function ProductForm() {
                 productForm={productForm}
                 error={errors.image}
                 setErrors={setErrors}
-                // productId={productId as any}
+              // productId={productId as any}
               />
             </div>
           </div>
