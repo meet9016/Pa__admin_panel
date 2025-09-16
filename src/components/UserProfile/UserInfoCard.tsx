@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import endPointApi from "../../pages/utils/endPointApi";
 import api from "../../pages/utils/axiosInstance";
 import { toast } from "react-toastify";
-import { error } from "console";
+
 
 interface FormData {
   full_name: string;
@@ -290,7 +290,7 @@ export default function UserInfoCard() {
                 )}
               </div>
               <div>
-                <Label htmlFor="gst">GST <span className="font-bold ml-3">(Optional)</span></Label>
+                <Label htmlFor="gst">GST <span className="font-bold ml-1">(Optional)</span></Label>
                 <Input
                   type="text"
                   name="gst"

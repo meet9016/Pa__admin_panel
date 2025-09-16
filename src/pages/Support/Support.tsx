@@ -31,21 +31,45 @@ export default function Support() {
     fetchIssues();
   }, []);
 
+  // const handleSubmit = async () => {
+  //   try {
+  //     // if (!selectedIssue) {
+  //     //   return toast.error("hello")
+  //     // }
+  //     // if (!message) {
+  //     //   return toast.error("hello00000")
+  //     // }
+  //     const formData = new FormData();
+  //     formData.append('support_title_id', selectedIssue)
+  //     formData.append('message', message)
+  //     const res = await api.post(endPointApi.supplierSupportQueryAdd, formData)
+  //     if (res.data) {
+  //       toast.success(res.data.message)
+  //     }
+  //   } catch (error) {
+  //     console.log("Error Fetch", error)
+  //   }
+  // }
+
   const handleSubmit = async () => {
     try {
       const formData = new FormData();
-      formData.append('support_title_id', selectedIssue)
-      formData.append('message', message)
-      const res = await api.post(endPointApi.supplierSupportQueryAdd, formData)
-      if (res.data && res.data.data) {
-        toast.success(res.data.message)
+      formData.append("support_title_id", selectedIssue);
+      formData.append("message", message);
+
+      const res = await api.post(endPointApi.supplierSupportQueryAdd, formData);
+
+      if (res.data?.status === 200) {
+        toast.success(res.data.message);
       } else {
-        toast.error(res.data.message)
+        toast.error(res.data?.message);
       }
-    } catch (error) {
-      console.log("Error Fetch", error)
+    } catch (error: any) {
+      console.log("Error Fetch", error);
+      toast.error(error.response?.data?.message);
     }
-  }
+  };
+
 
   return (
     <>
