@@ -110,7 +110,7 @@ const Header: React.FC<HeaderProps> = ({ onClick, onToggle }) => {
               />
             </svg>
           </button>
-
+          
           <div className="hidden lg:block">
             <form action="https://formbold.com/s/unique_form_id" method="POST">
               <div className="relative">

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import endPointApi from "../../pages/utils/endPointApi";
 import api from "../../pages/utils/axiosInstance";
 import { toast } from "react-toastify";
+import { error } from "console";
 
 interface FormData {
   full_name: string;
@@ -17,6 +18,7 @@ interface FormData {
   youtube_link: string;
   linkdin_link: string;
   website_link: string;
+
 }
 
 export default function UserInfoCard() {
@@ -34,12 +36,10 @@ export default function UserInfoCard() {
     youtube_link: "",
     linkdin_link: "",
     website_link: "",
+
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
-
-
-
 
 
 
@@ -78,7 +78,7 @@ export default function UserInfoCard() {
             gst: res.data.data.gst_number || "",
             whatsapp: res.data.data.whatsapp_number || "",
             address: res.data.data.address || "",
-            facebook: res.data.data.facebook_link || "", // Default to empty string if not available
+            facebook: res.data.data.facebook_link || "",
             instagram_link: res.data.data.instagram_link || "",
             youtube_link: res.data.data.youtube_link || "",
             linkdin_link: res.data.data.linkdin_link || "",
@@ -112,16 +112,15 @@ export default function UserInfoCard() {
     } else if (editData.whatsapp.length !== 10) {
       newErrors.whatsapp = "WhatsApp Number must be 10 digits";
     }
-    if (!editData.gst.trim()) {
-      newErrors.gst = "GST is required";
-    }
     if (!editData.address.trim()) {
       newErrors.address = "Address is required";
+    }
+    if (!selectedImage && !previewUrl) {
+      newErrors.business_logo = "Profile image is required";
     }
 
     setErrors(newErrors);
 
-    // agar errors hai to API call mat karna
     if (Object.keys(newErrors).length > 0) return;
 
 
@@ -224,6 +223,11 @@ export default function UserInfoCard() {
               className="hidden"
               accept="image/*"
             />
+            {errors.business_logo && (
+              <p className="text-red-500 text-sm mt-[-60px] ">
+                {errors.business_logo}
+              </p>
+            )}
           </div>
 
 
@@ -286,7 +290,7 @@ export default function UserInfoCard() {
                 )}
               </div>
               <div>
-                <Label htmlFor="gst">GST</Label>
+                <Label htmlFor="gst">GST <span className="font-bold ml-3">(Optional)</span></Label>
                 <Input
                   type="text"
                   name="gst"
@@ -294,9 +298,7 @@ export default function UserInfoCard() {
                   value={editData?.gst}
                   onChange={handleChange}
                 />
-                {errors.gst && (
-                  <p className="text-red-500 text-sm mt-1">{errors.gst}</p>
-                )}
+
               </div>
             </div>
             <div>

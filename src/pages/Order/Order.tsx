@@ -101,7 +101,7 @@ export default function Order() {
                 emptyMessage="No Inquiry found"
                 className="bg-white"
                 tableClassName="bg-white"
-                headerClassName="!bg-white"
+                // headerClassName="!bg-white"
               >
                 <Column field="order_number" headerClassName="!bg-white text-gray-900"
                   bodyClassName="!bg-white text-gray-800" header="Inquiry Number" sortable />

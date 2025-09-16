@@ -145,7 +145,7 @@ export default function DemographicCard({ viewLocation }: viewLocationProps) {
               emptyMessage="No product found"
               className="bg-white"
               tableClassName="bg-white"
-              headerClassName="!bg-white"
+              // headerClassName="!bg-white"
             >
               <Column field="product_name"
                 headerClassName="!bg-white text-gray-900"

@@ -82,10 +82,10 @@ export default function Subscription() {
                 onRowToggle={(e: any) => setExpandedRows(e.data)}
                 dataKey="id"
                 tableStyle={{ minWidth: "60rem" }}
-                emptyMessage="No product found"
+                emptyMessage="No Invoice found"
                 className="bg-white"
                 tableClassName="bg-white"
-                headerClassName="!bg-white"
+                // headerClassName="!bg-white"
               >
                 <Column headerClassName="!bg-white text-gray-900"
                   bodyClassName="!bg-white text-gray-800" field="no" header="No." sortable />

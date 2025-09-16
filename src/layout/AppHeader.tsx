@@ -115,12 +115,12 @@ const AppHeader: React.FC = () => {
               />
             </svg>
           </button> */}
-       <div
-  className={`flex items-center justify-between w-auto sm:w-full gap-4 px-2 py-2 sm:px-5 sm:py-4 lg:justify-end lg:px-0 lg:shadow-none`}
->
-  
-  <UserDropdown />
-</div>
+          <div
+            className={`flex items-center justify-between w-auto sm:w-full gap-8 px-2 py-2 sm:px-5 sm:py-4 lg:justify-end lg:px-0 lg:shadow-none`}
+          >
+            
+            <UserDropdown />
+          </div>
 
 
           <div className="hidden lg:block">

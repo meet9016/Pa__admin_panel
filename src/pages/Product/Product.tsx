@@ -44,8 +44,9 @@ export default function Product() {
           addProduct="Add product"
           onAddProductClick="/add-product"
           className="bg-white"
-          tableClassName="bg-white"
-          headerClassName="!bg-white"        >
+        // tableClassName="bg-white"
+        // headerClassName="!bg-white"     
+        >
           <BasicTableOne productsData={productsData} />
         </ComponentCard>
       </div>

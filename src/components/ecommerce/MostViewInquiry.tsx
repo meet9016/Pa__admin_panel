@@ -34,11 +34,12 @@ export default function MostViewInquiry({
               emptyMessage="No product found"
               className="bg-white" 
               tableClassName="bg-white" 
-              headerClassName="!bg-white"   
+              // headerClassName="!bg-white"   
             >
               <Column field="product_name"
                 headerClassName="!bg-white text-gray-900"
                 bodyClassName="!bg-white text-gray-800"
+                  // headerClassName="!bg-white text-black font-bold"
                 header="Product"
               />
               <Column field="total_inquiries"

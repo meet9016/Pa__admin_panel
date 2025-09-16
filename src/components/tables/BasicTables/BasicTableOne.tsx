@@ -132,7 +132,7 @@ export default function BasicTableOne({ productsData }: Props) {
           emptyMessage="No product found"
           className="bg-white"
           tableClassName="bg-white"
-          headerClassName="!bg-white"
+          // headerClassName="!bg-white"
         >
           <Column field="no" header="No." headerClassName="!bg-white text-gray-900"
             bodyClassName="!bg-white text-gray-800" sortable />
