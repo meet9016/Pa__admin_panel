@@ -106,7 +106,7 @@ export default function Support() {
               Describe Your Problem
             </label>
             <textarea
-              rows={3}
+              rows={10}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Write your message..."
               className="w-full rounded-lg border border-gray-300 bg-white p-2 text-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-[#251c4b] focus:outline-none"
@@ -120,6 +120,10 @@ export default function Support() {
             className="w-full rounded-lg bg-[#251c4b] text-white py-2 font-semibold hover:bg-[#251c4b] transition">
             Submit
           </button>
+        </div>
+
+        <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/p6u7svjBc80?si=t6qFjZ39y4cGyiPF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
@@ -143,7 +147,12 @@ export default function Support() {
               </p>
             </div>
           </div>
+
         </div>
+
+
+
+
         {/* <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
           <h3 className="mb-4 text-lg font-semibold text-gray-800 dark:text-white/90">
             Need Help?
