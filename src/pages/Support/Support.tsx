@@ -9,10 +9,16 @@ interface Issue {
   id: number;
   title: string;
 }
+interface VideoContact {
+  contact_number: string;
+  video_link: string;
+}
+
 export default function Support() {
   const [issues, setIssues] = useState<Issue[]>([]);
   const [selectedIssue, setSelectedIssue] = useState<string>("");
   const [message, setMessage] = useState<string>("");
+  const [videoContact, setVideoContact] = useState<VideoContact | null>(null);
 
   console.log(selectedIssue, 'selectedIssue');
 
@@ -30,6 +36,23 @@ export default function Support() {
     };
     fetchIssues();
   }, []);
+
+
+
+  useEffect(() => {
+    const fetchContactData = async () => {
+      try {
+        const res = await api.post(endPointApi.videoAndContact);
+        if (res.data?.status === 200) {
+          setVideoContact(res.data.data);
+        }
+      } catch (error) {
+        console.error("Error fetching contact data:", error);
+      }
+    };
+    fetchContactData();
+  }, []);
+
 
   // const handleSubmit = async () => {
   //   try {
@@ -61,6 +84,8 @@ export default function Support() {
 
       if (res.data?.status === 200) {
         toast.success(res.data.message);
+        setSelectedIssue("");
+        setMessage("");
       } else {
         toast.error(res.data?.message);
       }
@@ -107,6 +132,7 @@ export default function Support() {
             </label>
             <textarea
               rows={10}
+              value={message}
               onChange={(e) => setMessage(e.target.value)}
               placeholder="Write your message..."
               className="w-full rounded-lg border border-gray-300 bg-white p-2 text-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 focus:ring-2 focus:ring-[#251c4b] focus:outline-none"
@@ -123,7 +149,17 @@ export default function Support() {
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/p6u7svjBc80?si=t6qFjZ39y4cGyiPF" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+          {/* <iframe width="100%" height="100%" src="https://www.youtube.com/embed/p6u7svjBc80?si=t6qFjZ39y4cGyiPF" title="YouTube video player"  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
+          <iframe
+            width="100%"
+            height="100%"
+            src={videoContact?.video_link}
+            title="YouTube video player"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+
         </div>
 
         <div className="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-gray-800 dark:bg-white/[0.03]">
@@ -143,7 +179,7 @@ export default function Support() {
                 Support Number
               </p>
               <p className="text-lg font-semibold text-gray-900 dark:text-white">
-                +91 99099 29293
+                {videoContact?.contact_number}
               </p>
             </div>
           </div>

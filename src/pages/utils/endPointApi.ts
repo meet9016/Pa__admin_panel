@@ -16,6 +16,8 @@ export interface EndPointApi {
     supplierBilling: string
     supplierSupportTitle: string
     supplierSupportQueryAdd: string
+    videoAndContact: string
+
     //payment
     subscriptiosCheckStatus: string
 
@@ -42,6 +44,7 @@ const endPointApi: EndPointApi = {
     supplierBilling: 'supplier-billing',
     supplierSupportTitle: 'supplier-support-title',
     supplierSupportQueryAdd: 'supplier-support-query-add',
+    videoAndContact: 'support-video-and-contact',
     //payment
     subscriptiosCheckStatus: 'subscriptios-check-status',
 
