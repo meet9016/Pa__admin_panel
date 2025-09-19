@@ -210,6 +210,7 @@ export default function ProductForm() {
     fetchCategories();
   }, []);
 
+
   // ---- Fetch SubCategories whenever Category changes ----
   useEffect(() => {
     const fetchSubCategories = async () => {
@@ -217,12 +218,23 @@ export default function ProductForm() {
       try {
         const formdata = new FormData();
         formdata.append("category_id", String(selectedCategory.id));
-        const res = await api.post(
-          endPointApi.dropDownSubCategoryList,
-          formdata
-        );
+        const res = await api.post(endPointApi.dropDownSubCategoryList, formdata);
+
         if (res?.data?.data) {
           setSubCategoryList(res.data.data);
+          if (pendingSubCategoryId) {
+            const match = res.data.data.find(
+              (s: any) => String(s.id) === String(pendingSubCategoryId)
+            );
+            if (match) {
+              setSelectedSubCategory(match);
+              setPendingSubCategoryId(null);
+            }
+          } else {
+            if (res.data.data.length > 0) {
+              setSelectedSubCategory(res.data.data[0]);
+            }
+          }
         }
       } catch (err) {
         console.error("Error fetching subcategories", err);
@@ -230,6 +242,7 @@ export default function ProductForm() {
     };
     fetchSubCategories();
   }, [selectedCategory?.id]);
+
 
   // ---- Pre-fill form in Edit mode ----
   useEffect(() => {
@@ -248,11 +261,8 @@ export default function ProductForm() {
           name: data.product_name || "",
           price: data.price ? String(data.price) : "",
           cancel_price: data.cancle_price ? String(data.cancle_price) : "",
-          specifications: data.product_details?.map((d) => d.specification) || [
-            "",
-          ],
+          specifications: data.product_details?.map((d) => d.specification) || [""],
           details: data.product_details?.map((d) => d.detail) || [""],
-
           specification_id: data.product_details?.map(
             (d) => d.specification_id ?? ""
           ) || [""],
@@ -266,25 +276,23 @@ export default function ProductForm() {
             ) || [],
         }));
 
-        // Preselect category/subcategory by name match
-        const categoryObj =
-          categoryList.find((cat) => cat.name === data.category_name) || null;
-        setSelectedCategory(categoryObj);
 
-        const subCategoryObj =
-          subCategoryList.find((s) => s.name === data.sub_category_name) ||
-          null;
-        setSelectedSubCategory(subCategoryObj);
-        console.log(selectedSubCategory, 'aaa');
-
+        if (!selectedCategory) {
+          const categoryObj =
+            categoryList.find((cat) => cat.name === data.category_name) || null;
+          setSelectedCategory(categoryObj);
+        }
+        if (data.sub_category_name) {
+          setPendingSubCategoryId(data.sub_category_id);
+        }
       } catch (err) {
         console.log("Error fetching edit data:", err);
       }
     };
-    // run when lists are ready (for name match)
     fetchEditData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [productId, categoryList, subCategoryList]);
+  }, [productId, categoryList]);
+
 
   useEffect(() => {
     if (pendingSubCategoryId && subCategoryList.length > 0) {
