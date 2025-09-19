@@ -38,6 +38,7 @@ interface ApiProductDetail {
     detail: string;
     specification_id?: string | number;
   }[];
+    sub_category_id?: number; 
 }
 
 interface AiResp {
@@ -119,9 +120,7 @@ export default function ProductForm() {
   });
 
   const [errors, setErrors] = useState<ProductFormErrors>({});
-  const [pendingSubCategoryId, setPendingSubCategoryId] = useState<
-    string | number | null
-  >(null);
+  const [pendingSubCategoryId, setPendingSubCategoryId] = useState<any>(null);
 
   // ---- Helpers ----
   const categoryOptionTemplate = (option: CategoryOption) => {
